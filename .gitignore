@@ -1,0 +1,11 @@
+server/node_modules/
+server/__tests__/
+server/src/config.js
+server/src/public
+server/jest.config.js
+client/node_modules
+client/build
+client/build_server.js
+client/selfsigned.crt
+client/selfsigned.key
+package-lock.json

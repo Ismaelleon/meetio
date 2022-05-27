@@ -1,0 +1,85 @@
+:root {
+	--h1: 2.027rem;
+	--h2: 1.802rem;
+	--h3: 1.602rem;
+	--h4: 1.424rem;
+	--h5: 1.266rem;
+	--h6: 1.125rem;
+};
+
+html {
+	font-size: 16px;
+}
+
+.app-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 100px 0;
+}
+
+header > img {
+	width: 80px;
+	margin-right: 1rem;
+}
+
+header > p {
+	font-family: 'Cabin';
+	font-size: var(--h1);
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 992px;
+	margin: auto;
+}
+
+main > p {
+	margin-bottom: 50px;
+	font-size: var(--h2);
+	font-weight: bold;
+	text-align: center;
+}
+
+button {
+	min-width: 200px;
+	padding: 10px;
+	border: #bbbbbb solid 1px;
+	border-radius: 50px;
+	margin: 10px 0;
+	background: #ffffff;
+	color: #ff005c;
+	font-family: 'Raleway';
+	font-size: var(--h5);
+	font-weight: 600;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #ff005c;
+	color: #fff;
+	border: #ff005c solid 2px;
+}
+
+@media (min-width: 576px) {
+	header > img {
+		width: 50px;
+	}
+
+	header > p {
+		font-size: var(--h2);
+	}
+
+	main > p {
+		font-size: var(--h3);
+	}
+
+	button {
+		font-size: var(--h6);
+	}
+}
