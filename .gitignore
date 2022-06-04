@@ -6,7 +6,4 @@ server/src/public/pictures/*
 server/jest.config.js
 client/node_modules
 client/build
-client/build_server.js
-client/selfsigned.crt
-client/selfsigned.key
 package-lock.json
