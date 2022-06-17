@@ -14,7 +14,7 @@ mongoose.connect(config.databaseUri, {
 
 let avatarStorage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		cb(null, path.join(__dirname, '../public/avatars/'))
+		cb(null, path.join(__dirname, '../client/build/avatars/'))
 	}, filename: (req, file, cb) => {
 		cb(null, file.fieldname + '-' + Date.now() + '-' + crypto.randomBytes(10).toString('base64').replace(/\//g, '_').slice(0, 10))
 	}
@@ -22,7 +22,7 @@ let avatarStorage = multer.diskStorage({
 
 let pictureStorage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		cb(null, path.join(__dirname, '../public/pictures/'))
+		cb(null, path.join(__dirname, '../client/build/pictures/'))
 	}, filename: (req, file, cb) => {
 		cb(null, file.fieldname + '-' + Date.now() + '-' + crypto.randomBytes(10).toString('base64').replace(/\//g, '_').slice(0, 10))
 	}

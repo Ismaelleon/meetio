@@ -2,12 +2,9 @@ name: Run tests on the server
 on: [push, pull_request]
 
 jobs:
-  test-server:
+  test_server:
+    name: Server tests
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 16.x],
-        mongodb-version: ['4.0', '4.2', '4.4']
 
     steps:
       - name: Checkout repo
@@ -16,18 +13,20 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
 
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.6.0
         with:
-          mongodb-version: ${{ matrix.mongodb-version }}
-    
+          mongodb-version: '4.4' 
+
       - name: Create config file
-        run: echo module.exports = { databaseUri: \"mongodb://localhost:27017/meetio\", secret: \"test\" } > server/src/config.js
-    
-      - name: Install dependencies 
-        run: npm i
+        run: echo 'module.exports = {
+                    databaseUri:"mongodb://localhost:27017/meetio",
+                    secret:"test"}'>server/src/config.js
+
+      - name: Install dependencies
+        run: npm i server/
 
       - name: Run tests
-        run: npm test
+        run: cd server/ && npm test
