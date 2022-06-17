@@ -5,7 +5,7 @@ const app = require('../src/app'),
 	config = require('../src/config');
 
 const User = require('../src/models/User');
-let token;
+const { setToken, getToken } = require('./helper');
 
 jest.setTimeout(5000)
 
@@ -52,7 +52,7 @@ describe('/api/signup', () => {
 				.send({ name: 'test_user', password: 'test_password' });
 			
 			expect(res.headers['set-cookie'][0]).toMatch('token');
-			token = res.headers['set-cookie'][0].slice(6)
+			setToken(res.headers['set-cookie'][0].slice(6))
 		} catch (error) {
 			console.log(error)
 		}
@@ -86,7 +86,7 @@ describe('/api/signup-details', () => {
 		try {
 			const res = await request(app)
 				.post('/api/signup-details')
-				.set('Cookie', [`token=${token}`])
+				.set('Cookie', [`token=${getToken()}`])
 				.field('description', 'Hey')
 				.attach('avatar', 'tests/test-avatar.png');
 
