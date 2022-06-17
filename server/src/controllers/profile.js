@@ -47,8 +47,10 @@ async function changeAvatar (req, res) {
 			// Find user by name
 			let user = await User.findOne({ name: tokenData.name });
 			
-			// Remove the previous avatar file
-			fs.unlinkSync(path.join(__dirname, `../public/avatars/${user.avatar}`))
+			// Remove the previous avatar file (if isn't the default one)
+      if (user.avatar !== 'avatar.png') {
+        fs.unlinkSync(path.join(__dirname, `../public/avatars/${user.avatar}`))
+      }
 
 			// Save the new avatar name on db
 			user.avatar = req.file.filename;
