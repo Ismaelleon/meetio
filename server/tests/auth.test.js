@@ -7,7 +7,7 @@ const app = require('../src/app'),
 const User = require('../src/models/User');
 let token;
 
-jest.setTimeout(10000)
+jest.setTimeout(5000)
 
 async function deleteTestUser () {
 	await User.deleteOne({ name: 'test_user' })
