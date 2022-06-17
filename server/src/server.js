@@ -1,4 +1,4 @@
-const app = require('app');
+const app = require('./app');
 
 let port = process.env.PORT || 8080;
 
