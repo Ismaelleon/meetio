@@ -26,7 +26,7 @@ jobs:
                     secret:"test"}'>server/src/config.js
 
       - name: Install dependencies
-        run: npm i server/
+        run: cd server/ && npm i
 
       - name: Run tests
         run: cd server/ && npm test
