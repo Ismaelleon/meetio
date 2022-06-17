@@ -4,6 +4,6 @@ server/src/config.js
 server/src/public/avatars/*
 server/src/public/pictures/*
 server/jest.config.js
-client/node_modules
-client/build
+server/src/client/node_modules
+server/src/client/build
 package-lock.json
