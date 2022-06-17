@@ -19,16 +19,24 @@ git clone https://github.com/Ismaelleon/meetio
 
 2. Install NPM packages
 ```sh
-cd ecommerce/client
+cd meetio/server/
 npm install
-cd ../server
+cd src/client/
 npm install
 ```
 
-3. Start the development servers
+3. Create a config file in 'server/src'
+```js
+module.exports = {
+	databaseUri: 'your-database-uri',
+	secret: 'your_secret'
+};
+```
+
+4. Start the development servers
 ```sh
-cd src/
-node index.js
-cd ../../client
+cd meetio/server
+npm run dev 
+cd meetio/server/src/client/
 npm run dev
 ```
