@@ -5,24 +5,24 @@ const app = require('../src/app'),
 	config = require('../src/config');
 
 const User = require('../src/models/User');
-const { setToken, getToken } = require('./helper');
+const { deleteTestUser, getToken } = require('./helper');
 
-jest.setTimeout(5000)
+jest.setTimeout(10000)
 
-async function deleteTestUser () {
-	await User.deleteOne({ name: 'test_user' })
-}
-
-beforeAll(() => {
+beforeAll(async () => {
 	mongoose.connect(config.databaseUri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true
 	})
+
+	await User.deleteOne({ name: 'test_user' });
 })
 
 afterAll(async () => {
 	try {
-		await deleteTestUser()
+		// Delete all created users
+		await User.deleteMany({});
+
 		await mongoose.disconnect()
 	} catch (error) {
 		console.log(error)
@@ -30,15 +30,16 @@ afterAll(async () => {
 })
 
 describe('/api/signup', () => {
+	afterEach(() => deleteTestUser('test_user'))
+
 	test('Should return a 200 status code', async () => {
 		try {
 			const res = await request(app)
 				.post('/api/signup')
 				.set('Content-Type', 'application/json')
 				.send({ name: 'test_user', password: 'test_password' });
-
+			
 			expect(res.status).toEqual(200)
-			deleteTestUser()
 		} catch (error) {
 			console.log(error)
 		}
@@ -52,7 +53,6 @@ describe('/api/signup', () => {
 				.send({ name: 'test_user', password: 'test_password' });
 			
 			expect(res.headers['set-cookie'][0]).toMatch('token');
-			setToken(res.headers['set-cookie'][0].slice(6))
 		} catch (error) {
 			console.log(error)
 		}
@@ -60,8 +60,13 @@ describe('/api/signup', () => {
 
 	test('Should create a new user', async () => {
 		try {
-			let user = await User.findOne({ name: 'test_user' });
-			expect(user).not.toBe(null)
+			const res = await request(app)
+				.post('/api/signup')
+				.set('Content-Type', 'application/json')
+				.send({ name: 'test_user', password: 'test_password' });
+
+			let testUser = await User.findOne({ name: 'test_user' });
+			expect(testUser).not.toBe(null)
 		} catch (error) {
 			console.log(error)
 		}
@@ -69,6 +74,11 @@ describe('/api/signup', () => {
 
 	test('Should return a 409 status code', async () => {
 		try {
+			await request(app)
+				.post('/api/signup')
+				.set('Content-Type', 'application/json')
+				.send({ name: 'test_user', password: 'test_password' });
+
 			const res = await request(app)
 				.post('/api/signup')
 				.set('Content-Type', 'application/json')
@@ -82,25 +92,24 @@ describe('/api/signup', () => {
 })
 
 describe('/api/signup-details', () => {
+	beforeAll(async () => {
+		await request(app)
+			.post('/api/signup')
+			.set('Content-Type', 'application/json')
+			.send({ name: 'test_user', password: 'test_password' });
+	})
+
 	test('Should return a 200 status code', async () => {
 		try {
+			const token = await getToken('test_user', 'test_password');
+
 			const res = await request(app)
 				.post('/api/signup-details')
-				.set('Cookie', [`token=${getToken()}`])
+				.set('Cookie', [`token=${token}`])
 				.field('description', 'Hey')
 				.attach('avatar', 'tests/test-avatar.png');
 
 			expect(res.status).toEqual(200)
-
-		} catch (error) {
-			console.log(error)
-		}
-	})
-
-	test('Should edit the user description', async () => {
-		try {
-			let user = await User.findOne({ name: 'test_user' });
-			expect(user.description).toEqual('Hey')
 		} catch (error) {
 			console.log(error)
 		}
