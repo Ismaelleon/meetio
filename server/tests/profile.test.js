@@ -22,12 +22,13 @@ beforeAll(async () => {
 	})
 })
 
-afterAll(async () => {
+afterAll(async (done) => {
 	try {
 		// Delete all created users
 		await User.deleteMany({});
 
 		await mongoose.disconnect()
+		done()
 	} catch (error) {
 		console.log(error)
 	}
