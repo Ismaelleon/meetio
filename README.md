@@ -40,3 +40,6 @@ npm run dev
 cd meetio/server/src/client/
 npm run dev
 ```
+
+### License
+Distributed under the GNU LGPLv3 License. See `LICENSE` for more information.
