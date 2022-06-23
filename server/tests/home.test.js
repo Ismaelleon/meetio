@@ -28,13 +28,12 @@ beforeAll(async () => {
 		.send({ name: 'another_test_user', password: 'another_test_password' });
 })
 
-afterAll(async (done) => {
+afterAll(async () => {
 	try {
 		// Delete all created users
 		await User.deleteMany({});
 
 		await mongoose.disconnect()
-		done()
 	} catch (error) {
 		console.log(error)
 	}
