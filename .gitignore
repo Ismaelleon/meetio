@@ -1,9 +1,9 @@
 server/node_modules/
-server/__tests__/
 server/src/config.js
 server/src/public/avatars/*
 server/src/public/pictures/*
 server/jest.config.js
 server/src/client/node_modules
-server/src/client/build
+server/src/client/build/*
+!server/src/client/build/avatars
 package-lock.json

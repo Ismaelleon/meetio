@@ -49,7 +49,7 @@ async function changeAvatar (req, res) {
 			
 			// Remove the previous avatar file (if isn't the default one)
       if (user.avatar !== 'avatar.png') {
-        fs.unlinkSync(path.join(__dirname, `../public/avatars/${user.avatar}`))
+        fs.unlinkSync(path.join(__dirname, `../client/build/avatars/${user.avatar}`))
       }
 
 			// Save the new avatar name on db
@@ -152,7 +152,7 @@ async function deletePicture (req, res) {
 					user.pictures.splice(index, 1)
 
 					// Remove the file
-					fs.unlinkSync(path.join(__dirname, `../public/pictures/${pictureName}`))
+					fs.unlinkSync(path.join(__dirname, `../client/build/pictures/${pictureName}`))
 					
 					// Save the updated pictures on db
 					await user.save()
@@ -190,11 +190,13 @@ async function deleteAccount (req, res) {
 					
 					if (passwordsMatches) {
 						// Remove user's avatar
-						fs.unlinkSync(path.join(__dirname, `../public/avatars/${user.avatar}`))
+						if (user.avatar !== 'avatar.png') {
+							fs.unlinkSync(path.join(__dirname, `../client/build/avatars/${user.avatar}`))
+						}
 
 						// Remove user's pictures
-						for (let picture of pictures) {
-							fs.unlinkSync(path.join(__dirname, `../public/pictures/${picture}`))
+						for (let picture of user.pictures) {
+							fs.unlinkSync(path.join(__dirname, `../client/build/pictures/${picture}`))
 						}
 
 						// Remove user

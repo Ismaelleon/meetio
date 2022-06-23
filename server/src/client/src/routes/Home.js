@@ -16,8 +16,6 @@ function Home (props) {
 
 
 	function getUser () {
-		let dataObtained = false;
-
 		fetch('/api/home', {
 			method: 'POST',
 			headers: {
@@ -34,10 +32,6 @@ function Home (props) {
 				history.push('/')
 			}
 		})
-
-		return () => {
-			dataObtained = true;
-		};
 	}
 
 	function tapUser (event) {

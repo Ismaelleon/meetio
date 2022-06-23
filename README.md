@@ -33,10 +33,18 @@ module.exports = {
 };
 ```
 
-4. Start the development servers
+4. Create pictures directory and build client
+```sh
+cd meetio/server/src/client/build
+mkdir pictures
+npm run build
+```
+
+5. Run server
 ```sh
 cd meetio/server
-npm run dev 
-cd meetio/server/src/client/
-npm run dev
+npm start
 ```
+
+### License
+Distributed under the GNU LGPLv3 License. See `LICENSE` for more information.

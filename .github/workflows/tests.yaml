@@ -1,0 +1,43 @@
+name: Run tests on the server
+on: [push, pull_request]
+
+jobs:
+  test_server:
+    name: Server tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.6.0
+        with:
+          mongodb-version: '4.4' 
+
+      - name: Create config file
+        run: echo 'module.exports = {
+                    databaseUri:"mongodb://localhost:27017/meetio",
+                    secret:"test"}'>server/src/config.js
+
+
+      - name: Install client dependencies
+        run: cd server/src/client/ && npm i
+
+      - name: Build client
+        run: cd server/src/client/ && npm run build
+
+      - name: Create pictures/ folder
+        run: cd server/src/client/build/ && mkdir pictures
+
+      - name: Install server dependencies
+        run: cd server/ && npm i
+
+      - name: Run tests
+        run: cd server/ && npm test
