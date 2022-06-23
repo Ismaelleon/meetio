@@ -13,4 +13,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use('/api', routes)
 
+app.get('/*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'client/build/index.html'))
+})
+
 module.exports = app;
