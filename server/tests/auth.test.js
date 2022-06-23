@@ -2,7 +2,7 @@ const request = require('supertest'),
 	mongoose = require('mongoose');
 
 const app = require('../src/app'),
-	config = require('../../config');
+	config = require('../config');
 
 const User = require('../src/models/User');
 const { deleteTestUser, getToken } = require('./helper');
