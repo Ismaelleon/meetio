@@ -190,7 +190,9 @@ async function deleteAccount (req, res) {
 					
 					if (passwordsMatches) {
 						// Remove user's avatar
-						fs.unlinkSync(path.join(__dirname, `../client/build/avatars/${user.avatar}`))
+						if (user.avatar !== 'avatar.png') {
+							fs.unlinkSync(path.join(__dirname, `../client/build/avatars/${user.avatar}`))
+						}
 
 						// Remove user's pictures
 						for (let picture of user.pictures) {
