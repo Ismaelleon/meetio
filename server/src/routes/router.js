@@ -3,7 +3,7 @@ const express = require('express'),
 	mongoose = require('mongoose'),
 	path = require('path'),
 	crypto = require('crypto'),
-	config = require('../config');
+	config = require('../../config');
 
 const router = express.Router();
 
