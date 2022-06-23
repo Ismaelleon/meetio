@@ -1,8 +1,8 @@
 const fs = require('fs'),
 	jwt = require('jsonwebtoken'),
-		bcrypt = require('bcrypt'),
-		path = require('path'),
-    { secret } = require('../config');
+	bcrypt = require('bcrypt'),
+	path = require('path'),
+	{ secret } = require('../../config');
 
 // Import model
 const User = require('../models/User');
