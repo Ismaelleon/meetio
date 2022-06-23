@@ -1,5 +1,5 @@
 server/node_modules/
-server/src/config.js
+server/config.js
 server/src/public/avatars/*
 server/src/public/pictures/*
 server/jest.config.js

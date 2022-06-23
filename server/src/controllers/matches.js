@@ -1,7 +1,7 @@
 const fs = require('fs'),
 	jwt = require('jsonwebtoken'),
 	path = require('path'),
-  { secret } = require('../config');
+	{ secret } = require('../../config');
 
 // Import model
 const User = require('../models/User');
