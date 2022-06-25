@@ -127,6 +127,21 @@ describe('/api/profile/delete-picture', () => {
 describe('/api/profile/delete-account', () => {
 	test('Should delete the account', async () => {
 		try {
+			// Create another account to tap the test user
+			await request(app)
+				.post('/api/signup')
+				.set('Content-Type', 'application/json')
+				.send({ name: 'this_user_taps_test_user', password: 'test_password' });
+
+			const userTapsToken = await getToken('this_user_taps_test_user', 'test_password');
+
+			await request(app)
+				.post('/api/home/tap')
+				.set('Content-Type', 'application/json')
+				.set('Cookie', `token=${userTapsToken}`)
+				.send({ like: true, name: 'test_user' });
+
+			// Delete the test account
 			const token = await getToken('test_user', 'test_password');
 
 			let res = await request(app)
@@ -134,9 +149,12 @@ describe('/api/profile/delete-account', () => {
 				.set('Cookie', [`token=${token}`])
 				.send({ password: 'test_password' });
 			
-			let testUser = await User.find({ name: 'test_user' });
-
-			expect(testUser).toEqual([])
+			let testUser = await User.findOne({ name: 'test_user' });
+			let anotherUser = await User.findOne({ name: 'this_user_taps_test_user' });
+			
+			// CoreMongooseArray to array with destructuring
+			expect([...anotherUser.alreadyTappedUsers]).toEqual([])
+			expect(testUser).toEqual(null)
 		} catch (error) {
 			console.log(error)
 		}
