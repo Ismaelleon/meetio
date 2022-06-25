@@ -56,7 +56,7 @@ function SignupDetails () {
 				</header>
 				<form>
 					<div className="avatar">
-						<img src="" alt="avatar" ref={avatarView} />
+						<img src="/avatars/avatar.png" alt="avatar" ref={avatarView} />
 						<label htmlFor="avatar"><MaterialIcon color="#ffffff" icon="camera_alt" size={34} /></label>
 					</div>
 					<input type="file"
