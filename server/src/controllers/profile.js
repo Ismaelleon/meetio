@@ -22,6 +22,7 @@ async function getProfileData (req, res) {
 			if (user !== null) {
 				res.json(user)
 			} else {
+				res.cookie('token', '', { expires: new Date('1969-04-20') })
 				res.sendStatus(404)
 			}
 			
@@ -163,6 +164,7 @@ async function deletePicture (req, res) {
 					res.json(user.pictures)
 					res.end()
 				} else {
+					res.cookie('token', '', { expires: new Date('1969-04-20') })
 					res.sendStatus(404)
 					res.end()
 				}
@@ -226,6 +228,7 @@ async function deleteAccount (req, res) {
 
 					res.end()
 				} else {
+					res.cookie('token', '', { expires: new Date('1969-04-20') })
 					res.sendStatus(404)
 					res.end()
 				}
