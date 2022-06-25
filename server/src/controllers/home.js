@@ -51,7 +51,6 @@ async function getUser (req, res) {
 			res.json(JSONResponse)
 		} else {
 			res.sendStatus(401)
-			res.cookie('token', '', { expires: new Date('1969-04-20') })
 		}
 		
 		res.end()
@@ -88,7 +87,6 @@ async function tapUser (req, res) {
 			res.end()
 		} else {
 			res.sendStatus(401)
-			res.cookie('token', '', { expires: new Date('1969-04-20') })
 			res.end()
 		}
 	} catch (error) {

@@ -24,7 +24,6 @@ async function getUserData (req, res) {
 			}
 		} else {
 			res.sendStatus(401)
-			res.cookie('token', '', { expires: new Date('1969-04-20') })
 			res.end()
 		}
 	} catch (error) {

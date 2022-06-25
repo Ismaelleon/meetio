@@ -28,7 +28,6 @@ async function getProfileData (req, res) {
 			res.end()
 		} else {
 			res.sendStatus(401)
-			res.cookie('token', '', { expires: new Date('1969-04-20') })
 			res.end()
 		}
 	} catch (error) {
@@ -49,9 +48,9 @@ async function changeAvatar (req, res) {
 			let user = await User.findOne({ name: tokenData.name });
 			
 			// Remove the previous avatar file (if isn't the default one)
-			if (user.avatar !== 'avatar.png') {
-				fs.unlinkSync(path.join(__dirname, `../client/build/avatars/${user.avatar}`))
-			}
+      if (user.avatar !== 'avatar.png') {
+        fs.unlinkSync(path.join(__dirname, `../client/build/avatars/${user.avatar}`))
+      }
 
 			// Save the new avatar name on db
 			user.avatar = req.file.filename;
@@ -62,7 +61,6 @@ async function changeAvatar (req, res) {
 			res.end()
 		} else {
 			res.sendStatus(401)
-			res.cookie('token', '', { expires: new Date('1969-04-20') })
 			res.end()
 		}
 	} catch (error) {
@@ -125,7 +123,6 @@ async function uploadPictures (req, res) {
 			res.end()
 		} else {
 			res.sendStatus(401)
-			res.cookie('token', '', { expires: new Date('1969-04-20') })
 			res.end()
 		}
 	} catch (error) {
@@ -192,19 +189,6 @@ async function deleteAccount (req, res) {
 					let passwordsMatches = await bcrypt.compare(password, user.password);
 					
 					if (passwordsMatches) {
-						// Remove user from 'alreadyTappedUsers' in other users documents
-						let allUsers = await User.find({}).select('alreadyTappedUsers');
-
-						for (let currentUser of allUsers) {
-							currentUser.alreadyTappedUsers.map((alreadyTappedUser, index) => {
-								if (alreadyTappedUser.name === user.name) {
-									currentUser.alreadyTappedUsers.splice(index, 1)
-								}
-							})
-
-							await currentUser.save()
-						}
-
 						// Remove user's avatar
 						if (user.avatar !== 'avatar.png') {
 							fs.unlinkSync(path.join(__dirname, `../client/build/avatars/${user.avatar}`))
@@ -221,7 +205,6 @@ async function deleteAccount (req, res) {
 						res.sendStatus(200)
 					} else {
 						res.sendStatus(401)
-						res.cookie('token', '', { expires: new Date('1969-04-20') })
 					}
 
 					res.end()
