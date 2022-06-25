@@ -40,12 +40,14 @@ async function likedProfiles (req, res) {
 			} else {
 				// Send the "UNAUTHORIZED" http code
 				res.sendStatus(401)
+				res.cookie('token', '', { expires: new Date('1969-04-20') })
 			}
 
 			// End request
 			res.end()
 		} else {
 			res.sendStatus(401)
+			res.cookie('token', '', { expires: new Date('1969-04-20') })
 			res.end()
 		}
 	} catch (error) {
@@ -86,12 +88,14 @@ async function dislikedProfiles (req, res) {
 			} else {
 				// Send the "UNAUTHORIZED" http code
 				res.sendStatus(401)
+				res.cookie('token', '', { expires: new Date('1969-04-20') })
 			}
 
 			// End request
 			res.end()
 		} else {
 			res.sendStatus(401)
+			res.cookie('token', '', { expires: new Date('1969-04-20') })
 			res.end()
 		}
 	} catch (error) {
@@ -144,12 +148,14 @@ async function matches (req, res) {
 			} else {
 				// Send the "UNAUTHORIZED" http code
 				res.sendStatus(401)
+				res.cookie('token', '', { expires: new Date('1969-04-20') })
 			}
 
 			// End request
 			res.end()
 		} else {
 			res.sendStatus(401)
+			res.cookie('token', '', { expires: new Date('1969-04-20') })
 			res.end()
 		}
 	} catch (error) {
