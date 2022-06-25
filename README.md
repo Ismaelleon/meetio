@@ -25,7 +25,7 @@ cd src/client/
 npm install
 ```
 
-3. Create a config file in 'server/src'
+3. Create a `config.js` file in 'server/'
 ```js
 module.exports = {
 	databaseUri: 'your-database-uri',
