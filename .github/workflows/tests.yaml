@@ -1,5 +1,5 @@
 name: Run tests on the server
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test_server:
@@ -24,7 +24,7 @@ jobs:
       - name: Create config file
         run: echo 'module.exports = {
                     databaseUri:"mongodb://localhost:27017/meetio",
-                    secret:"test"}'>server/src/config.js
+                    secret:"test"}'>server/config.js
 
 
       - name: Install client dependencies

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt'),
 	jwt = require('jsonwebtoken'),
 	mongoose = require('mongoose'),
 	path = require('path'),
-	{ secret } = require('../config');
+	{ secret } = require('../../config');
 
 // Import models
 const User = require('../models/User');
