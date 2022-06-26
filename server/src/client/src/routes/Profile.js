@@ -50,21 +50,23 @@ function Profile (props) {
 
 		let formData = new FormData();
 
-		formData.append('avatar', fileInput.current.files[0])
+		if (fileInput.current.files.length > 0) {
+			formData.append('avatar', fileInput.current.files[0])
 
-		fetch('/api/profile/change-avatar', {
-			method: 'POST',
-			body: formData
-		}).then(res => res.json())
-		.then(avatar => {
-			let data = profileData;
+			fetch('/api/profile/change-avatar', {
+				method: 'POST',
+				body: formData
+			}).then(res => res.json())
+			.then(avatar => {
+				let data = profileData;
 
-			data.avatar = avatar;
+				data.avatar = avatar;
 
-			setProfileData(data)
+				setProfileData(data)
 
-			setProgress(100)
-		})
+				setProgress(100)
+			})
+		}
 	}
 
 	function toggleDescriptionEdit (e) {
