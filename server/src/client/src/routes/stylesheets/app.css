@@ -3,14 +3,13 @@
 	flex-direction: row;
 	justify-content: center;
 	width: 100%;
-	padding: var(--h6);
+	padding: calc(var(--h6) / 1.25);
 	box-shadow: rgba(0, 0, 0, .25) 0 1px 5px;
 }
 
 .main-header > div {
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
 	align-items: center;
 	width: 100%;
 	max-width: 992px;
