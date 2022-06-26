@@ -25,8 +25,9 @@ header > img {
 }
 
 header > p {
-	font-family: 'Cabin';
+	font-family: 'Lato';
 	font-size: var(--h1);
+	font-weight: bold;
 }
 
 main {
@@ -54,9 +55,9 @@ button {
 	margin: 10px 0;
 	background: #ffffff;
 	color: #ff005c;
-	font-family: 'Raleway';
+	font-family: 'Lato';
 	font-size: var(--h5);
-	font-weight: 600;
+	font-weight: 500;
 	cursor: pointer;
 }
 
