@@ -8,7 +8,7 @@ function Header () {
 	return (
 		<header className="main-header">
 			<div>
-				<p>meetio</p>
+				<p>Meetio</p>
 				<ul>
 					<li><Link to="/home"><MaterialIcon color={location.pathname === '/home' ? "#ff005c" : ""} icon="public" size={24} /></Link></li>
 					<li><Link to="/matches"><MaterialIcon color={
