@@ -27,12 +27,12 @@ async function getProfileData (req, res) {
 				res.sendStatus(404)
 			}
 			
-			res.end()
 		} else {
 			res.sendStatus(401)
 			res.cookie('token', '', { expires: new Date('1969-04-20') })
-			res.end()
 		}
+
+		res.end()
 	} catch (error) {
 		console.log(error)
 	}
@@ -88,7 +88,7 @@ async function cropAvatar (req, res) {
 
 			await cropImage(user.avatar, crop)
 
-			return res.json({ avatar: user.avatar })
+			res.json({ avatar: user.avatar })
 		} else {
 			res.sendStatus(401)
 			res.cookie('token', '', { expires: new Date('1969-04-20') })
