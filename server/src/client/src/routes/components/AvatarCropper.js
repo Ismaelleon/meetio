@@ -18,7 +18,7 @@ function AvatarCropper ({ fileInput, setAvatarFileName, avatarBase64, visible, h
 			}
 		}).then(res => res.json())
 		.then(({ avatar }) => {
-			setAvatarFileName('avatar.png')
+			setAvatarFileName('')
 			setAvatarFileName(avatar)
 		})
 		.catch(error => console.log(error))
