@@ -292,6 +292,7 @@ main > .profile > span > span > ul {
 	border-radius: .25rem;
 	list-style: none;
 	box-shadow: rgba(0, 0, 0, .25) 0 1px 5px;
+	z-index: 1;
 }
 
 main > .profile > span > span > ul > li {
@@ -333,6 +334,7 @@ main > .profile > form {
 
 main > .profile > form > button {
 	font-size: var(--h6);
+	z-index: 0;
 }
 
 main > .profile > form > input {
@@ -377,6 +379,7 @@ main > .profile > .pictures > figure > button {
 main > .profile > .pictures > figure > button > i {
 	opacity: .5;
 	cursor: pointer;
+	z-index: 0
 }
 
 main > .profile > .pictures > figure > button > i:hover {
