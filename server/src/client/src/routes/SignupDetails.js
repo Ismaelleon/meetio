@@ -59,20 +59,23 @@ function SignupDetails () {
 	useEffect(updateForm, [avatarFileName])
 
 	function uploadAvatar () {
-		let formData = new FormData();
+		return new Promise((resolve, reject) => {
+			let formData = new FormData();
 
-		formData.append('avatar', fileInput.current.files[0])
+			formData.append('avatar', fileInput.current.files[0])
 
-		fetch('/api/profile/change-avatar', {
-			method: 'POST',
-			body: formData
-		}).then(res => res.json())
-		.then(avatar => {
-			setAvatarFileName(avatar)
+			fetch('/api/profile/change-avatar', {
+				method: 'POST',
+				body: formData
+			}).then(res => res.json())
+			.then(avatar => {
+				resolve(false)
+			})
+			.catch(error => {
+				reject(error)
+				console.log(error)
+			})
 		})
-		.catch(error => console.log(error))	
-
-		hideDialog()
 	}
 
 	return(
@@ -99,7 +102,7 @@ function SignupDetails () {
 								let file = event.target.files[0];
 								let base64Image = await FileToBase64.convert(file);
 
-								uploadAvatar()
+								await uploadAvatar()
 								setAvatarBase64(base64Image)
 								setDialogVisible(true)
 							}
