@@ -215,6 +215,7 @@ main > .list > li > a > span {
 main > .list > li > img {
 	width: 15%;
 	margin-right: var(--h4);
+	border-radius: 50%;
 }
 
 main > .list > li > a {
