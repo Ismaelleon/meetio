@@ -5,5 +5,5 @@ server/src/public/pictures/*
 server/jest.config.js
 server/src/client/node_modules
 server/src/client/build/*
-!server/src/client/build/avatars
+!server/src/client/build/avatars/avatar.png
 package-lock.json
