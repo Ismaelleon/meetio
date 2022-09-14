@@ -1,3 +1,6 @@
+const Jimp = require('jimp'),
+	path = require('path');
+
 // Import models
 const User = require('../models/User');
 
@@ -18,6 +21,36 @@ async function checkNameAvailability (name) {
 	}
 }
 
+function cropImage (filename, crop) {
+	return new Promise((resolve, reject) => {
+		Jimp.read(path.join(__dirname, `../client/build/avatars/${filename}`)).then(image => {
+			console.log(crop)
+			let { x, y, width, height } = crop || {};
+
+			if (x === undefined || y === undefined || width === undefined || height === undefined) {
+				console.log('something is undefined')
+				x = 0;
+				y = 0;
+				width = image.bitmap.width / 2;
+				height = image.bitmap.width / 2;
+			}
+
+			x = x * image.bitmap.width;
+			y = y * image.bitmap.height;
+			width = width * image.bitmap.width;
+			height = height * image.bitmap.height;
+
+			image
+				.crop(x, y, width, height)
+				.write(path.join(__dirname, `../client/build/avatars/${filename}`))
+
+			resolve(true)
+		}).catch(error => reject(error))
+
+	})
+}
+
 module.exports = {
-	checkNameAvailability
+	checkNameAvailability,
+	cropImage
 };

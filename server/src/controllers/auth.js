@@ -63,9 +63,6 @@ async function signUpDetails (req, res) {
 
 		// If the user exists
 		if (user.length !== null) {
-			// Update user avatar
-			user.avatar = req.file.filename;
-
 			// Update user description
 			user.description = req.body.description;
 
