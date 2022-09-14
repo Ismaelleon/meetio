@@ -24,11 +24,9 @@ async function checkNameAvailability (name) {
 function cropImage (filename, crop) {
 	return new Promise((resolve, reject) => {
 		Jimp.read(path.join(__dirname, `../client/build/avatars/${filename}`)).then(image => {
-			console.log(crop)
 			let { x, y, width, height } = crop || {};
 
 			if (x === undefined || y === undefined || width === undefined || height === undefined) {
-				console.log('something is undefined')
 				x = 0;
 				y = 0;
 				width = image.bitmap.width / 2;
