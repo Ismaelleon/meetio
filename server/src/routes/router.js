@@ -40,7 +40,7 @@ const auth = require('../controllers/auth'),
 
 // Auth
 router.post('/signup', auth.signUp)
-router.post('/signup-details', avatarUpload.single('avatar'), auth.signUpDetails)
+router.post('/signup-details', auth.signUpDetails)
 router.post('/signin', auth.signIn)
 
 // Home
@@ -50,6 +50,7 @@ router.post('/home/tap', home.tapUser)
 // Profile
 router.post('/profile', profile.getProfileData)
 router.post('/profile/change-avatar', avatarUpload.single('avatar'), profile.changeAvatar)
+router.post('/profile/crop-avatar', profile.cropAvatar)
 router.post('/profile/change-description', profile.changeDescription)
 router.post('/profile/upload-pictures', pictureUpload.array('pictures'), profile.uploadPictures)
 router.post('/profile/delete-picture', profile.deletePicture)

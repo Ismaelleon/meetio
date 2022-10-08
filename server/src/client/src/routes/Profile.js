@@ -3,8 +3,10 @@ import MaterialIcon from 'material-icons-react';
 import LoadingBar from 'react-top-loading-bar';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
+import FileToBase64 from 'dd-file-to-base64';
 import './stylesheets/app.css';
 
+import AvatarCropper from './components/AvatarCropper';
 import Header from './components/Header';
 import NavigationBar from './components/NavigationBar';
 
@@ -17,8 +19,13 @@ function Profile (props) {
 
 	let [editingDescription, setEditingDescription] = useState(false);
 
-	let fileInput = React.createRef();
-	let picturesInput = React.createRef();
+	let fileInput = React.createRef(),
+		avatarView = React.createRef(),
+		picturesInput = React.createRef();
+
+	let [avatarFileName, setAvatarFileName] = useState(''),
+		[avatarBase64, setAvatarBase64] = useState(''),
+		[dialogVisible, setDialogVisible] = useState(false);
 
 	let [progress, setProgress] = useState(20);
 
@@ -44,29 +51,20 @@ function Profile (props) {
 		})
 	}
 
-
 	function updateAvatar () {
 		setProgress(20)
 
-		let formData = new FormData();
+		if (avatarFileName !== '') {
+			avatarView.current.src = '';
+			avatarView.current.src = `/avatars/${avatarFileName}`;
 
-		if (fileInput.current.files.length > 0) {
-			formData.append('avatar', fileInput.current.files[0])
-
-			fetch('/api/profile/change-avatar', {
-				method: 'POST',
-				body: formData
-			}).then(res => res.json())
-			.then(avatar => {
-				let data = profileData;
-
-				data.avatar = avatar;
-
-				setProfileData(data)
-
-				setProgress(100)
-			})
+		} else {
+			if (fileInput.current.files.length > 0) {
+				avatarView.current.src = URL.createObjectURL(fileInput.current.files[0])
+			}
 		}
+
+		setProgress(100)
 	}
 
 	function toggleDescriptionEdit (e) {
@@ -166,6 +164,30 @@ function Profile (props) {
 		}
 	}
 
+	function uploadAvatar () {
+		return new Promise((resolve, reject) => {
+			let formData = new FormData();
+
+			formData.append('avatar', fileInput.current.files[0])
+
+			fetch('/api/profile/change-avatar', {
+				method: 'POST',
+				body: formData
+			}).then(res => res.json())
+			.then(avatar => {
+				resolve(false)
+			})
+			.catch(error => {
+				reject(error)
+				console.log(error)
+			})
+		})
+	}
+
+	function hideDialog () {
+		setDialogVisible(false)
+	}
+
 	function loaderFinished () {
 		let finished = true;
 
@@ -179,6 +201,7 @@ function Profile (props) {
 	}
 
 	useEffect(getProfileData, [])
+	useEffect(updateAvatar, [avatarFileName])
 
 	 return(
 		<div>
@@ -188,7 +211,7 @@ function Profile (props) {
 				<div className="profile">
 					<div className="avatar">
 						{profileData.avatar !== undefined ?
-							<img src={`/avatars/${profileData.avatar}`} alt={`${profileData.name}'s avatar`}/>
+							<img ref={avatarView} src={`/avatars/${profileData.avatar}`} alt={`${profileData.name}'s avatar`}/>
 							: <></>}
 						<label htmlFor="avatar"><MaterialIcon color="#ffffff" icon="camera_alt" size={34} /></label>
 					</div>
@@ -197,8 +220,15 @@ function Profile (props) {
 						id="avatar"
 						ref={fileInput}
 						name="avatar"
-						onChange={event => {
-							updateAvatar()
+						onChange={async event => {
+							if (event.target.files.length > 0) {
+								let file = event.target.files[0];
+								let base64Image = await FileToBase64.convert(file);
+
+								await uploadAvatar()
+								setAvatarBase64(base64Image)
+								setDialogVisible(true)
+							}
 						}} />
 					<span>
 						<h2>
@@ -241,6 +271,7 @@ function Profile (props) {
 				</div>
 			</main>
 		 	<NavigationBar />
+			<AvatarCropper fileInput={fileInput} avatarView={avatarView} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />
 		</div>
 	);
 }

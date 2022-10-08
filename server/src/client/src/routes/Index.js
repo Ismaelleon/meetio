@@ -30,7 +30,7 @@ function Index (props) {
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => setProgress(0)} />
 			<header className="app-header">
-				<img src={logo} alt="Meetio Logo" />
+				<img src={logo} alt="Meetio Logo" width="80px" height="80px" />
 				<p>Meetio</p>
 			</header>
 			<main>

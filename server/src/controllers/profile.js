@@ -2,6 +2,7 @@ const fs = require('fs'),
 	jwt = require('jsonwebtoken'),
 	bcrypt = require('bcrypt'),
 	path = require('path'),
+	{ cropImage } = require('../helpers/index'),
 	{ secret } = require('../../config');
 
 // Import model
@@ -26,12 +27,12 @@ async function getProfileData (req, res) {
 				res.sendStatus(404)
 			}
 			
-			res.end()
 		} else {
 			res.sendStatus(401)
 			res.cookie('token', '', { expires: new Date('1969-04-20') })
-			res.end()
 		}
+
+		res.end()
 	} catch (error) {
 		console.log(error)
 	}
@@ -66,6 +67,34 @@ async function changeAvatar (req, res) {
 			res.cookie('token', '', { expires: new Date('1969-04-20') })
 			res.end()
 		}
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+async function cropAvatar (req, res) {
+	try {
+		// If token is valid and correct
+		if (req.cookies.token !== undefined &&
+			req.cookies.token.split('.').length === 3) {
+
+			// Verify token
+			let tokenData = jwt.verify(req.cookies.token, secret);
+
+			// Find user by name
+			let user = await User.findOne({ name: tokenData.name });
+
+			let crop = req.body;
+
+			await cropImage(user.avatar, crop)
+
+			res.json({ avatar: user.avatar })
+		} else {
+			res.sendStatus(401)
+			res.cookie('token', '', { expires: new Date('1969-04-20') })
+		}
+		
+		res.end()
 	} catch (error) {
 		console.log(error)
 	}
@@ -242,6 +271,7 @@ async function deleteAccount (req, res) {
 module.exports = {
 	getProfileData,
 	changeAvatar,
+	cropAvatar,
 	changeDescription,
 	uploadPictures,
 	deletePicture,
