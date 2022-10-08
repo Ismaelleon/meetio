@@ -216,9 +216,9 @@ function Profile (props) {
 						<label htmlFor="avatar"><MaterialIcon color="#ffffff" icon="camera_alt" size={34} /></label>
 					</div>
 					<input type="file"
-						accept="image/*"
 						id="avatar"
 						ref={fileInput}
+						accept=".png, .jpg, .jpeg, .gif"
 						name="avatar"
 						onChange={async event => {
 							if (event.target.files.length > 0) {
