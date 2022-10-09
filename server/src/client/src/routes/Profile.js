@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { MdCamera, MdCheck, MdDelete, MdEdit, MdMoreVert, MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
 import Cookies from 'universal-cookie';
@@ -52,7 +52,7 @@ function Profile (props) {
 		})
 	}
 
-	function updateAvatar () {
+	const updateAvatar = useCallback(() => {
 		setProgress(20)
 
 		if (avatarFileName !== '') {
@@ -66,7 +66,7 @@ function Profile (props) {
 		}
 
 		setProgress(100)
-	}
+	}, [avatarFileName, avatarView, fileInput]);
 
 	function toggleDescriptionEdit (e) {
 		setEditingDescription(!editingDescription)
@@ -206,7 +206,7 @@ function Profile (props) {
 		if (!loading) {
 			updateAvatar()
 		}
-	}, [avatarFileName, loading])
+	}, [avatarFileName, loading, updateAvatar])
 
 	if (loading) {
 		return(
