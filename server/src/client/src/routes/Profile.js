@@ -58,7 +58,6 @@ function Profile (props) {
 		if (avatarFileName !== '') {
 			avatarView.current.src = '';
 			avatarView.current.src = `/avatars/${avatarFileName}`;
-
 		} else {
 			if (fileInput.current.files.length > 0) {
 				avatarView.current.src = URL.createObjectURL(fileInput.current.files[0])
@@ -206,6 +205,10 @@ function Profile (props) {
 		if (!loading) {
 			updateAvatar()
 		}
+
+		return () => {
+			setProgress(100)
+		};
 	}, [avatarFileName, loading, updateAvatar])
 
 	if (loading) {

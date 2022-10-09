@@ -28,6 +28,8 @@ function Dislikes (props) {
 
 				setDislikes(responseData)
 				setLoading(false)
+			} else if (res.status === 204) {
+				setLoading(false)
 			} else if (res.status === 401) {
 				history.push('/')
 			}
