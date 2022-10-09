@@ -14,9 +14,14 @@ import Dislikes from './routes/Dislikes';
 import Profile from './routes/Profile';
 import User from './routes/User';
 
+// Import components
+import Header from './routes/components/Header';
+import NavigationBar from './routes/components/NavigationBar';
+
 function App () {
     return (
 	    <Router>
+			<Header />
 		    <Route exact path="/">
 			    <Index />
 		    </Route>
@@ -47,6 +52,7 @@ function App () {
 			<Route path="/user">
 				<User />
 			</Route>
+			<NavigationBar />
 	    </Router>
     );
 }

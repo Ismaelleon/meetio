@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import MaterialIcon from 'material-icons-react';
+import { MdCamera, MdCheck, MdDelete, MdEdit, MdMoreVert, MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
@@ -7,8 +7,6 @@ import FileToBase64 from 'dd-file-to-base64';
 import './stylesheets/app.css';
 
 import AvatarCropper from './components/AvatarCropper';
-import Header from './components/Header';
-import NavigationBar from './components/NavigationBar';
 
 
 function Profile (props) {
@@ -206,14 +204,13 @@ function Profile (props) {
 	 return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
-			<Header />
 			<main>
 				<div className="profile">
 					<div className="avatar">
 						{profileData.avatar !== undefined ?
 							<img ref={avatarView} src={`/avatars/${profileData.avatar}`} alt={`${profileData.name}'s avatar`}/>
 							: <></>}
-						<label htmlFor="avatar"><MaterialIcon color="#ffffff" icon="camera_alt" size={34} /></label>
+						<label htmlFor="avatar"><MdCamera color="#ffffff" fontSize="34px" /></label>
 					</div>
 					<input type="file"
 						id="avatar"
@@ -234,9 +231,9 @@ function Profile (props) {
 						<h2>
 							{profileData.name}
 						</h2>
-						{profileData.verified ? <span><MaterialIcon icon="verified" size={24} color="rgb(0, 122, 255)" /></span> : <span></span>}
+						{profileData.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 						<span style={{ marginLeft: '1rem' }}  onClick={() => setProfileMenu(!profileMenu)}>
-							<MaterialIcon icon="more_vert" size={24} color="#000" />
+							<MdMoreVert icon="more_vert" size={24} color="#000" />
 							<ul style={ profileMenu ? { display: 'block' } : { display: 'none' } }>
 								<li onClick={deleteAccount} style={{ color: 'rgb(255, 59, 48)' }}>Delete Account</li>
 								<li onClick={logOut}>Log Out</li>
@@ -250,10 +247,10 @@ function Profile (props) {
 							{profileData.description}
 						</p>
 		 				<span onClick={toggleDescriptionEdit} style={ editingDescription ? { display: 'block' } : { display: 'none' } }>
-		 					<MaterialIcon icon="check" size={18} color="#000" />
+		 					<MdCheck fontSize="18px" color="#000" />
 		 				</span>
 		 				<span onClick={toggleDescriptionEdit} style={ editingDescription ? { display: 'none' } : { display: 'block' } }>
-		 					<MaterialIcon icon="edit" size={18} color="#000" />
+		 					<MdEdit fontSize="18px" color="#000" />
 		 				</span>
 		 			</span>
 					<form>
@@ -264,13 +261,12 @@ function Profile (props) {
 						{profileData.pictures !== undefined ? profileData.pictures.map((picture, index) =>
 							<figure key={index}>
 								<img src={`/pictures/${picture}`}  alt="Profile photos" />
-								<button><MaterialIcon onClick={deletePicture} color="#ff3b30" icon="delete" size={24} /></button>
+								<button><MdDelete onClick={deletePicture} color="#ff3b30" fontSize="24px" /></button>
 							</figure>
 						) : false}
 		 			</div>
 				</div>
 			</main>
-		 	<NavigationBar />
 			<AvatarCropper fileInput={fileInput} avatarView={avatarView} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />
 		</div>
 	);

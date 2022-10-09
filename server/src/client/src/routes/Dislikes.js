@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
-import MaterialIcon from 'material-icons-react';
 import './stylesheets/app.css';
 
-import Header from './components/Header';
-import NavigationBar from './components/NavigationBar';
 import Tabs from './components/Tabs';
 
 function Dislikes (props) {
@@ -54,7 +52,6 @@ function Dislikes (props) {
 	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
-			<Header />
 			<main>
 				<Tabs />
 				<ul className="list">
@@ -63,13 +60,12 @@ function Dislikes (props) {
 							<img src={`/avatars/${dislikedProfile.avatar}`} alt={`${dislikedProfile.name}'s avatar`} />
 							<Link to={`/user/${dislikedProfile.name}`}>
 								{dislikedProfile.name}
-								{dislikedProfile.verified ? <span><MaterialIcon icon="verified" size={24} color="rgb(0, 122, 255)" /></span> : <span></span>}
+								{dislikedProfile.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
 						</li>
 					) : <h2>No disliked profiles yet</h2>}
 				</ul>
 			</main>
-			<NavigationBar />
 		</div>
 	);
 }
