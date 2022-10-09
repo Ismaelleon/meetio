@@ -4,10 +4,12 @@ import { useLocation } from 'react-router-dom';
 import MaterialIcon from 'material-icons-react';
 
 import Header from './components/Header';
+import ProfileLoader from './components/ProfileLoader';
 
 
 function User (props) {
 	let [profileData, setProfileData] = useState({});
+	let [loading, setLoading] = useState(true);
 
 	let [progress, setProgress] = useState(20);
 
@@ -25,7 +27,8 @@ function User (props) {
 		}).then(res => res.json())
 		.then(data => {
 			setProgress(100)
-
+			
+			setLoading(false)
 			setProfileData(data)
 		})
 	}
@@ -43,6 +46,14 @@ function User (props) {
 	}
 
 	useEffect(getUserData, [])
+
+	if (loading) {
+		return(
+			<div>
+				<ProfileLoader />
+			</div>
+		);
+	}
 
 	return (
 		<div>
