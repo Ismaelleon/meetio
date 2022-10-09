@@ -28,7 +28,7 @@ function Home (props) {
 				let userToTap = await res.json();
 
 				setUser(userToTap)
-				setLoading(true)
+				setLoading(false)
 			} else {
 				history.push('/')
 			}
