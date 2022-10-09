@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar';
-import MaterialIcon from 'material-icons-react';
+import { MdVerified } from 'react-icons/md';
 import './stylesheets/app.css';
 
-import Header from './components/Header';
 import Tabs from './components/Tabs';
 
 function Matches (props) {
@@ -63,7 +62,6 @@ function Matches (props) {
 	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
-			<Header />
 			<main>
 				<Tabs />
 				<ul className="list">
@@ -72,7 +70,7 @@ function Matches (props) {
 							<img src={`/avatars/${matchedProfile.avatar}`} alt={`${matchedProfile.name}'s avatar`} />
 							<Link to={`/user/${matchedProfile.name}`}>
 								{matchedProfile.name}
-								{matchedProfile.verified ? <span><MaterialIcon icon="verified" size={24} color="rgb(0, 122, 255)" /></span> : <span></span>}
+								{matchedProfile.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
 						</li>
 					) : <h2>No matches yet</h2>}

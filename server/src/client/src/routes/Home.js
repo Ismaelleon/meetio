@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'; 
 import { Link, useHistory } from 'react-router-dom';
-import './stylesheets/app.css';
+import { MdClear, MdFavorite, MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
-import MaterialIcon from 'material-icons-react';
-
-import Header from './components/Header';
+import './stylesheets/app.css';
 
 function Home (props) {
 	let [user, setUser] = useState({});
@@ -73,7 +71,6 @@ function Home (props) {
 	return (
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
-			<Header />
 				{user.name !== undefined ?
 					<main>
 						<div className="person">
@@ -85,14 +82,14 @@ function Home (props) {
 							<div>
 								<h2><Link to={`/user/${user.name}`}>
 										{user.name}
-										{user.verified ? <span><MaterialIcon icon="verified" size={24} color="rgb(0, 122, 255)" /></span> : <span></span>}
+										{user.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 									</Link></h2>
 								<p>{user.description}</p>
 							</div>
 						</div>
 						<div className="buttons">
-							<button className="dislike" onClick={e => tapUser(e)}><MaterialIcon icon="clear" size={34} color="#009e5c" /></button>
-							<button className="like" onClick={e => tapUser(e)}><MaterialIcon icon="favorite" size={34} color="#ff005c" /></button>
+							<button className="dislike" onClick={e => tapUser(e)}><MdClear fontSize="34px" color="#009e5c" /></button>
+							<button className="like" onClick={e => tapUser(e)}><MdFavorite fontSize="34px" color="#ff005c" /></button>
 						</div>
 					</main>
 				:	<main style={{ paddingTop: 'var(--h1)' }}>
