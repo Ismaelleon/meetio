@@ -29,10 +29,10 @@ function Matches (props) {
 				if (res.status === 200) {
 					let responseData = await res.json();
 
-					console.log(responseData)
-
 					setMatches(responseData)
 					setLoading(false)
+				} else if (res.status === 204) {
+					setLoading(false)	
 				} else if (res.status === 401) {
 					history.push('/')
 				}
