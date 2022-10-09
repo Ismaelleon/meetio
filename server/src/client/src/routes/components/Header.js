@@ -9,12 +9,15 @@ function Header () {
 
 	useEffect(() => {
 		const routes = ['/home', '/matches', '/likes', '/dislikes', '/profile', '/user'];
+		let validRouteToShow = false; 
 
 		for (let route of routes) {
 			if (location.pathname === route) {
-				setShowHeader(true)
+				 validRouteToShow = true;
 			}
 		}
+
+		setShowHeader(validRouteToShow)
 
 		if (location.pathname === '/home') {
 			setButtonsColors(['#ff005c', '', ''])

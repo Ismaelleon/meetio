@@ -10,12 +10,16 @@ function NavigationBar () {
 
 	useEffect(() => {
 		const routes = ['/home', '/matches', '/likes', '/dislikes', '/profile', '/user'];
+		let validRouteToShow = false; 
 
 		for (let route of routes) {
 			if (location.pathname === route) {
-				setShowNavigationBar(true)
+				 validRouteToShow = true;
 			}
 		}
+
+		setShowNavigationBar(validRouteToShow)
+
 
 		if (location.pathname === '/home') {
 			setButtonsColors(['#ff005c', '', ''])
