@@ -8,7 +8,6 @@ import './stylesheets/app.css';
 
 import AvatarCropper from './components/AvatarCropper';
 import Header from './components/Header';
-import NavigationBar from './components/NavigationBar';
 
 
 function Profile (props) {
@@ -270,7 +269,6 @@ function Profile (props) {
 		 			</div>
 				</div>
 			</main>
-		 	<NavigationBar />
 			<AvatarCropper fileInput={fileInput} avatarView={avatarView} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />
 		</div>
 	);

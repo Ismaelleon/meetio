@@ -5,7 +5,6 @@ import MaterialIcon from 'material-icons-react';
 import './stylesheets/app.css';
 
 import Header from './components/Header';
-import NavigationBar from './components/NavigationBar';
 import Tabs from './components/Tabs';
 
 function Likes (props) {
@@ -68,7 +67,6 @@ function Likes (props) {
 					) : <h2>No liked profiles yet</h2>}
 				</ul>
 			</main>
-			<NavigationBar />
 		</div>
 	);
 }

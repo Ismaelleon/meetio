@@ -5,7 +5,6 @@ import MaterialIcon from 'material-icons-react';
 import './stylesheets/app.css';
 
 import Header from './components/Header';
-import NavigationBar from './components/NavigationBar';
 import Tabs from './components/Tabs';
 
 function Matches (props) {
@@ -79,7 +78,6 @@ function Matches (props) {
 					) : <h2>No matches yet</h2>}
 				</ul>
 			</main>
-			<NavigationBar />
 		</div>
 	);
 }

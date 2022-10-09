@@ -5,7 +5,6 @@ import LoadingBar from 'react-top-loading-bar';
 import MaterialIcon from 'material-icons-react';
 
 import Header from './components/Header';
-import NavigationBar from './components/NavigationBar';
 
 function Home (props) {
 	let [user, setUser] = useState({});
@@ -99,7 +98,6 @@ function Home (props) {
 				:	<main style={{ paddingTop: 'var(--h1)' }}>
 						<h2>That's all right now</h2>
 					</main>}
-			<NavigationBar />
 		</div>
 	);
 }

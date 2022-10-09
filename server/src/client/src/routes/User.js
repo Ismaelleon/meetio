@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import MaterialIcon from 'material-icons-react';
 
 import Header from './components/Header';
-import NavigationBar from './components/NavigationBar';
 
 
 function User (props) {
@@ -70,9 +69,7 @@ function User (props) {
 						) : false}
 		 			</div>
 				</div>
-
 			</main>
-		 	<NavigationBar />
 		</div>
 	);
 }
