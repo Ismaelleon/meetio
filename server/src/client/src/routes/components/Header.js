@@ -16,20 +16,14 @@ function Header () {
 			}
 		}
 
-		switch (location.pathname) {
-			case '/home':
-				setButtonsColors(['#ff005c', '', ''])
-			break;
-			case '/matches' || '/likes' || '/dislikes':
-				setButtonsColors(['', '#ff005c', ''])
-			break;
-			case '/profile':
-				setButtonsColors(['', '', '#ff005c'])
-			break;
-			default:
-				setButtonsColors(['', '', ''])
-			break;
+		if (location.pathname === '/home') {
+			setButtonsColors(['#ff005c', '', ''])
+		} else if (location.pathname === '/matches' || location.pathname === '/likes' || location.pathname === '/dislikes') {
+			setButtonsColors(['', '#ff005c', ''])
+		} else if (location.pathname === '/profile') {
+			setButtonsColors(['', '', '#ff005c'])
 		}
+
 	}, [location.pathname])
 
 	if (showHeader) {
