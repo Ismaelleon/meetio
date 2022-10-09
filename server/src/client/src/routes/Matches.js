@@ -4,10 +4,12 @@ import LoadingBar from 'react-top-loading-bar';
 import { MdVerified } from 'react-icons/md';
 import './stylesheets/app.css';
 
+import InteractionsLoader from './components/InteractionsLoader';
 import Tabs from './components/Tabs';
 
 function Matches (props) {
 	let [matches, setMatches] = useState([]);
+	let [loading, setLoading] = useState(true);
 
 	let [progress, setProgress] = useState(20);
 
@@ -30,6 +32,7 @@ function Matches (props) {
 					console.log(responseData)
 
 					setMatches(responseData)
+					setLoading(false)
 				} else if (res.status === 401) {
 					history.push('/')
 				}
@@ -58,6 +61,14 @@ function Matches (props) {
 	}
 
 	useEffect(getMatches, [])
+
+	if (loading) {
+		return(
+			<div>
+				<InteractionsLoader />
+			</div>
+		);
+	}
 
 	return(
 		<div>
