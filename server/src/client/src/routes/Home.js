@@ -4,8 +4,11 @@ import { MdClear, MdFavorite, MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
 import './stylesheets/app.css';
 
+import HomeLoader from './components/HomeLoader';
+
 function Home (props) {
 	let [user, setUser] = useState({});
+	let [loading, setLoading] = useState(true);
 
 	let history = useHistory();
 
@@ -25,6 +28,7 @@ function Home (props) {
 				let userToTap = await res.json();
 
 				setUser(userToTap)
+				setLoading(true)
 			} else {
 				history.push('/')
 			}
@@ -67,6 +71,14 @@ function Home (props) {
 	}
 
 	useEffect(getUser, [])
+
+	if (loading) {
+		return(
+			<div>
+				<HomeLoader />	
+			</div>
+		);
+	}
 
 	return (
 		<div>

@@ -7,12 +7,14 @@ import FileToBase64 from 'dd-file-to-base64';
 import './stylesheets/app.css';
 
 import AvatarCropper from './components/AvatarCropper';
+import ProfileLoader from './components/ProfileLoader';
 
 
 function Profile (props) {
 	const cookies = new Cookies();
 
 	let [profileData, setProfileData] = useState({});
+	let [loading, setLoading] = useState(true);
 	let [profileMenu, setProfileMenu] = useState(false);
 
 	let [editingDescription, setEditingDescription] = useState(false);
@@ -41,6 +43,7 @@ function Profile (props) {
 				let data = await res.json();
 
 				setProfileData(data)
+				setLoading(false)
 			} else {
 				history.push('/')
 			}
@@ -199,9 +202,21 @@ function Profile (props) {
 	}
 
 	useEffect(getProfileData, [])
-	useEffect(updateAvatar, [avatarFileName])
+	useEffect(() => {
+		if (!loading) {
+			updateAvatar()
+		}
+	}, [avatarFileName, loading])
 
-	 return(
+	if (loading) {
+		return(
+			<div>
+				<ProfileLoader />
+			</div>
+		);
+	}
+
+	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
 			<main>
@@ -240,36 +255,37 @@ function Profile (props) {
 							</ul>
 						</span>
 					</span>
-		 			<span>
+					<span>
 						<input type="text" onChange={ e => setProfileData({...profileData, description: e.target.value}) }
-		 						style={ editingDescription ? { display: 'block' } : { display: 'none' } } />
+								style={ editingDescription ? { display: 'block' } : { display: 'none' } } />
 						<p style={ editingDescription ? { display: 'none' }  : { display: 'block' }}>
 							{profileData.description}
 						</p>
-		 				<span onClick={toggleDescriptionEdit} style={ editingDescription ? { display: 'block' } : { display: 'none' } }>
-		 					<MdCheck fontSize="18px" color="#000" />
-		 				</span>
-		 				<span onClick={toggleDescriptionEdit} style={ editingDescription ? { display: 'none' } : { display: 'block' } }>
-		 					<MdEdit fontSize="18px" color="#000" />
-		 				</span>
-		 			</span>
+						<span onClick={toggleDescriptionEdit} style={ editingDescription ? { display: 'block' } : { display: 'none' } }>
+							<MdCheck fontSize="18px" color="#000" />
+						</span>
+						<span onClick={toggleDescriptionEdit} style={ editingDescription ? { display: 'none' } : { display: 'block' } }>
+							<MdEdit fontSize="18px" color="#000" />
+						</span>
+					</span>
 					<form>
 						<button>Upload Pictures</button>
 						<input type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} multiple />
 					</form>
-		 			<div className="pictures">
+					<div className="pictures">
 						{profileData.pictures !== undefined ? profileData.pictures.map((picture, index) =>
 							<figure key={index}>
 								<img src={`/pictures/${picture}`}  alt="Profile photos" />
 								<button><MdDelete onClick={deletePicture} color="#ff3b30" fontSize="24px" /></button>
 							</figure>
 						) : false}
-		 			</div>
+					</div>
 				</div>
 			</main>
 			<AvatarCropper fileInput={fileInput} avatarView={avatarView} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />
 		</div>
 	);
+
 }
 
 export default Profile;
