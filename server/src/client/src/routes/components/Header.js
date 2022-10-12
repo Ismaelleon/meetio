@@ -9,27 +9,24 @@ function Header () {
 
 	useEffect(() => {
 		const routes = ['/home', '/matches', '/likes', '/dislikes', '/profile', '/user'];
+		let validRouteToShow = false; 
 
 		for (let route of routes) {
 			if (location.pathname === route) {
-				setShowHeader(true)
+				 validRouteToShow = true;
 			}
 		}
 
-		switch (location.pathname) {
-			case '/home':
-				setButtonsColors(['#ff005c', '', ''])
-			break;
-			case '/matches' || '/likes' || '/dislikes':
-				setButtonsColors(['', '#ff005c', ''])
-			break;
-			case '/profile':
-				setButtonsColors(['', '', '#ff005c'])
-			break;
-			default:
-				setButtonsColors(['', '', ''])
-			break;
+		setShowHeader(validRouteToShow)
+
+		if (location.pathname === '/home') {
+			setButtonsColors(['#ff005c', '', ''])
+		} else if (location.pathname === '/matches' || location.pathname === '/likes' || location.pathname === '/dislikes') {
+			setButtonsColors(['', '#ff005c', ''])
+		} else if (location.pathname === '/profile') {
+			setButtonsColors(['', '', '#ff005c'])
 		}
+
 	}, [location.pathname])
 
 	if (showHeader) {
