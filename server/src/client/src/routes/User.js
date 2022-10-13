@@ -3,9 +3,7 @@ import LoadingBar from 'react-top-loading-bar';
 import { useLocation } from 'react-router-dom';
 import MaterialIcon from 'material-icons-react';
 
-import Header from './components/Header';
 import ProfileLoader from './components/ProfileLoader';
-
 
 function User (props) {
 	let [profileData, setProfileData] = useState({});
@@ -58,7 +56,6 @@ function User (props) {
 	return (
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
-			<Header />
 			<main>
 				<div className="profile">
 					<div className="avatar">

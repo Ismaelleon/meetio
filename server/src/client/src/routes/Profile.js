@@ -205,11 +205,7 @@ function Profile (props) {
 		if (!loading) {
 			updateAvatar()
 		}
-
-		return () => {
-			setProgress(100)
-		};
-	}, [avatarFileName, loading, updateAvatar])
+	}, [loading, updateAvatar])
 
 	if (loading) {
 		return(
