@@ -10,10 +10,12 @@ function NavigationBar () {
 
 	useEffect(() => {
 		const routes = ['/home', '/matches', '/likes', '/dislikes', '/profile', '/user'];
+		const currentPathname = '/' + location.pathname.split('/')[1];
+
 		let validRouteToShow = false; 
 
 		for (let route of routes) {
-			if (location.pathname === route) {
+			if (currentPathname === route) {
 				 validRouteToShow = true;
 			}
 		}

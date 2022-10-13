@@ -3,16 +3,18 @@ import { Link, useLocation } from 'react-router-dom';
 import { MdHome, MdFavorite, MdPerson } from 'react-icons/md';
 
 function Header () {
-	let location = useLocation();
+	const location = useLocation();
 	let [showHeader, setShowHeader] = useState(false);
 	let [buttonsColors, setButtonsColors] = useState(['', '', '']);
 
 	useEffect(() => {
 		const routes = ['/home', '/matches', '/likes', '/dislikes', '/profile', '/user'];
+		const currentPathname = '/' + location.pathname.split('/')[1];
+
 		let validRouteToShow = false; 
 
 		for (let route of routes) {
-			if (location.pathname === route) {
+			if (currentPathname === route) {
 				 validRouteToShow = true;
 			}
 		}
