@@ -16,7 +16,6 @@ function Profile (props) {
 	let [profileData, setProfileData] = useState({});
 	let [loading, setLoading] = useState(true);
 	let [profileMenu, setProfileMenu] = useState(false);
-
 	let [editingDescription, setEditingDescription] = useState(false);
 
 	let fileInput = React.createRef(),
@@ -65,7 +64,8 @@ function Profile (props) {
 		}
 
 		setProgress(100)
-	}, [avatarFileName, avatarView, fileInput]);
+	}, []);
+
 
 	function toggleDescriptionEdit (e) {
 		setEditingDescription(!editingDescription)
@@ -202,7 +202,7 @@ function Profile (props) {
 
 	useEffect(getProfileData, [])
 	useEffect(() => {
-		if (!loading) {
+		if (!loading && avatarView.current !== null) {
 			updateAvatar()
 		}
 	}, [loading, updateAvatar])
@@ -281,7 +281,7 @@ function Profile (props) {
 					</div>
 				</div>
 			</main>
-			<AvatarCropper fileInput={fileInput} avatarView={avatarView} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />
+			<AvatarCropper fileInput={fileInput} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />
 		</div>
 	);
 
