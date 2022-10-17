@@ -25,7 +25,7 @@ header > img {
 }
 
 header > p {
-	font-family: 'Lato';
+	font-family: 'Roboto';
 	font-size: var(--h1);
 	font-weight: bold;
 }
@@ -55,7 +55,7 @@ button {
 	margin: 10px 0;
 	background: #ffffff;
 	color: #ff005c;
-	font-family: 'Lato';
+	font-family: 'Roboto';
 	font-size: var(--h5);
 	font-weight: 500;
 	cursor: pointer;

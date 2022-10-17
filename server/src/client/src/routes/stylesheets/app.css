@@ -3,7 +3,7 @@
 	flex-direction: row;
 	justify-content: center;
 	width: 100%;
-	padding: calc(var(--h6) / 1.25);
+	padding: calc(var(--h6) / 1.5);
 	box-shadow: rgba(0, 0, 0, .25) 0 1px 5px;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .main-header > div > p {
-	font-family: 'Lato';
+	font-family: 'Roboto';
 	font-size: var(--h2);
 	font-weight: bold;
 }
@@ -41,7 +41,7 @@ nav {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	padding: calc(var(--h6) / 1.8);
+	padding: calc(var(--h6) / 2.25);
 	background-color: #fff;
 	box-shadow: rgba(0, 0, 0, .25) 0 0 4px;
 }
