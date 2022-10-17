@@ -29,6 +29,8 @@ function NavigationBar () {
 			setButtonsColors(['', '#ff005c', ''])
 		} else if (location.pathname === '/profile') {
 			setButtonsColors(['', '', '#ff005c'])
+		} else {
+			setButtonsColors(['', '', ''])
 		}
 	}, [location.pathname])
 
