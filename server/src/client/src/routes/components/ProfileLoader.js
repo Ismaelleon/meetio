@@ -8,9 +8,9 @@ function ProfileLoader (props) {
 			display: 'block',
 			margin: 'auto'
 		}}>	
-			<circle cx="116" cy="95" r="75" />
-			<rect x="19.5" y="190" width="195" height="28" />
-			<rect x="53.5" y="235" width="125" height="20" />
+			<circle cx="116" cy="111" r="75" />
+			<rect x="19.5" y="211" width="195" height="28" />
+			<rect x="53.5" y="254" width="125" height="20" />
 		</ContentLoader>
 	);
 }

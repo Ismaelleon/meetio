@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MdCamera, MdCheck, MdDelete, MdEdit, MdMoreVert, MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
 import Cookies from 'universal-cookie';
@@ -13,23 +13,22 @@ import ProfileLoader from './components/ProfileLoader';
 function Profile (props) {
 	const cookies = new Cookies();
 
-	let [profileData, setProfileData] = useState({});
-	let [loading, setLoading] = useState(true);
-	let [profileMenu, setProfileMenu] = useState(false);
+	const [profileData, setProfileData] = useState({});
+	const [loading, setLoading] = useState(true);
+	const [profileMenu, setProfileMenu] = useState(false);
+	const [editingDescription, setEditingDescription] = useState(false);
 
-	let [editingDescription, setEditingDescription] = useState(false);
+	const fileInput = useRef(),
+		picturesInput = useRef();
 
-	let fileInput = React.createRef(),
-		avatarView = React.createRef(),
-		picturesInput = React.createRef();
-
-	let [avatarFileName, setAvatarFileName] = useState(''),
+	const [avatarFileName, setAvatarFileName] = useState(''),
 		[avatarBase64, setAvatarBase64] = useState(''),
+		[avatarSrc, setAvatarSrc] = useState(''),
 		[dialogVisible, setDialogVisible] = useState(false);
 
-	let [progress, setProgress] = useState(20);
+	const [progress, setProgress] = useState(20);
 
-	let history = useHistory();
+	const history = useHistory();
 
 
 	function getProfileData () {
@@ -43,6 +42,7 @@ function Profile (props) {
 				let data = await res.json();
 
 				setProfileData(data)
+				setAvatarSrc(`/avatars/${data.avatar}`)
 				setLoading(false)
 			} else {
 				history.push('/')
@@ -52,20 +52,7 @@ function Profile (props) {
 		})
 	}
 
-	const updateAvatar = useCallback(() => {
-		setProgress(20)
 
-		if (avatarFileName !== '') {
-			avatarView.current.src = '';
-			avatarView.current.src = `/avatars/${avatarFileName}`;
-		} else {
-			if (fileInput.current.files.length > 0) {
-				avatarView.current.src = URL.createObjectURL(fileInput.current.files[0])
-			}
-		}
-
-		setProgress(100)
-	}, [avatarFileName, avatarView, fileInput]);
 
 	function toggleDescriptionEdit (e) {
 		setEditingDescription(!editingDescription)
@@ -203,9 +190,19 @@ function Profile (props) {
 	useEffect(getProfileData, [])
 	useEffect(() => {
 		if (!loading) {
-			updateAvatar()
+			setProgress(20)
+
+			if (avatarFileName !== '') {
+				setAvatarSrc(`/avatars/${avatarFileName}`)
+			} else {
+				if (fileInput.current.files.length > 0) {
+					setAvatarSrc(URL.createObjectURL(fileInput.current.files[0]))
+				}
+			}
+
+			setProgress(100)
 		}
-	}, [loading, updateAvatar])
+	}, [loading, avatarFileName, fileInput])
 
 	if (loading) {
 		return(
@@ -222,7 +219,7 @@ function Profile (props) {
 				<div className="profile">
 					<div className="avatar">
 						{profileData.avatar !== undefined ?
-							<img ref={avatarView} src={`/avatars/${profileData.avatar}`} alt={`${profileData.name}'s avatar`}/>
+							<img src={avatarSrc} alt={`${profileData.name}'s avatar`}/>
 							: <></>}
 						<label htmlFor="avatar"><MdCamera color="#ffffff" fontSize="34px" /></label>
 					</div>
@@ -281,7 +278,7 @@ function Profile (props) {
 					</div>
 				</div>
 			</main>
-			<AvatarCropper fileInput={fileInput} avatarView={avatarView} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />
+			<AvatarCropper fileInput={fileInput} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />
 		</div>
 	);
 

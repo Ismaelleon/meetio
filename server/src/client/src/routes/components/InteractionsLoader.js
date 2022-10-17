@@ -18,22 +18,22 @@ function InteractionsLoader (props) {
 			backgroundColor="#d9d9d9" foregroundColor="#ecebeb"
 			style={{ display: 'block', margin: 'auto' }}>	
 
-			<rect x={`${width / 2 - 130}`} y="20" width="60" height="20" />
+			<rect x={`${width / 2 - 160}`} y="20" width="60" height="20" />
 			<rect x={`${width / 2 - 30}`} y="20" width="60" height="20" />
-			<rect x={`${width / 2 + 70}`} y="20" width="60" height="20" />
+			<rect x={`${width / 2 + 100}`} y="20" width="60" height="20" />
 
-			<circle cx="42" cy="100" r="42" />
-			<rect x="104" y="90" width="150" height="20" />
-			<circle cx="42" cy="225" r="42" />
-			<rect x="104" y="215" width="150" height="20" />
-			<circle cx="42" cy="350" r="42" />
-			<rect x="104" y="340" width="150" height="20" />
-			<circle cx="42" cy="475" r="42" />
-			<rect x="104" y="465" width="150" height="20" />
-			<circle cx="42" cy="600" r="42" />
-			<rect x="104" y="590" width="150" height="20" />
-			<circle cx="42" cy="725" r="42" />
-			<rect x="104" y="715" width="150" height="20" />
+			<circle cx="31" cy="105" r="30" />
+			<rect x="90" y="95" width="150" height="20" />
+			<circle cx="31" cy="197" r="30" />
+			<rect x="90" y="187" width="150" height="20" />
+			<circle cx="31" cy="289" r="30" />
+			<rect x="90" y="279" width="150" height="20" />
+			<circle cx="31" cy="381" r="30" />
+			<rect x="90" y="371" width="150" height="20" />
+			<circle cx="31" cy="472" r="30" />
+			<rect x="90" y="462" width="150" height="20" />
+			<circle cx="31" cy="565" r="30" />
+			<rect x="90" y="555" width="150" height="20" />
 		</ContentLoader>
 	);
 }

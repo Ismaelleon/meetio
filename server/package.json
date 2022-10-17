@@ -21,7 +21,7 @@
     "react-cropper": "^2.1.8"
   },
   "devDependencies": {
-    "jest": "^28.1.1",
+    "jest": "^24.9.0",
     "jimp": "^0.16.1",
     "mongoose": "^5.9.28",
     "supertest": "^6.2.3"
