@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MdHome, MdFavorite, MdPerson } from 'react-icons/md';
+import { MdHome, MdOutlineHome, MdFavorite, MdOutlineFavoriteBorder, MdPerson, MdOutlinePerson } from 'react-icons/md';
 import '../stylesheets/app.css';
 
 function NavigationBar () {
@@ -38,19 +38,27 @@ function NavigationBar () {
 				<ul>
 					<li>
 						<Link to="/home">
-							<MdHome color={buttonsColors[0]} fontSize="26px" />
+							{location.pathname === '/home' ?
+								<MdHome color={buttonsColors[0]} fontSize="26px" /> :
+								<MdOutlineHome color={buttonsColors[0]} fontSize="26px" />}
 							<span style={{color: buttonsColors[0]}}>Home</span>
 						</Link>
 					</li>
 					<li>
 						<Link to="/matches">
-							<MdFavorite color={buttonsColors[1]} fontSize="26px" />
+							{location.pathname === '/matches' ||
+							 location.pathname === '/likes' ||
+							 location.pathname === '/dislikes' ?
+								<MdFavorite color={buttonsColors[1]} fontSize="26px" /> :
+								<MdOutlineFavoriteBorder color={buttonsColors[1]} fontSize="26px" />}
 							<span style={{color: buttonsColors[1]}}>Interactions</span>
 						</Link>
 					</li>
 					<li>
 						<Link to="/profile">
-							<MdPerson color={buttonsColors[2]} fontSize="26px" />
+							{location.pathname === '/profile' ?
+								<MdPerson color={buttonsColors[2]} fontSize="26px" /> :
+								<MdOutlinePerson color={buttonsColors[2]} fontSize="26px" />}
 							<span style={{color: buttonsColors[2]}}>Profile</span>
 						</Link>
 					</li>
