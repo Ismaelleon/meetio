@@ -69,8 +69,8 @@ function Likes (props) {
 				<ul className="list">
 					{likes.length > 0 ? likes.map((likedProfile, index) =>
 						<li key={index}>
-							<img src={`/avatars/${likedProfile.avatar}`} alt={`${likedProfile.name}'s avatar`} />
 							<Link to={`/user/${likedProfile.name}`}>
+								<img src={`/avatars/${likedProfile.avatar}`} alt={`${likedProfile.name}'s avatar`} />
 								{likedProfile.name}
 								{likedProfile.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>

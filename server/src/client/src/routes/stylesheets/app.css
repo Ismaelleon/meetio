@@ -233,7 +233,7 @@ main > .list > li > a > span {
 	margin-left: .5rem;
 }
 
-main > .list > li > img {
+main > .list > li > a > img {
 	width: 60px;
 	height: 60px;
 	margin-right: var(--h4);
