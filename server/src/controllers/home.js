@@ -75,23 +75,19 @@ async function tapUser (req, res) {
 			// Get the user
 			let user = await User.findOne({ name: tokenData.name });
 
-			// Check if user is already tapped
-			let alreadyTapped = user.alreadyTappedUsers.filter(tappedUser => tappedUser.name === req.body.name).length > 0;
+			// Remove the user from alreadyTappedUsers
+			user.alreadyTappedUsers = user.alreadyTappedUsers.filter(tappedUser => tappedUser.name !== req.body.name);
 
-			if (!alreadyTapped) {
-				// Get the tapped user
-				let tappedUser = await User.findOne({ name: req.body.name });
+			// Get the tapped user
+			let tappedUser = await User.findOne({ name: req.body.name });
+			
+			// Add the tapped user to the list
+			user.alreadyTappedUsers.push({
+				name: tappedUser.name,
+				like: tap
+			})
 
-
-				// Add the tapped user to the list
-				user.alreadyTappedUsers.push({
-					name: tappedUser.name,
-					like: tap
-				})
-
-				await user.save()
-			}
-
+			await user.save()
 			res.end()
 		} else {
 			res.sendStatus(401)
