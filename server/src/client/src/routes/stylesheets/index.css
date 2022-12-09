@@ -65,8 +65,12 @@ button {
 	justify-content: center;
 }
 
-button:hover {
+button:hover, button:active {
 	background-color: #bbb;
+}
+
+button:not(:active) {
+	background-color: #fff;
 }
 
 @media (min-width: 576px) {
