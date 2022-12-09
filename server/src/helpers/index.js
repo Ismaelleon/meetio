@@ -48,7 +48,33 @@ function cropImage (filename, crop) {
 	})
 }
 
+async function checkUserIsTapped (tokenData, name) {
+	try {
+		// Get user
+		let user = await User.findOne({ name: tokenData.name });
+
+		// If the user exists
+		if (user !== null) {
+			let tapped = false,
+				liked = false;
+
+			// Check if user is already tapped
+			for (let tappedUser of user.alreadyTappedUsers) {
+				if (tappedUser.name === name) {
+					tapped = true;
+					liked = tappedUser.like;
+				}
+			}
+			
+			return { tapped, liked } 
+		}
+	} catch (error) {
+		console.log(error)
+	}
+}
+
 module.exports = {
 	checkNameAvailability,
-	cropImage
+	cropImage,
+	checkUserIsTapped
 };

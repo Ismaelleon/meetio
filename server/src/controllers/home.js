@@ -75,9 +75,12 @@ async function tapUser (req, res) {
 			// Get the user
 			let user = await User.findOne({ name: tokenData.name });
 
+			// Remove the user from alreadyTappedUsers
+			user.alreadyTappedUsers = user.alreadyTappedUsers.filter(tappedUser => tappedUser.name !== req.body.name);
+
 			// Get the tapped user
 			let tappedUser = await User.findOne({ name: req.body.name });
-
+			
 			// Add the tapped user to the list
 			user.alreadyTappedUsers.push({
 				name: tappedUser.name,
