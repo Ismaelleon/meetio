@@ -314,8 +314,12 @@ main > .profile > ul > li {
 	cursor: pointer;
 }
 
-main > .profile > ul > li:hover {
+main > .profile > ul > li:hover, main > .profile > ul > li:active {
 	background-color: #bbb;
+}
+
+main > .profile > ul > li:not(:active) {
+	background-color: #fff;
 }
 
 main > .profile > span > span {
