@@ -262,6 +262,7 @@ main > .profile > input {
 	margin: var(--h5) 0;
 	background: transparent;
 	font-size: var(--h5);
+	font-family: 'Roboto';
 	outline: none;
 }
 
@@ -280,6 +281,41 @@ main > .profile > span > h2 {
 	flex-direction: row;
 	align-items: center;
 	font-size: var(--h3);
+}
+
+main > .profile > button {
+	font-size: var(--h6);
+	justify-content: space-between;
+}
+
+main > .profile > button > span {
+	display: flex;
+	justify-content: row;
+	align-items: center;	
+}
+
+main > .profile > button > span > svg,
+main > .profile > ul > li > svg {
+	margin-left: .5rem;
+}
+
+main > .profile > ul {
+	list-style: none;
+	border-radius: 1rem;
+	border: #bbb solid 1px;
+	overflow: hidden;
+}
+
+main > .profile > ul > li {
+	min-width: 200px;
+	padding: .75rem var(--h3);
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+main > .profile > ul > li:hover {
+	background-color: #bbb;
 }
 
 main > .profile > span > span {

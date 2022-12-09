@@ -49,22 +49,25 @@ main > p {
 
 button {
 	min-width: 200px;
-	padding: 10px;
+	padding: .75rem var(--h3);
 	border: #bbbbbb solid 1px;
-	border-radius: 50px;
-	margin: 10px 0;
+	border-radius: 100px;
+	margin: .75rem 0;
 	background: #ffffff;
 	color: #ff005c;
 	font-family: 'Roboto';
 	font-size: var(--h5);
 	font-weight: 500;
 	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 
 button:hover {
-	background-color: #ff005c;
+	background-color: #bbb;
 	color: #fff;
-	border: #ff005c solid 1px;
 }
 
 @media (min-width: 576px) {
