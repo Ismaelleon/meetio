@@ -49,8 +49,8 @@ function User (props) {
 				'Content-Type': 'application/json'
 			}
 		}).then(() => {
-			getUserData()
 			setDropdownVisible(false)
+			getUserData()
 		})
 	}
 
