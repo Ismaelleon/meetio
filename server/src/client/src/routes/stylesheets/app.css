@@ -302,7 +302,7 @@ main > .profile > ul > li > svg {
 main > .profile > ul {
 	list-style: none;
 	border-radius: 1rem;
-	border: #bbb solid 1px;
+	border: #d9d9d9 solid 1px;
 	overflow: hidden;
 }
 
@@ -315,7 +315,7 @@ main > .profile > ul > li {
 }
 
 main > .profile > ul > li:hover, main > .profile > ul > li:active {
-	background-color: #bbb;
+	background-color: #d9d9d9;
 }
 
 main > .profile > ul > li:not(:active) {
@@ -324,35 +324,41 @@ main > .profile > ul > li:not(:active) {
 
 main > .profile > span > span {
 	margin-left: .5rem;
-	position: relative;
 	cursor: pointer;
 }
 
 main > .profile > span > span > ul {
 	position: absolute;
-	right: 0;
+	left: calc(50% - 100px);
+	margin-top: .5rem;
 	background-color: #fff;
-	min-width: 150px;
-	border-radius: .25rem;
+	min-width: 200px;
+	border-radius: 1rem;
+	border: #d9d9d9 solid 1px;
 	list-style: none;
-	box-shadow: rgba(0, 0, 0, .25) 0 1px 5px;
 	z-index: 1;
+	overflow: hidden;
 }
 
 main > .profile > span > span > ul > li {
-	padding: .5rem .75rem;
+	padding: .75rem var(--h3);
 	cursor: pointer;
 }
 
-main > .profile > span > span > ul > li:hover {
-	background-color: rgba(0, 0, 0, .025);
+main > .profile > span > span > ul > li:hover,
+main > .profile > span > span > ul > li:active {
+	background-color: #d9d9d9;
+}
+
+main > .profile > span > span > ul > li:not(:active) {
+	background-color: #fff;
 }
 
 main > .profile > span > input {
 	margin: var(--h6) 0;
 	font-size: var(--h6);
 	padding: .25rem;
-	border: #bbbbbb solid 1px;
+	border: #d9d9d9 solid 1px;
 	border-radius: .25rem;
 	font-family: 'Raleway';
 }
@@ -455,11 +461,6 @@ main > .profile > .pictures > figure > button > i:hover {
 	 	font-size: var(--h3);
 		font-weight: bold;
 		text-align: center;
-	}
-
-	main > .profile > span > span > ul {
-		left: 0;
-		right: auto;
 	}
 
 	main > .profile > p {
