@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LoadingBar from 'react-top-loading-bar';
 import { useLocation } from 'react-router-dom';
-import MaterialIcon from 'material-icons-react';
+import { MdClear, MdFavorite, MdVerified } from 'react-icons/md';
 
 import ProfileLoader from './components/ProfileLoader';
 
@@ -63,10 +63,12 @@ function User (props) {
 							<img src={`/avatars/${profileData.avatar}`} alt={`${profileData.name}'s avatar`} />
 							: <></>}
 					</div>
-		 			<h2>
-						{profileData.name}
-						{profileData.verified ? <span><MaterialIcon icon="verified" size={24} color="rgb(0, 122, 255)" /></span> : <span></span>}
-					</h2>
+					<span>
+						<h2>
+							{profileData.name}
+						</h2>
+						{profileData.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
+					</span>
 		 			<p>{profileData.description}</p>
 		 			<div className="pictures">
 						{profileData.pictures !== undefined ? profileData.pictures.map((picture, index) =>
