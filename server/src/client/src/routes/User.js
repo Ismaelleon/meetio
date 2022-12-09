@@ -101,7 +101,7 @@ function User (props) {
 					</button>
 					<ul style={ dropdownVisible ? { display: 'block' } : { display: 'none' } }>
 						<li onClick={tapUser} className="like">Like <MdFavorite fontSize="var(--h4)" color="#ff005c" /></li>
-						<li onClick={tapUser} className="dislike">Dislike <MdClear fontSize="var(--h4)" color="#ff005c" /></li>
+						<li onClick={tapUser} className="dislike">Dislike <MdClear fontSize="var(--h4)" color="#099e5c" /></li>
 					</ul>
 		 			<div className="pictures">
 						{user.pictures !== undefined ? user.pictures.map((picture, index) =>
