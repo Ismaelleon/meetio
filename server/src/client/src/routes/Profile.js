@@ -21,9 +21,7 @@ function Profile (props) {
 	const fileInput = useRef(),
 		picturesInput = useRef();
 
-	const [avatarFileName, setAvatarFileName] = useState(''),
-		[avatarBase64, setAvatarBase64] = useState(''),
-		[avatarSrc, setAvatarSrc] = useState(''),
+	const [avatarBase64, setAvatarBase64] = useState(''),
 		[dialogVisible, setDialogVisible] = useState(false);
 
 	const [progress, setProgress] = useState(20);
@@ -42,7 +40,6 @@ function Profile (props) {
 				let data = await res.json();
 
 				setProfileData(data)
-				setAvatarSrc(`/avatars/${data.avatar}`)
 				setLoading(false)
 			} else {
 				history.push('/')
@@ -51,8 +48,6 @@ function Profile (props) {
 			setProgress(100)
 		})
 	}
-
-
 
 	function toggleDescriptionEdit (e) {
 		setEditingDescription(!editingDescription)
@@ -86,11 +81,9 @@ function Profile (props) {
 			body: formData
 		}).then(res => res.json())
 		.then(pictures => {
-			let data = profileData;
-
-			data.pictures = pictures;
-
-			setProfileData(data)
+			setProfileData(profileData => {
+				return { ...profileData, pictures }
+			})
 
 			setProgress(100)
 		})
@@ -98,10 +91,11 @@ function Profile (props) {
 
 	function deletePicture (e) {
 		e.preventDefault()
+		e.stopPropagation()
 
 		setProgress(20)
 
-		let pictureName = e.target.parentElement.previousSibling.src.split('/')[4];
+		let pictureName = e.target.parentElement.previousSibling.src.split('/')[9].split('.')[0];
 
 		fetch('/api/profile/delete-picture', {
 			method: 'POST',
@@ -113,11 +107,9 @@ function Profile (props) {
 			}
 		}).then(res => res.json())
 		.then(pictures => {
-			let data = profileData;
-
-			data.pictures = pictures;
-
-			setProfileData(data)
+			setProfileData(profileData => {
+				return { ...profileData, pictures }
+			})
 
 			setProgress(100)
 		})
@@ -151,26 +143,6 @@ function Profile (props) {
 		}
 	}
 
-	function uploadAvatar () {
-		return new Promise((resolve, reject) => {
-			let formData = new FormData();
-
-			formData.append('avatar', fileInput.current.files[0])
-
-			fetch('/api/profile/change-avatar', {
-				method: 'POST',
-				body: formData
-			}).then(res => res.json())
-			.then(avatar => {
-				resolve(false)
-			})
-			.catch(error => {
-				reject(error)
-				console.log(error)
-			})
-		})
-	}
-
 	function hideDialog () {
 		setDialogVisible(false)
 	}
@@ -190,19 +162,9 @@ function Profile (props) {
 	useEffect(getProfileData, [])
 	useEffect(() => {
 		if (!loading) {
-			setProgress(20)
-
-			if (avatarFileName !== '') {
-				setAvatarSrc(`/avatars/${avatarFileName}`)
-			} else {
-				if (fileInput.current.files.length > 0) {
-					setAvatarSrc(URL.createObjectURL(fileInput.current.files[0]))
-				}
-			}
-
 			setProgress(100)
 		}
-	}, [loading, avatarFileName, fileInput])
+	}, [loading])
 
 	if (loading) {
 		return(
@@ -218,9 +180,7 @@ function Profile (props) {
 			<main>
 				<div className="profile">
 					<div className="avatar">
-						{profileData.avatar !== undefined ?
-							<img src={avatarSrc} alt={`${profileData.name}'s avatar`}/>
-							: <></>}
+						<img src={profileData.avatar} alt={`${profileData.name}'s avatar`}/>
 						<label htmlFor="avatar"><MdCamera color="#ffffff" fontSize="34px" /></label>
 					</div>
 					<input type="file"
@@ -233,7 +193,6 @@ function Profile (props) {
 								let file = event.target.files[0];
 								let base64Image = await FileToBase64.convert(file);
 
-								await uploadAvatar()
 								setAvatarBase64(base64Image)
 								setDialogVisible(true)
 							}
@@ -269,16 +228,16 @@ function Profile (props) {
 						<input type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} multiple />
 					</form>
 					<div className="pictures">
-						{profileData.pictures !== undefined ? profileData.pictures.map((picture, index) =>
+						{profileData.pictures.length > 0 ? profileData.pictures.map((picture, index) =>
 							<figure key={index}>
-								<img src={`/pictures/${picture}`}  alt="Profile photos" />
+								<img src={picture}  alt="Profile photos" />
 								<button><MdDelete onClick={deletePicture} color="#ff3b30" fontSize="24px" /></button>
 							</figure>
 						) : false}
 					</div>
 				</div>
 			</main>
-			<AvatarCropper fileInput={fileInput} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />
+			<AvatarCropper setProgress={setProgress} setProfileData={setProfileData} fileInput={fileInput} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} />
 		</div>
 	);
 

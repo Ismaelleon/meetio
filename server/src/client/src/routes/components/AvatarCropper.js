@@ -2,26 +2,32 @@ import React, { useState, useRef } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import '../stylesheets/avatar-cropper.css';
 
-function AvatarCropper ({ fileInput, setAvatarFileName, avatarBase64, visible, hideDialog }) {
+function AvatarCropper ({ setProgress, setProfileData, fileInput, avatarBase64, visible, hideDialog }) {
 	const editor = useRef(null);
 	const avatarCropperDialog = useRef();
 	const [scale, setScale] = useState(1);
 
-	async function cropAvatar () {
-		let body = JSON.stringify(await editor.current.getCroppingRect());
+	async function changeAvatar () {
+		setProgress(20)
 
-		fetch('/api/profile/crop-avatar', {
+		let formData = new FormData();
+
+		let crop = await editor.current.getCroppingRect();
+
+		formData.append('crop', JSON.stringify(crop))
+		formData.append('avatar', fileInput.current.files[0])
+
+		fetch('/api/profile/change-avatar', {
 			method: 'POST',
-			body,
-			headers: {
-				'Content-Type': 'application/json'
-			}
+			body: formData,
 		}).then(res => res.json())
 		.then(({ avatar }) => {
-			setAvatarFileName('')
-			setAvatarFileName(avatar)
-		})
-		.catch(error => console.log(error))
+			setProfileData(profileData => {
+				return { ...profileData, avatar }
+			})
+
+			setProgress(100)
+		}).catch(error => console.log(error))
 
 		hideDialog()
 	}
@@ -44,7 +50,7 @@ function AvatarCropper ({ fileInput, setAvatarFileName, avatarBase64, visible, h
 				</div>
 				<div className="dialog-buttons">
 					<button onClick={hideDialog}>Cancel</button>
-					<button onClick={cropAvatar}>Upload Avatar</button>
+					<button onClick={changeAvatar}>Upload Avatar</button>
 				</div>
 			</div>
 		</div>

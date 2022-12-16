@@ -2,6 +2,7 @@ const fs = require('fs'),
 	jwt = require('jsonwebtoken'),
 	bcrypt = require('bcrypt'),
 	path = require('path'),
+	cloudinary = require('cloudinary').v2,
 	{ cropImage } = require('../helpers/index'),
 	{ secret } = require('../../config');
 
@@ -24,7 +25,7 @@ async function getProfileData (req, res) {
 				res.json(user)
 			} else {
 				res.cookie('token', '', { expires: new Date('1969-04-20') })
-				res.sendStatus(404)
+				res.sendStatus(401)
 			}
 			
 		} else {
@@ -43,52 +44,43 @@ async function changeAvatar (req, res) {
 		// If token is valid and correct
 		if (req.cookies.token !== undefined &&
 			req.cookies.token.split('.').length === 3) {
-
 			// Verify token
 			let tokenData = jwt.verify(req.cookies.token, secret);
 
 			// Find user by name
 			let user = await User.findOne({ name: tokenData.name });
-			
-			// Remove the previous avatar file (if isn't the default one)
-			if (user.avatar !== 'avatar.png') {
-				fs.unlinkSync(path.join(__dirname, `../client/build/avatars/${user.avatar}`))
+
+			if (user !== null) {
+				// Delete last avatar file
+				let result = await cloudinary.uploader
+					.destroy(`meetio/avatars/${user.avatar.split('/meetio/avatars/')[1].split('.')[0]}`);
+
+				// Crop image
+				let crop = JSON.parse(req.body.crop);
+
+				await cropImage(req.file.filename, crop)
+
+				// Upload avatar to cloudinary
+				let avatarPath = path.join(__dirname, `../client/build/avatars/${req.file.filename}`);
+
+				result = await cloudinary.uploader.upload(avatarPath, {
+					public_id: `meetio/avatars/${req.file.filename}`
+				});
+
+				user.avatar = result.url;
+
+				await user.save()
+
+				// Delete the avatar file
+				if (user.avatar !== 'avatar.png') {
+					fs.unlinkSync(avatarPath)
+				}
+
+				res.json({ avatar: user.avatar })
+			} else {
+				res.sendStatus(401)	
+				res.cookie('token', '', { expires: new Date('1969-04-20') })
 			}
-
-			// Save the new avatar name on db
-			user.avatar = req.file.filename;
-			await user.save()
-			
-			// Send the file name to the client
-			res.json(user.avatar)
-			res.end()
-		} else {
-			res.sendStatus(401)
-			res.cookie('token', '', { expires: new Date('1969-04-20') })
-			res.end()
-		}
-	} catch (error) {
-		console.log(error)
-	}
-}
-
-async function cropAvatar (req, res) {
-	try {
-		// If token is valid and correct
-		if (req.cookies.token !== undefined &&
-			req.cookies.token.split('.').length === 3) {
-
-			// Verify token
-			let tokenData = jwt.verify(req.cookies.token, secret);
-
-			// Find user by name
-			let user = await User.findOne({ name: tokenData.name });
-
-			let crop = req.body;
-
-			await cropImage(user.avatar, crop)
-
-			res.json({ avatar: user.avatar })
 		} else {
 			res.sendStatus(401)
 			res.cookie('token', '', { expires: new Date('1969-04-20') })
@@ -140,13 +132,22 @@ async function uploadPictures (req, res) {
 			let tokenData = jwt.verify(req.cookies.token, secret);
 
 			// Find user by name
-			let user = await User.findOne({ name: tokenData.name }).select('pictures');;
+			let user = await User.findOne({ name: tokenData.name });
 
-			// Append the picture names
-			req.files.forEach(file => {
-				user.pictures.push(file.filename)
-			})
-			
+			// Upload files to cloudinary
+			for (let file of req.files) {
+				let filePath = path.join(__dirname, `../client/build/pictures/${file.filename}`);
+				const result = await cloudinary.uploader.upload(filePath, {
+					public_id: `meetio/pictures/${file.filename}`
+				});
+
+				// Update user pictures list
+				user.pictures.push(result.url)
+
+				// Remove picture file
+				fs.unlinkSync(path.join(__dirname, `../client/build/pictures/${file.filename}`))
+			}
+
 			// Save the pictures on db
 			await user.save()
 
@@ -180,12 +181,13 @@ async function deletePicture (req, res) {
 				if (user !== null) {
 					// Get the picture item index inside the array
 					let index = user.pictures.indexOf(pictureName);
+
+					// Remove the file
+					const result = await cloudinary.uploader
+						.destroy(`meetio/pictures/${pictureName}`);
 					
 					// Remove that item from the array
 					user.pictures.splice(index, 1)
-
-					// Remove the file
-					fs.unlinkSync(path.join(__dirname, `../client/build/pictures/${pictureName}`))
 					
 					// Save the updated pictures on db
 					await user.save()
@@ -194,7 +196,7 @@ async function deletePicture (req, res) {
 					res.end()
 				} else {
 					res.cookie('token', '', { expires: new Date('1969-04-20') })
-					res.sendStatus(404)
+					res.sendStatus(401)
 					res.end()
 				}
 			}
@@ -258,7 +260,7 @@ async function deleteAccount (req, res) {
 					res.end()
 				} else {
 					res.cookie('token', '', { expires: new Date('1969-04-20') })
-					res.sendStatus(404)
+					res.sendStatus(401)
 					res.end()
 				}
 			}
@@ -271,7 +273,6 @@ async function deleteAccount (req, res) {
 module.exports = {
 	getProfileData,
 	changeAvatar,
-	cropAvatar,
 	changeDescription,
 	uploadPictures,
 	deletePicture,

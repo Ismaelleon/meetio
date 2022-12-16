@@ -3,11 +3,12 @@ const express = require('express'),
 	mongoose = require('mongoose'),
 	path = require('path'),
 	crypto = require('crypto'),
-	config = require('../../config');
+	cloudinary = require('cloudinary').v2,
+	{ databaseUri, cloudinaryConfig } = require('../../config');
 
 const router = express.Router();
 
-mongoose.connect(config.databaseUri, { 
+mongoose.connect(databaseUri, { 
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 })
@@ -31,6 +32,9 @@ let pictureStorage = multer.diskStorage({
 let avatarUpload = multer({ storage: avatarStorage }),
 	pictureUpload = multer({ storage: pictureStorage });
 
+// Set cloudinary configuration
+cloudinary.config(cloudinaryConfig)
+
 // Import controllers
 const auth = require('../controllers/auth'),
 	home = require('../controllers/home'),
@@ -50,7 +54,6 @@ router.post('/home/tap', home.tapUser)
 // Profile
 router.post('/profile', profile.getProfileData)
 router.post('/profile/change-avatar', avatarUpload.single('avatar'), profile.changeAvatar)
-router.post('/profile/crop-avatar', profile.cropAvatar)
 router.post('/profile/change-description', profile.changeDescription)
 router.post('/profile/upload-pictures', pictureUpload.array('pictures'), profile.uploadPictures)
 router.post('/profile/delete-picture', profile.deletePicture)
