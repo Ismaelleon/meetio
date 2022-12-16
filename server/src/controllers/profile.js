@@ -4,7 +4,7 @@ const fs = require('fs'),
 	path = require('path'),
 	cloudinary = require('cloudinary').v2,
 	{ cropImage } = require('../helpers/index'),
-	{ secret } = require('../../config');
+	{ secret, defaultAvatarFile } = require('../../config');
 
 // Import model
 const User = require('../models/User');
@@ -52,9 +52,12 @@ async function changeAvatar (req, res) {
 
 			if (user !== null) {
 				// Delete last avatar file
-				let result = await cloudinary.uploader
-					.destroy(`meetio/avatars/${user.avatar.split('/meetio/avatars/')[1].split('.')[0]}`);
-
+				let filename = user.avatar.split('/meetio/avatars/')[1].split('.')[0];
+				
+				if (filename !== defaultAvatarFile) {
+					await cloudinary.uploader
+						.destroy(`meetio/avatars/${user.avatar.split('/meetio/avatars/')[1].split('.')[0]}`);
+				}
 				// Crop image
 				let crop = JSON.parse(req.body.crop);
 
