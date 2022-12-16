@@ -79,7 +79,7 @@ function Matches (props) {
 					{matches.length > 0 ? matches.map((matchedProfile, index) =>
 						<li key={index}>
 							<Link to={`/user/${matchedProfile.name}`}>
-								<img src={`${matchedProfile.avatar}`} alt={`${matchedProfile.name}'s avatar`} />
+								<img src={matchedProfile.avatar} alt={`${matchedProfile.name}'s avatar`} />
 								{matchedProfile.name}
 								{matchedProfile.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
