@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt'),
 	jwt = require('jsonwebtoken'),
 	mongoose = require('mongoose'),
 	path = require('path'),
-	{ secret } = require('../../config');
+	{ secret, defaultAvatarFile } = require('../../config');
 
 // Import models
 const User = require('../models/User');
@@ -34,7 +34,7 @@ async function signUp (req, res) {
 				likedUsers: [],
 				dislikedUsers: [],
 				alreadyTappedUsers: [],
-				avatar: 'avatar.png',
+				avatar: defaultAvatarFile,
 				verified: false
 			});
 
