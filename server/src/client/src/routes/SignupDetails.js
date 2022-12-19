@@ -107,7 +107,7 @@ function SignupDetails () {
 					<button ref={submitButton} onClick={submitSignUp}>Send</button>
 				</form>
 			</main>
-			<AvatarCropper fileInput={fileInput} avatarView={avatarView} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />
+			<AvatarCropper setProgress={setProgress} setProfileData={setProfileData} fileInput={fileInput} avatarBase64={avatarBase64} visible={dialogVisible} setDialogVisible={setDialogVisible} />
 		</div>
 	);
 }

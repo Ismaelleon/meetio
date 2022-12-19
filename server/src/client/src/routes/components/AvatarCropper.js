@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import '../stylesheets/avatar-cropper.css';
 
-function AvatarCropper ({ setProgress, setProfileData, fileInput, avatarBase64, visible, hideDialog }) {
+function AvatarCropper ({ setProgress, setProfileData, fileInput, avatarBase64, visible, setDialogVisible }) {
 	const editor = useRef(null);
 	const avatarCropperDialog = useRef();
 	const [scale, setScale] = useState(1);
@@ -29,7 +29,7 @@ function AvatarCropper ({ setProgress, setProfileData, fileInput, avatarBase64, 
 			setProgress(100)
 		}).catch(error => console.log(error))
 
-		hideDialog()
+		setDialogVisible(false)
 	}
 
 	return (
@@ -49,7 +49,7 @@ function AvatarCropper ({ setProgress, setProfileData, fileInput, avatarBase64, 
 					<input id="scale" type="range" min="1" max="4" step="0.01" onChange={e => setScale(parseInt(e.target.value))} />
 				</div>
 				<div className="dialog-buttons">
-					<button onClick={hideDialog}>Cancel</button>
+					<button onClick={() => setDialogVisible(false)}>Cancel</button>
 					<button onClick={changeAvatar}>Upload Avatar</button>
 				</div>
 			</div>

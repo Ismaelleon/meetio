@@ -193,7 +193,7 @@ function Profile (props) {
 					</div>
 				</div>
 			</main>
-			<AvatarCropper setProgress={setProgress} setProfileData={setProfileData} fileInput={fileInput} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} />
+			<AvatarCropper setProgress={setProgress} setProfileData={setProfileData} fileInput={fileInput} avatarBase64={avatarBase64} visible={dialogVisible} setDialogVisible={setDialogVisible} />
 		</div>
 	);
 
