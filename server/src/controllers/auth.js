@@ -34,7 +34,10 @@ async function signUp (req, res) {
 				likedUsers: [],
 				dislikedUsers: [],
 				alreadyTappedUsers: [],
-				avatar: defaultAvatarFile,
+				avatar: {
+					url: defaultAvatarFile.url,
+					public_id: defaultAvatarFile.public_id
+				},
 				verified: false
 			});
 

@@ -136,7 +136,7 @@ function Profile (props) {
 			<main>
 				<div className="profile">
 					<div className="avatar">
-						<img src={profileData.avatar} alt={`${profileData.name}'s avatar`}/>
+						<img src={profileData.avatar.url} alt={`${profileData.name}'s avatar`}/>
 						<label htmlFor="avatar"><MdCamera color="#ffffff" fontSize="34px" /></label>
 					</div>
 					<input type="file"

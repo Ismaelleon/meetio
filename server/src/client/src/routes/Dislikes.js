@@ -58,7 +58,7 @@ function Dislikes (props) {
 					{dislikes.length > 0 ? dislikes.map((dislikedProfile, index) =>
 						<li key={index}>
 							<Link to={`/user/${dislikedProfile.name}`}>
-								<img src={dislikedProfile.avatar} alt={`${dislikedProfile.name}'s avatar`} />
+								<img src={dislikedProfile.avatar.url} alt={`${dislikedProfile.name}'s avatar`} />
 								{dislikedProfile.name}
 								{dislikedProfile.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
