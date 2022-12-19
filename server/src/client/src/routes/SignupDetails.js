@@ -12,9 +12,8 @@ function SignupDetails () {
 		[dialogVisible, setDialogVisible] = useState(false),
 		[description, setDescription] = useState('');
 
-	let fileInput = React.createRef(),
-		button = React.createRef(),
-		avatarView = React.createRef();
+	const fileInput = useRef(),
+		submitButton = useRef();
 
 	let history = useHistory();
 
@@ -38,29 +37,18 @@ function SignupDetails () {
 		})
 	}
 
-	function updateForm (event) {
-		if (avatarFileName !== '') {
-			button.current.classList.add('clickable');
-
-			avatarView.current.src = '';
-			avatarView.current.src = `/avatars/${avatarFileName}`;
-		} else {
-			if (fileInput.current.files.length > 0) {
-				avatarView.current.src = URL.createObjectURL(fileInput.current.files[0])
+	function updateForm () {
+		if (!loading) {
+			if (description.length >= 8) {
+				submitButton.current.disabled = false;
+			} else {
+				submitButton.current.disabled = true;
 			}
-			button.current.classList.remove('clickable');
 		}
 	}
 
-	function hideDialog () {
-		setDialogVisible(false)
-	}
-
-	useEffect(updateForm, [avatarFileName])
-
-	function uploadAvatar () {
-		return new Promise((resolve, reject) => {
-			let formData = new FormData();
+	useEffect(() => getProfileData(setProfileData, setLoading, setProgress, history), [history])
+	useEffect(updateForm, [description, updateForm])
 
 			formData.append('avatar', fileInput.current.files[0])
 
@@ -111,7 +99,7 @@ function SignupDetails () {
 						name="description"
 						onChange={event => setDescription(event.target.value)}
 						placeholder="A brief description" />
-					<button ref={button} onClick={submitSignUp}>Send</button>
+					<button ref={submitButton} onClick={submitSignUp}>Send</button>
 				</form>
 			</main>
 			<AvatarCropper fileInput={fileInput} avatarView={avatarView} avatarBase64={avatarBase64} visible={dialogVisible} hideDialog={hideDialog} setAvatarFileName={setAvatarFileName} />

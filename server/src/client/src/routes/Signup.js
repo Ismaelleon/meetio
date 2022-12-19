@@ -13,7 +13,7 @@ function Signup (props) {
 	let [password, setPassword] = useState('');
 	let [error, setError] = useState(false);
 
-	let button = React.createRef();
+	const submitButton = React.createRef();
 
 	let [progress, setProgress] = useState(20);
 
@@ -37,12 +37,11 @@ function Signup (props) {
 
 	function updateForm () {
 		if (name.length > 3 && password.length > 7) {
-			button.current.classList.add('clickable');
+			submitButton.current.disabled = false;
 		} else {
-			button.current.classList.remove('clickable');
+			submitButton.current.disabled = true;
 		}
 	}
-
 
 	function submitSignUp (event) {
 		event.preventDefault()
@@ -65,6 +64,8 @@ function Signup (props) {
 		})
 	}
 
+	useEffect(updateForm, [name, password])
+
 	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => setProgress(0)} />
@@ -78,7 +79,7 @@ function Signup (props) {
 				<form>
 					<input type="name" placeholder="Username" name="name" onKeyUp={event => {setUsername(event.target.value); updateForm()}} />
 					<input type="password" placeholder="Password" name="password" onKeyUp={event => {setPassword(event.target.value); updateForm()}} />
-					<button ref={button} onClick={submitSignUp}>Send</button>
+					<button ref={submitButton} onClick={submitSignUp}>Send</button>
 				</form>
 			</main>
 			<span className={error ? 'error show' : 'error'}>Username not available</span>

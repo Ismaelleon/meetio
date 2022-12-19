@@ -39,7 +39,7 @@ main > form > input[type="file"] {
 	display: none;
 }
 
-main > form > button {
+main > form > button:disabled {
 	padding: 10px;
 	border: none;
 	border-radius: 50px;
@@ -51,7 +51,13 @@ main > form > button {
 	transition-duration: .2s;
 }
 
-main > form > button.clickable {
+main > form > button:enabled {
+	padding: 10px;
+	border: none;
+	border-radius: 50px;
+	font-size: var(--h3);
+	outline: none;
+	transition-duration: .2s;
 	background: #ff005c;
 	color: #ffffff;
 	pointer-events: auto;

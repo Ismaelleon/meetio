@@ -13,7 +13,7 @@ function Signin () {
 	let [password, setPassword] = useState('');
 	let [error, setError] = useState(false);
 
-	let button = React.createRef();
+	const submitButton = useRef();
 
 	let [progress, setProgress] = useState(20);
 
@@ -37,9 +37,9 @@ function Signin () {
 
 	function updateForm () {
 		if (name.length > 3 && password.length > 7) {
-			button.current.classList.add('clickable');
+			submitButton.current.disabled = false;
 		} else {
-			button.current.classList.remove('clickable');
+			submitButton.current.disabled = true;
 		}
 	}
 
@@ -65,6 +65,8 @@ function Signin () {
 		})
 	}
 
+	useEffect(updateForm, [name, password])
+
 	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => setProgress(0)} />
@@ -78,7 +80,7 @@ function Signin () {
 				<form>
 					<input type="name" placeholder="Username" name="name" onChange={event => {setUsername(event.target.value); updateForm()}} />
 					<input type="password" placeholder="Password" name="password" onChange={event => {setPassword(event.target.value); updateForm()}} />
-					<button ref={button} onClick={submitSignIn}>Send</button>
+					<button ref={submitButton} onClick={submitSignIn}>Send</button>
 				</form>
 			</main>
 			<span className={error ? 'error show' : 'error'}>Incorrect username or password</span>
