@@ -8,7 +8,12 @@ let userSchema = new mongoose.Schema({
 		public_id: String
 	},
 	preference: String,
-	pictures: [String],
+	pictures: [
+		{
+			url: String,
+			public_id: String
+		}
+	],
 	description: {
 		type: String,
 		default: 'A brief description.'

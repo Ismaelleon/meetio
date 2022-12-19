@@ -142,7 +142,10 @@ async function uploadPictures (req, res) {
 				});
 
 				// Update user pictures list
-				user.pictures.push(result.secure_url)
+				user.pictures.push({
+					public_id: result.public_id,
+					url: result.secure_url
+				})
 
 				// Remove picture file
 				fs.unlinkSync(path.join(__dirname, `../client/build/pictures/${file.filename}`))

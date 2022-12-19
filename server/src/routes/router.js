@@ -4,7 +4,7 @@ const express = require('express'),
 	path = require('path'),
 	crypto = require('crypto'),
 	cloudinary = require('cloudinary').v2,
-	{ databaseUri, cloudinaryConfig } = require('../../config');
+	{ databaseUri, cloudinaryConfig, defaultAvatarFile } = require('../../config');
 
 const router = express.Router();
 
