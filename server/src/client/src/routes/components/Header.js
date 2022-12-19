@@ -4,8 +4,8 @@ import { MdHome, MdFavorite, MdPerson } from 'react-icons/md';
 
 function Header () {
 	const location = useLocation();
-	let [showHeader, setShowHeader] = useState(false);
-	let [buttonsColors, setButtonsColors] = useState(['', '', '']);
+	const [showHeader, setShowHeader] = useState(false);
+	const [buttonsColors, setButtonsColors] = useState(['', '', '']);
 
 	useEffect(() => {
 		const routes = ['/home', '/matches', '/likes', '/dislikes', '/profile', '/user'];

@@ -10,15 +10,15 @@ import Cookies from 'universal-cookie';
 function Signup (props) {
 	const cookies = new Cookies();
 
-	let [name, setUsername] = useState('');
-	let [password, setPassword] = useState('');
-	let [error, setError] = useState(false);
+	const [name, setUsername] = useState(''),
+		[password, setPassword] = useState(''),
+		[error, setError] = useState(false);
 
 	const submitButton = React.createRef();
 
-	let [progress, setProgress] = useState(20);
+	const [progress, setProgress] = useState(20);
 
-	let history = useHistory();
+	const history = useHistory();
 
 
 	function checkAuthToken () {

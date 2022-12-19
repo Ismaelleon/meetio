@@ -5,8 +5,9 @@ import '../stylesheets/app.css';
 
 function NavigationBar () {
 	const location = useLocation();
-	let [showNavigationBar, setShowNavigationBar] = useState(false);
-	let [buttonsColors, setButtonsColors] = useState(['', '', '']);
+	
+	const [showNavigationBar, setShowNavigationBar] = useState(false),
+		[buttonsColors, setButtonsColors] = useState(['', '', '']);
 
 	useEffect(() => {
 		const routes = ['/home', '/matches', '/likes', '/dislikes', '/profile', '/user'];

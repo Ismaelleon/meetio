@@ -9,12 +9,11 @@ import InteractionsLoader from './components/InteractionsLoader';
 import Tabs from './components/Tabs';
 
 function Likes (props) {
-	let [likes, setLikes] = useState([]);
-	let [loading, setLoading] = useState(true);
+	const [likes, setLikes] = useState([]),
+		[loading, setLoading] = useState(true),
+		[progress, setProgress] = useState(20);
 
-	let [progress, setProgress] = useState(20);
-
-	let history = useHistory();
+	const history = useHistory();
 
 
 	function getLikes () {

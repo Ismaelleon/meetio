@@ -9,12 +9,11 @@ import InteractionsLoader from './components/InteractionsLoader';
 import Tabs from './components/Tabs';
 
 function Dislikes (props) {
-	let [dislikes, setDislikes] = useState([]);
-	let [loading, setLoading] = useState(true);
+	const [dislikes, setDislikes] = useState([]),
+		[loading, setLoading] = useState(true),
+		[progress, setProgress] = useState(20);
 
-	let [progress, setProgress] = useState(20);
-
-	let history = useHistory();
+	const history = useHistory();
 
 
 	function getDislikes () {

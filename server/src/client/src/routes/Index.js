@@ -9,9 +9,9 @@ import './stylesheets/index.css';
 function Index (props) {
 	const cookies = new Cookies();
 
-	let [progress, setProgress] = useState(20);
+	const [progress, setProgress] = useState(20);
 
-	let history = useHistory();
+	const history = useHistory();
 	
 	function checkAuthToken () {
 		let token = cookies.get('token');

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader';
 
 function InteractionsLoader (props) {
-	let [width, setWidth] = useState(0),
+	const [width, setWidth] = useState(0),
 		[height, setHeight] = useState(0);
 
 	function setWindowSize () {

@@ -8,13 +8,11 @@ import './stylesheets/app.css';
 import HomeLoader from './components/HomeLoader';
 
 function Home (props) {
-	let [user, setUser] = useState({});
-	let [loading, setLoading] = useState(true);
+	const [user, setUser] = useState({}),
+		[loading, setLoading] = useState(true),
+		[progress, setProgress] = useState(20);
 
-	let history = useHistory();
-
-	let [progress, setProgress] = useState(20);
-
+	const history = useHistory();
 
 	function getUser () {
 		fetch('/api/home', {

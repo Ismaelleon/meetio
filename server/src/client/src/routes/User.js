@@ -7,13 +7,12 @@ import { MdArrowDropDown, MdClear, MdFavorite, MdVerified } from 'react-icons/md
 import ProfileLoader from './components/ProfileLoader';
 
 function User (props) {
-	let [user, setUser] = useState({});
-	let [dropdownVisible, setDropdownVisible] = useState(false);
-	let [loading, setLoading] = useState(true);
+	const [user, setUser] = useState({}),
+		[dropdownVisible, setDropdownVisible] = useState(false),
+		[loading, setLoading] = useState(true),
+		[progress, setProgress] = useState(20);
 
-	let [progress, setProgress] = useState(20);
-
-	let location = useLocation();
+	const location = useLocation();
 
 	function getUserData () {
 		fetch('/api/user', {

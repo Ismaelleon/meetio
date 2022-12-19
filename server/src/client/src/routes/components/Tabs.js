@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 function Tabs () {
-	let [tab, setTab] = useState('matches');
-	let location = useLocation();
+	const [tab, setTab] = useState('matches');
+	const location = useLocation();
 
 	function setTabByPath () {
 		setTab(location.pathname.slice(1))

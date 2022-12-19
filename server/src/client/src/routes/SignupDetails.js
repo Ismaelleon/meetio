@@ -9,15 +9,17 @@ import './stylesheets/form.css';
 import AvatarCropper from './components/AvatarCropper';
 
 function SignupDetails () {
-	let [avatarFileName, setAvatarFileName] = useState(''),
-		[avatarBase64, setAvatarBase64] = useState(''),
+	const [avatarBase64, setAvatarBase64] = useState(''),
 		[dialogVisible, setDialogVisible] = useState(false),
-		[description, setDescription] = useState('');
+		[loading, setLoading] = useState(true),
+		[profileData, setProfileData] = useState({}),
+		[description, setDescription] = useState(''),
+		[progress, setProgress] = useState(20);
 
 	const fileInput = useRef(),
 		submitButton = useRef();
 
-	let history = useHistory();
+	const history = useHistory();
 
 	function submitSignUp (event) {
 		event.preventDefault();

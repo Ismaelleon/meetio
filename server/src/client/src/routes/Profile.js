@@ -10,45 +10,21 @@ import './stylesheets/app.css';
 import AvatarCropper from './components/AvatarCropper';
 import ProfileLoader from './components/ProfileLoader';
 
-
 function Profile (props) {
 	const cookies = new Cookies();
 
-	const [profileData, setProfileData] = useState({});
-	const [loading, setLoading] = useState(true);
-	const [profileMenu, setProfileMenu] = useState(false);
-	const [editingDescription, setEditingDescription] = useState(false);
+	const [profileData, setProfileData] = useState({}),
+		[loading, setLoading] = useState(true),
+		[profileMenu, setProfileMenu] = useState(false),
+		[editingDescription, setEditingDescription] = useState(false),
+		[progress, setProgress] = useState(20),
+		[avatarBase64, setAvatarBase64] = useState(''),
+		[dialogVisible, setDialogVisible] = useState(false);
 
 	const fileInput = useRef(),
 		picturesInput = useRef();
 
-	const [avatarBase64, setAvatarBase64] = useState(''),
-		[dialogVisible, setDialogVisible] = useState(false);
-
-	const [progress, setProgress] = useState(20);
-
 	const history = useHistory();
-
-
-	function getProfileData () {
-		fetch('/api/profile', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		}).then(async res => {
-			if (res.status === 200) {
-				let data = await res.json();
-
-				setProfileData(data)
-				setLoading(false)
-			} else {
-				history.push('/')
-			}
-
-			setProgress(100)
-		})
-	}
 
 	function toggleDescriptionEdit (e) {
 		setEditingDescription(!editingDescription)
