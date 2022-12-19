@@ -72,12 +72,12 @@ function Profile (props) {
 
 		setProgress(20)
 
-		let pictureName = e.target.parentElement.previousSibling.src.split('/')[9].split('.')[0];
+		let pictureId = e.target.key;
 
 		fetch('/api/profile/delete-picture', {
 			method: 'POST',
 			body: JSON.stringify({
-				pictureName
+				pictureId
 			}),
 			headers: {
 				'Content-Type': 'application/json'
@@ -186,7 +186,7 @@ function Profile (props) {
 					<div className="pictures">
 						{profileData.pictures.length > 0 ? profileData.pictures.map((picture, index) =>
 							<figure key={index}>
-								<img src={picture}  alt="Profile photos" />
+								<img src={picture.url} key={picture.public_id} alt="Profile photos" />
 								<button><MdDelete onClick={deletePicture} color="#ff3b30" fontSize="24px" /></button>
 							</figure>
 						) : false}

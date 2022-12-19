@@ -170,7 +170,7 @@ async function uploadPictures (req, res) {
 async function deletePicture (req, res) {
 	try {
 		// Get picture name from body
-		let { pictureName } = req.body;
+		let { pictureId } = req.body;
 
 		// If token is valid and correct
 		if (req.cookies.token !== undefined &&
@@ -182,15 +182,14 @@ async function deletePicture (req, res) {
 				let user = await User.findOne({ name: tokenData.name });
 			
 				if (user !== null) {
-					// Get the picture item index inside the array
-					let index = user.pictures.indexOf(pictureName);
+					// Remove picture from pictures array
+					user.pictures = user.pictures.filter(picture => {
+						picture.public_id !== pictureId
+					});
 
 					// Remove the file
 					const result = await cloudinary.uploader
-						.destroy(`meetio/pictures/${pictureName}`);
-					
-					// Remove that item from the array
-					user.pictures.splice(index, 1)
+						.destroy(`meetio/pictures/${pictureId}`);
 					
 					// Save the updated pictures on db
 					await user.save()
