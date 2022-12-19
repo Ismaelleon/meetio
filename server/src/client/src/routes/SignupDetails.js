@@ -7,6 +7,7 @@ import FileToBase64 from 'dd-file-to-base64';
 import './stylesheets/form.css';
 
 import AvatarCropper from './components/AvatarCropper';
+import ProfileLoader from './components/ProfileLoader';
 
 function SignupDetails () {
 	const [avatarBase64, setAvatarBase64] = useState(''),
@@ -54,20 +55,14 @@ function SignupDetails () {
 	useEffect(() => getProfileData(setProfileData, setLoading, setProgress, history), [history])
 	useEffect(updateForm, [description, updateForm])
 
-			formData.append('avatar', fileInput.current.files[0])
-
-			fetch('/api/profile/change-avatar', {
-				method: 'POST',
-				body: formData
-			}).then(res => res.json())
-			.then(avatar => {
-				resolve(false)
-			})
-			.catch(error => {
-				reject(error)
-				console.log(error)
-			})
-		})
+	if (loading) {
+		return(
+			<div>
+				<header className="nav-header">
+				</header>
+				<ProfileLoader />
+			</div>
+		);
 	}
 
 	return(
@@ -95,7 +90,6 @@ function SignupDetails () {
 								let file = event.target.files[0];
 								let base64Image = await FileToBase64.convert(file);
 
-								await uploadAvatar()
 								setAvatarBase64(base64Image)
 								setDialogVisible(true)
 							}
