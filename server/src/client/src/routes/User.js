@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { loaderFinished } from '../utils/index';
 import LoadingBar from 'react-top-loading-bar';
 import { useLocation } from 'react-router-dom';
 import { MdArrowDropDown, MdClear, MdFavorite, MdVerified } from 'react-icons/md';
@@ -52,18 +53,6 @@ function User (props) {
 			setDropdownVisible(false)
 			getUserData()
 		})
-	}
-
-	function loaderFinished () {
-		let finished = true;
-
-		if (finished) {
-			setProgress(0)
-		}
-
-		return function cleanup () {
-			finished = false;
-		}
 	}
 
 	useEffect(getUserData, [])

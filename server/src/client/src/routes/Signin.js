@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { loaderFinished } from '../utils/index';
 import { Link, useHistory } from 'react-router-dom';
 import MaterialIcon from 'material-icons-react';
 import Cookies from 'universal-cookie';
@@ -9,13 +10,13 @@ import './stylesheets/form.css';
 function Signin () {
 	const cookies = new Cookies();
 
-	let [name, setUsername] = useState('');
-	let [password, setPassword] = useState('');
-	let [error, setError] = useState(false);
+	const [name, setUsername] = useState(''),
+		[password, setPassword] = useState(''),
+		[error, setError] = useState(false),
+		[progress, setProgress] = useState(20);
 
 	const submitButton = useRef();
 
-	let [progress, setProgress] = useState(20);
 
 	let history = useHistory();
 
@@ -69,7 +70,7 @@ function Signin () {
 
 	return(
 		<div>
-			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => setProgress(0)} />
+			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
 			<header className="nav-header">
 				<Link to="/"><MaterialIcon icon="arrow_back" size={34} /></Link>
 			</header>

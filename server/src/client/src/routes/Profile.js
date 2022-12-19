@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { loaderFinished, getProfileData } from '../utils/index';
 import { MdCamera, MdCheck, MdDelete, MdEdit, MdMoreVert, MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
 import Cookies from 'universal-cookie';
@@ -143,28 +144,7 @@ function Profile (props) {
 		}
 	}
 
-	function hideDialog () {
-		setDialogVisible(false)
-	}
-
-	function loaderFinished () {
-		let finished = true;
-
-		if (finished) {
-			setProgress(0)
-		}
-
-		return function cleanup () {
-			finished = false;
-		}
-	}
-
-	useEffect(getProfileData, [])
-	useEffect(() => {
-		if (!loading) {
-			setProgress(100)
-		}
-	}, [loading])
+	useEffect(() => getProfileData(setProfileData, setLoading, setProgress, history), [history])
 
 	if (loading) {
 		return(
@@ -176,7 +156,7 @@ function Profile (props) {
 
 	return(
 		<div>
-			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
+			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
 			<main>
 				<div className="profile">
 					<div className="avatar">

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { loaderFinished } from '../utils/index';
 import { Link, useHistory } from 'react-router-dom';
 import { MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
@@ -39,18 +40,6 @@ function Likes (props) {
 
 	}
 
-	function loaderFinished () {
-		let finished = true;
-
-		if (finished) {
-			setProgress(0)
-		}
-
-		return function cleanup () {
-			finished = false;
-		}
-	}
-
 	useEffect(getLikes, [])
 
 	if (loading) {
@@ -63,7 +52,7 @@ function Likes (props) {
 
 	return(
 		<div>
-			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
+			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
 			<main>
 				<Tabs />
 				<ul className="list">

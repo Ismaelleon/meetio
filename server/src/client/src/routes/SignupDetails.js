@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { loaderFinished, getProfileData } from '../utils/index';
 import { useHistory } from 'react-router-dom';
+import LoadingBar from 'react-top-loading-bar';
 import MaterialIcon from 'material-icons-react';
 import FileToBase64 from 'dd-file-to-base64';
 import './stylesheets/form.css';
@@ -68,6 +70,7 @@ function SignupDetails () {
 
 	return(
 		<div>
+			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
 			<header className="nav-header">
 				<MaterialIcon icon="arrow_back" size={34} />
 			</header>

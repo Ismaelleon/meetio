@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { loaderFinished } from '../utils/index';
 import Cookies from 'universal-cookie';
 import logo from '../logo.png';
 import { Link, useHistory } from 'react-router-dom';
@@ -28,7 +29,7 @@ function Index (props) {
 
 	return (
 		<div>
-			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => setProgress(0)} />
+			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
 			<header className="app-header">
 				<img src={logo} alt="Meetio Logo" width="80px" height="80px" />
 				<p>Meetio</p>

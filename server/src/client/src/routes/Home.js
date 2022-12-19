@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'; 
+import { loaderFinished } from '../utils/index';
 import { Link, useHistory } from 'react-router-dom';
 import { MdClear, MdFavorite, MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
@@ -58,18 +59,6 @@ function Home (props) {
 		})
 	}
 
-	function loaderFinished () {
-		let finished = true;
-
-		if (finished) {
-			setProgress(0)
-		}
-
-		return function cleanup () {
-			finished = false;
-		}
-	}
-
 	useEffect(getUser, [])
 
 	if (loading) {
@@ -82,7 +71,7 @@ function Home (props) {
 
 	return (
 		<div>
-			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
+			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
 				{user.name !== undefined ?
 					<main>
 						<div className="person">
