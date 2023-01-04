@@ -16,10 +16,11 @@ async function getUserData (req, res) {
 			// Get user
 			let user = await User.findOne({ name }).select('name avatar pictures description verified');
 
-			user = user.toObject();
 
 			// If user exists
 			if (user !== null) {
+				user = user.toObject();
+				
 				// Verify Token
 				let tokenData = jwt.verify(req.cookies.token, secret);
 

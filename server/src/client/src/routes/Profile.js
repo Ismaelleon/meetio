@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { loaderFinished, getProfileData } from '../utils/index';
+import { compressImage, loaderFinished, getProfileData } from '../utils/index';
 import { MdCamera, MdCheck, MdDelete, MdEdit, MdMoreVert, MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
 import Cookies from 'universal-cookie';
@@ -46,24 +46,32 @@ function Profile (props) {
 		})
 	}
 
-	function uploadPictures (e) {
-		e.preventDefault()
+	async function uploadPictures (e) {
+		try {
+			e.preventDefault()
+			setProgress(20)
 
-		setProgress(20)
+			const compressedImage = await compressImage(picturesInput.current.files[0]);
 
-		let formData = new FormData(picturesInput.current.parentElement);
+			let body = new FormData();
 
-		fetch('/api/profile/upload-pictures', {
-			method: 'POST',
-			body: formData
-		}).then(res => res.json())
-		.then(pictures => {
+			body.append('pictures', compressedImage)
+
+			const res = await fetch('/api/profile/upload-pictures', {
+				method: 'POST',
+				body
+			});
+
+			const pictures = await res.json();
+
 			setProfileData(profileData => {
 				return { ...profileData, pictures }
 			})
 
 			setProgress(100)
-		})
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	function deletePicture (e) {
@@ -181,7 +189,7 @@ function Profile (props) {
 					</span>
 					<form>
 						<button>Upload Pictures</button>
-						<input type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} multiple />
+						<input type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} />
 					</form>
 					<div className="pictures">
 						{profileData.pictures.length > 0 ? profileData.pictures.map((picture, index) =>

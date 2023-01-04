@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import AvatarEditor from 'react-avatar-editor';
+import { compressImage } from '../../utils/index';
 import '../stylesheets/avatar-cropper.css';
 
 function AvatarCropper ({ setProgress, setProfileData, fileInput, avatarBase64, visible, setDialogVisible }) {
@@ -8,28 +9,33 @@ function AvatarCropper ({ setProgress, setProfileData, fileInput, avatarBase64, 
 	const [scale, setScale] = useState(1);
 
 	async function changeAvatar () {
-		setProgress(20)
+		try {
+			setProgress(20)
+			setDialogVisible(false)
 
-		let formData = new FormData();
+			let formData = new FormData();
 
-		let crop = await editor.current.getCroppingRect();
+			const crop = await editor.current.getCroppingRect();
+			const compressedImage = await compressImage(fileInput.current.files[0]);
 
-		formData.append('crop', JSON.stringify(crop))
-		formData.append('avatar', fileInput.current.files[0])
+			formData.append('crop', JSON.stringify(crop))
+			formData.append('avatar', compressedImage)
 
-		fetch('/api/profile/change-avatar', {
-			method: 'POST',
-			body: formData,
-		}).then(res => res.json())
-		.then(({ avatar }) => {
+			const res = await fetch('/api/profile/change-avatar', {
+				method: 'POST',
+				body: formData,
+			});
+
+			const { avatar } = await res.json();
+
 			setProfileData(profileData => {
 				return { ...profileData, avatar }
 			})
 
 			setProgress(100)
-		}).catch(error => console.log(error))
-
-		setDialogVisible(false)
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	return (
