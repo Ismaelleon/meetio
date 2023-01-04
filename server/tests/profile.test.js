@@ -6,6 +6,8 @@ const app = require('../src/app'),
 
 const User = require('../src/models/User');
 const { getToken } = require('./helper');
+const { defaultAvatarFile } = require('../config');
+let public_id = '';
 
 jest.setTimeout(10000)
 
@@ -60,9 +62,11 @@ describe('/api/profile/change-avatar', () => {
 			let res = await request(app)
 				.post('/api/profile/change-avatar')
 				.set('Cookie', [`token=${token}`])
-				.attach('avatar', 'tests/test-avatar.png');
+				.attach('avatar', 'tests/test-avatar.png')
+				.field('crop', '{"x": 0, "y": 0, "width": 0.5, "height": 0.5}');
 
-			expect(res.body.avatar).not.toBe('avatar.png')
+			expect(res.body.avatar.url).not.toBe(defaultAvatarFile.url)
+			expect(res.body.avatar.public_id).not.toBe(defaultAvatarFile.public_id)
 		} catch (error) {
 			console.log(error)
 		}
@@ -100,6 +104,7 @@ describe('/api/profile/upload-pictures', () => {
 				.attach('pictures', 'tests/test-avatar.png');
 			
 			expect(res.body).not.toBe([])
+			public_id = res.body[0].public_id;
 		} catch (error) {
 			console.log(error)
 		}
@@ -115,7 +120,7 @@ describe('/api/profile/delete-picture', () => {
 			let res = await request(app)
 				.post('/api/profile/delete-picture')
 				.set('Cookie', [`token=${token}`])
-				.send({ pictureName: testUser.pictures[0] });
+				.send({ publicId: public_id });
 			
 			expect(res.body).toEqual([])
 		} catch (error) {
