@@ -51,11 +51,13 @@ function Profile (props) {
 			e.preventDefault()
 			setProgress(20)
 
-			const compressedImage = await compressImage(picturesInput.current.files[0]);
-
 			let body = new FormData();
 
-			body.append('pictures', compressedImage)
+			for (let picture of picturesInput.current.files) {
+				const compressedImage = await compressImage(picture);
+
+				body.append('pictures', compressedImage)
+			}
 
 			const res = await fetch('/api/profile/upload-pictures', {
 				method: 'POST',
@@ -189,7 +191,7 @@ function Profile (props) {
 					</span>
 					<form>
 						<button>Upload Pictures</button>
-						<input type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} />
+						<input type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} multiple />
 					</form>
 					<div className="pictures">
 						{profileData.pictures.length > 0 ? profileData.pictures.map((picture, index) =>

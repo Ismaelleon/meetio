@@ -55,7 +55,7 @@ router.post('/home/tap', home.tapUser)
 router.post('/profile', profile.getProfileData)
 router.post('/profile/change-avatar', avatarUpload.single('avatar'), profile.changeAvatar)
 router.post('/profile/change-description', profile.changeDescription)
-router.post('/profile/upload-pictures', pictureUpload.single('pictures'), profile.uploadPictures)
+router.post('/profile/upload-pictures', pictureUpload.array('pictures'), profile.uploadPictures)
 router.post('/profile/delete-picture', profile.deletePicture)
 router.post('/profile/delete-account', profile.deleteAccount)
 
