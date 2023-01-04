@@ -27,19 +27,18 @@ jobs:
           api_key: ${{ secrets.CLOUDINARY_API_KEY }}
           api_secret: ${{ secrets.CLOUDINARY_API_SECRET }}
         run: echo 'module.exports = {
-                      databaseUri: 'mongodb://localhost:27017/meetio',
-                      secret: 'my_secret_key',
-                      defaultAvatarFile: {
-                          url: 'https://res.cloudinary.com/dwu5a3e7e/image/upload/v1672860673/meetio/avatars/avatar-1672856932301-lW9SALQB9i_uammqt.png',
-                          public_id: 'avatar-1672856932301-lW9SALQB9i_uammqt'
-                      },
-                      cloudinaryConfig: {
-                          cloud_name: $cloud_name,
-                          api_key: $api_key,
-                          api_secret: $api_secret,
-                          secure: true
-                      }
-                  }'>server/config.js
+            databaseUri:"mongodb://localhost:27017/meetio",
+            secret:"my_secret_key",
+            defaultAvatarFile:{
+                url:"https://res.cloudinary.com/dwu5a3e7e/image/upload/v1672860673/meetio/avatars/avatar-1672856932301-lW9SALQB9i_uammqt.png",
+                public_id:"avatar-1672856932301-lW9SALQB9i_uammqt"
+            },
+            cloudinaryConfig:{
+                cloud_name:$cloud_name,
+                api_key:$api_key,
+                api_secret:$api_secret,
+                secure:true
+            }}'>server/config.js
 
 
       - name: Install client dependencies
