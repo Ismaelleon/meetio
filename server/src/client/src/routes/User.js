@@ -66,7 +66,7 @@ function User (props) {
 
 	return (
 		<div>
-			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={loaderFinished} />
+			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
 			<main>
 				<div className="profile">
 					<div className="avatar">
