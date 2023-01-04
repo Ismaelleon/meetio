@@ -39,8 +39,6 @@ jobs:
                 api_secret:$api_secret,
                 secure:true
             }}'>server/config.js
-
-
       - name: Install client dependencies
         run: cd server/src/client/ && npm i
 
