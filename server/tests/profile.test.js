@@ -2,11 +2,10 @@ const request = require('supertest'),
 	mongoose = require('mongoose');
 
 const app = require('../src/app'),
-	config = require('../config');
+	{ databaseUri, defaultAvatarFile } = require('../config');
 
 const User = require('../src/models/User');
 const { getToken } = require('./helper');
-const { defaultAvatarFile } = require('../config');
 let public_id = '';
 
 jest.setTimeout(10000)
@@ -18,7 +17,7 @@ beforeAll(async () => {
 		.set('Content-Type', 'application/json')
 		.send({ name: 'test_user', password: 'test_password' });
 
-	mongoose.connect(config.databaseUri, {
+	mongoose.connect(databaseUri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true
 	})
