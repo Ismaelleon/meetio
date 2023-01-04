@@ -1,6 +1,6 @@
 const Compressor = require('compressorjs');
 
-function loaderFinished (setProgress) {
+export function loaderFinished (setProgress) {
 	let finished = true;
 
 	if (finished) {
@@ -12,7 +12,7 @@ function loaderFinished (setProgress) {
 	}
 }
 
-function getProfileData (setProfileData, setLoading, setProgress, history) {
+export function getProfileData (setProfileData, setLoading, setProgress, history) {
 	fetch('/api/profile', {
 		method: 'POST',
 		headers: {
@@ -32,7 +32,7 @@ function getProfileData (setProfileData, setLoading, setProgress, history) {
 	})
 }
 
-function compressImage (image) {
+export function compressImage (image) {
 	return new Promise((resolve, reject) => {
 		new Compressor(image, {
 			quality: 0.5,
@@ -46,9 +46,3 @@ function compressImage (image) {
 		})
 	})
 }
-
-module.exports = {
-	loaderFinished,
-	getProfileData,
-	compressImage
-};
