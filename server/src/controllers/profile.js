@@ -54,7 +54,7 @@ async function changeAvatar (req, res) {
 				// Delete last avatar file
 				if (user.avatar.public_id !== defaultAvatarFile.public_id) {
 					await cloudinary.uploader
-						.destroy(`meetio/avatars/${user.avatar.public_id}`);
+						.destroy(user.avatar.public_id);
 				}
 				// Crop image
 				let crop = JSON.parse(req.body.crop);
@@ -241,13 +241,15 @@ async function deleteAccount (req, res) {
 						}
 
 						// Remove user's avatar
-						if (user.avatar !== 'avatar.png') {
-							fs.unlinkSync(path.join(__dirname, `../client/build/avatars/${user.avatar}`))
+						if (user.avatar.public_id !== defaultAvatarFile.public_id) {
+							await cloudinary.uploader
+								.destroy(user.avatar.public_id);
 						}
 
 						// Remove user's pictures
 						for (let picture of user.pictures) {
-							fs.unlinkSync(path.join(__dirname, `../client/build/pictures/${picture}`))
+							await cloudinary.uploader
+								.destroy(picture.public_id)
 						}
 
 						// Remove user
