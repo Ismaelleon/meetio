@@ -23,10 +23,10 @@ jobs:
 
       - name: Create config file
         env: 
-          cloud_name: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
-          api_key: ${{ secrets.CLOUDINARY_API_KEY }}
-          api_secret: ${{ secrets.CLOUDINARY_API_SECRET }}
-        run: echo 'module.exports = {
+          CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+        run: echo "module.exports = {
             databaseUri:"mongodb://localhost:27017/meetio",
             secret:"my_secret_key",
             defaultAvatarFile:{
@@ -34,13 +34,11 @@ jobs:
                 public_id:"avatar-1672856932301-lW9SALQB9i_uammqt"
             },
             cloudinaryConfig:{
-                cloud_name:$cloud_name,
-                api_key:$api_key,
-                api_secret:$api_secret,
+                cloud_name:${CLOUD_NAME},
+                api_key:${API_KEY},
+                api_secret:${API_SECRET},
                 secure:true
-            }}'>server/config.js
-
-
+            }}">server/config.js
       - name: Install client dependencies
         run: cd server/src/client/ && npm i
 
