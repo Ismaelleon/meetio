@@ -34,11 +34,10 @@ jobs:
                 public_id:"avatar-1672856932301-lW9SALQB9i_uammqt"
             },
             cloudinaryConfig:{
-                cloud_name:${CLOUD_NAME},
-                api_key:${API_KEY},
-                api_secret:${API_SECRET},
+                cloud_name:${{ env.CLOUD_NAME }},
+                api_key:${{ env.API_KEY }},
+                api_secret:${{ env.API_SECRET }},
                 secure:true
-
             }}">server/config.js
       - name: Install client dependencies
         run: cd server/src/client/ && npm i
