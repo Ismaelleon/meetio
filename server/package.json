@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon --ignore src/client src/server.js",
+    "lint": "eslint",
     "test": "jest --verbose false"
   },
   "keywords": [],
@@ -22,6 +23,8 @@
     "react-cropper": "^2.1.8"
   },
   "devDependencies": {
+    "dotenv": "^16.0.3",
+    "eslint": "^8.31.0",
     "jest": "^24.9.0",
     "jimp": "^0.16.1",
     "mongoose": "^5.9.28",

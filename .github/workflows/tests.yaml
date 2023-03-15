@@ -34,9 +34,9 @@ jobs:
                 public_id:\"avatar-1672856932301-lW9SALQB9i_uammqt\"
             },
             cloudinaryConfig:{
-                cloud_name:`\${process.env.CLOUD_NAME || ''}`,
-                api_key:`\${process.env.API_KEY || ''}`,
-                api_secret:`\${process.env.API_SECRET || ''}`,
+                cloud_name:`\${process.env.CLOUD_NAME}`,
+                api_key:`\${process.env.API_KEY}`,
+                api_secret:`\${process.env.API_SECRET}`,
                 secure:true
             }}">server/config.js
       - name: Install client dependencies
