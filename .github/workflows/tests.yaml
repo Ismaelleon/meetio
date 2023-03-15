@@ -22,21 +22,21 @@ jobs:
           mongodb-version: '4.4' 
 
       - name: Create config file
-        env: 
+        env:
           CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
         run: echo "module.exports = {
-            databaseUri:"mongodb://localhost:27017/meetio",
-            secret:"my_secret_key",
+            databaseUri:\"mongodb://localhost:27017/meetio\",
+            secret:\"my_secret_key\",
             defaultAvatarFile:{
-                url:"https://res.cloudinary.com/dwu5a3e7e/image/upload/v1672860673/meetio/avatars/avatar-1672856932301-lW9SALQB9i_uammqt.png",
-                public_id:"avatar-1672856932301-lW9SALQB9i_uammqt"
+                url:\"https://res.cloudinary.com/dwu5a3e7e/image/upload/v1672860673/meetio/avatars/avatar-1672856932301-lW9SALQB9i_uammqt.png\",
+                public_id:\"avatar-1672856932301-lW9SALQB9i_uammqt\"
             },
             cloudinaryConfig:{
-                cloud_name:${env.CLOUD_NAME},
-                api_key:${env.API_KEY},
-                api_secret:${env.API_SECRET},
+                cloud_name:`\${process.env.CLOUD_NAME}`,
+                api_key:`\${process.env.API_KEY}`,
+                api_secret:`\${process.env.API_SECRET}`,
                 secure:true
             }}">server/config.js
       - name: Install client dependencies
