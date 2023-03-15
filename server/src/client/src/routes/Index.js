@@ -39,8 +39,8 @@ function Index (props) {
 					Start a relationship.<br />
 					Meet People.
 				</p>
-				<Link to="/signin"><button>Sign In</button></Link>
-				<Link to="/signup"><button>Sign Up</button></Link>
+				<Link to="/signin" style={{ textDecoration: 'none' }}><button>Sign In</button></Link>
+				<Link to="/signup" style={{ textDecoration: 'none' }}><button>Sign Up</button></Link>
 			</main>
 		</div>
 	);
