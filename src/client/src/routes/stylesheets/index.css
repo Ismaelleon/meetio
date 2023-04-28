@@ -1,0 +1,93 @@
+:root {
+	--h1: 1.802rem;
+	--h2: 1.602rem;
+	--h3: 1.424rem;
+	--h4: 1.266rem;
+	--h5: 1.125rem;
+	--h6: 1rem;
+};
+
+html {
+	font-size: 16px;
+}
+
+.app-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 100px 0;
+}
+
+header > img {
+	width: 80px;
+	margin-right: 1rem;
+}
+
+header > p {
+	font-family: 'Roboto';
+	font-size: var(--h1);
+	font-weight: bold;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 992px;
+	margin: auto;
+}
+
+main > p {
+	margin-bottom: 50px;
+	font-size: var(--h2);
+	font-weight: bold;
+	text-align: center;
+}
+
+button {
+	min-width: 200px;
+	padding: .75rem var(--h3);
+	border: #d9d9d9 solid 1px;
+	border-radius: 100px;
+	margin: .75rem 0;
+	background: #ffffff;
+	color: #ff005c;
+	font-family: 'Roboto';
+	font-size: var(--h5);
+	font-weight: 500;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+button:hover, button:active {
+	background-color: #d9d9d9;
+}
+
+button:not(:active) {
+	background-color: #fff;
+}
+
+@media (min-width: 576px) {
+	header > img {
+		width: 50px;
+		height: auto;
+	}
+
+	header > p {
+		font-size: var(--h2);
+	}
+
+	main > p {
+		font-size: var(--h3);
+	}
+
+	button {
+		font-size: var(--h6);
+	}
+}
