@@ -71,7 +71,7 @@ function User (props) {
 				<div className="profile">
 					<div className="avatar">
 						{user.avatar !== undefined ?
-							<img src={user.avatar} alt={`${user.name}'s avatar`} />
+							<img src={user.avatar.url} alt={`${user.name}'s avatar`} />
 							: <></>}
 					</div>
 					<span>
@@ -95,7 +95,7 @@ function User (props) {
 		 			<div className="pictures">
 						{user.pictures !== undefined ? user.pictures.map((picture, index) =>
 							<figure key={index}>
-								<img src={picture}  alt="Profile photos" />
+								<img src={picture.url}  alt="Profile photos" />
 							</figure>
 
 						) : false}
