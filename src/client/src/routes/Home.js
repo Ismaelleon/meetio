@@ -75,7 +75,7 @@ function Home (props) {
 						<div className="person">
 							<ul className="pictures">
 								{user.pictures !== undefined && user.pictures.length > 0 ? user.pictures.map((picture, index) =>
-									<img src={picture} key={index} alt="User face or body." />
+									<img src={picture.url} key={index} alt="User face or body." />
 								) : <img src={user.avatar.url} alt="User avatar" />}
 							</ul>
 							<div>
