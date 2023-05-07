@@ -2,42 +2,58 @@ name: Run tests on the server
 on: [push]
 
 jobs:
-  test_server:
-    name: Server tests
-    runs-on: ubuntu-latest
+    test_server:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.6.0
-        with:
-          mongodb-version: '4.4' 
-
-      - name: Create config file
-        run: echo 'module.exports = {
-                    databaseUri:"mongodb://localhost:27017/meetio",
-                    secret:"test"}'>server/config.js
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
 
 
-      - name: Install client dependencies
-        run: cd server/src/client/ && npm i
+            - name: Setup Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
 
-      - name: Build client
-        run: cd server/src/client/ && npm run build
+            - name: Start MongoDB
+              uses: supercharge/mongodb-github-action@1.6.0
+              with:
+                  mongodb-version: '4.4' 
 
-      - name: Create pictures/ folder
-        run: cd server/src/client/build/ && mkdir pictures
+            - name: Create config file
+              env:
+                DATABASE_URI: ${{ secrets.DATABASE_URI }}
+                CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+                CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+                CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+              run: |
+                cat > server/config.js << EOF
+                module.exports = {
+                    databaseUri: "$DATABASE_URI",
+                    secret:"my_secret_key",
+                    defaultAvatarFile:{
+                            url:"https://res.cloudinary.com/dwu5a3e7e/image/upload/v1672860673/meetio/avatars/avatar-1672856932301-lW9SALQB9i_uammqt.png",
+                            public_id:"avatar-1672856932301-lW9SALQB9i_uammqt"
+                    },
+                    cloudinaryConfig:{
+                        cloud_name: "$CLOUDINARY_CLOUD_NAME",
+                        api_key: "$CLOUDINARY_API_KEY",
+                        api_secret: "$CLOUDINARY_API_SECRET",
+                        secure: true
+                    } 
+                }
+                EOF
+            - name: Install client dependencies
+              run: cd server/src/client/ && npm i
 
-      - name: Install server dependencies
-        run: cd server/ && npm i
+            - name: Build client
+              run: cd server/src/client/ && npm run build
 
-      - name: Run tests
-        run: cd server/ && npm test
+            - name: Create pictures/ folder
+              run: cd server/src/client/build/ && mkdir pictures
+
+            - name: Install server dependencies
+              run: cd server/ && npm i
+
+            - name: Run tests
+              run: cd server/ && npm test
