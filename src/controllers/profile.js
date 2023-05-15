@@ -1,6 +1,6 @@
 const fs = require('fs'),
 	jwt = require('jsonwebtoken'),
-	bcrypt = require('bcrypt'),
+	bcrypt = require('bcryptjs'),
 	path = require('path'),
 	cloudinary = require('cloudinary').v2,
 	{ cropImage } = require('../helpers/index');

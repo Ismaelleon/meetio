@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt'),
+const bcrypt = require('bcryptjs'),
 	fs = require('fs'),
 	jwt = require('jsonwebtoken'),
 	mongoose = require('mongoose'),
