@@ -16,7 +16,7 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^5.1.2",
     "react-router-page-transition": "^3.1.0",
-    "react-scripts": "3.4.0",
+    "react-scripts": "^5.0.1",
     "react-top-loading-bar": "^2.0.1",
     "universal-cookie": "^4.0.3"
   },
