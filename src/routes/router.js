@@ -3,12 +3,11 @@ const express = require('express'),
 	mongoose = require('mongoose'),
 	path = require('path'),
 	crypto = require('crypto'),
-	cloudinary = require('cloudinary').v2,
-	{ databaseUri, cloudinaryConfig, defaultAvatarFile } = require('../../config');
+	cloudinary = require('cloudinary').v2;
 
 const router = express.Router();
 
-mongoose.connect(databaseUri, { 
+mongoose.connect(process.env.DATABASE_URI, { 
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 })
@@ -33,7 +32,12 @@ let avatarUpload = multer({ storage: avatarStorage }),
 	pictureUpload = multer({ storage: pictureStorage });
 
 // Set cloudinary configuration
-cloudinary.config(cloudinaryConfig)
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
+	secure: true,
+});
 
 // Import controllers
 const auth = require('../controllers/auth'),

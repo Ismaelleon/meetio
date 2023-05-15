@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const { checkUserIsTapped } = require('../helpers/index');
-const { secret } = require('../../config');
 
 // Import models
 const User = require('../models/User');
@@ -22,7 +21,7 @@ async function getUserData (req, res) {
 				user = user.toObject();
 				
 				// Verify Token
-				let tokenData = jwt.verify(req.cookies.token, secret);
+				let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 				let { tapped, liked } = await checkUserIsTapped(tokenData, name);
 

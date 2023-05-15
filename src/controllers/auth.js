@@ -2,8 +2,7 @@ const bcrypt = require('bcrypt'),
 	fs = require('fs'),
 	jwt = require('jsonwebtoken'),
 	mongoose = require('mongoose'),
-	path = require('path'),
-	{ secret, defaultAvatarFile } = require('../../config');
+	path = require('path');
 
 // Import models
 const User = require('../models/User');
@@ -25,7 +24,7 @@ async function signUp (req, res) {
 			let hashedPassword = await bcrypt.hash(password, 10);
 
 			// Generate JSON web token
-			let token = jwt.sign({ name: name }, secret);
+			let token = jwt.sign({ name: name }, process.env.SECRET);
 
 			// Set user to be saved
 			let saveUser = new User({
@@ -35,8 +34,8 @@ async function signUp (req, res) {
 				dislikedUsers: [],
 				alreadyTappedUsers: [],
 				avatar: {
-					url: defaultAvatarFile.url,
-					public_id: defaultAvatarFile.public_id
+					url: process.env.DEFAULT_AVATAR_FILE_URL,
+					public_id: process.env.DEFAULT_AVATAR_FILE_PUBLIC_ID,
 				},
 				verified: false
 			});
@@ -59,7 +58,7 @@ async function signUp (req, res) {
 async function signUpDetails (req, res) {
 	try {
 		// Verify token
-		let tokenData = jwt.verify(req.cookies.token, secret);
+		let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 		// Get user
 		let user = await User.findOne({ name: tokenData.name });
@@ -98,7 +97,7 @@ async function signIn (req, res) {
 			
 			if (passwordsMatches) {
 				// Generate JSON web token
-				let token = jwt.sign({name: user.name}, secret);
+				let token = jwt.sign({name: user.name}, process.env.SECRET);
 
 				// Save token cookie (expires in 1 week)
 				res.cookie('token', token, { expires: new Date(Date.now() + 604800000) })

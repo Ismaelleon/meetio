@@ -3,8 +3,7 @@ const fs = require('fs'),
 	bcrypt = require('bcrypt'),
 	path = require('path'),
 	cloudinary = require('cloudinary').v2,
-	{ cropImage } = require('../helpers/index'),
-	{ secret, defaultAvatarFile } = require('../../config');
+	{ cropImage } = require('../helpers/index');
 
 // Import model
 const User = require('../models/User');
@@ -16,7 +15,7 @@ async function getProfileData (req, res) {
 			req.cookies.token.split('.').length === 3) {
 
 			// Verify token
-			let tokenData = jwt.verify(req.cookies.token, secret);
+			let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 			
 			// Find user by name
 			let user = await User.findOne({ name: tokenData.name }).select('name avatar pictures description verified');
@@ -45,14 +44,14 @@ async function changeAvatar (req, res) {
 		if (req.cookies.token !== undefined &&
 			req.cookies.token.split('.').length === 3) {
 			// Verify token
-			let tokenData = jwt.verify(req.cookies.token, secret);
+			let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 			// Find user by name
 			let user = await User.findOne({ name: tokenData.name });
 
 			if (user !== null) {
 				// Delete last avatar file
-				if (user.avatar.public_id !== defaultAvatarFile.public_id) {
+				if (user.avatar.public_id !== process.env.DEFAULT_AVATAR_FILE_PUBLIC_ID) {
 					await cloudinary.uploader
 						.destroy(user.avatar.public_id);
 				}
@@ -101,7 +100,7 @@ async function changeDescription (req, res) {
 			req.cookies.token.split('.').length === 3) {
 
 			// Verify token
-			let tokenData = jwt.verify(req.cookies.token, secret);
+			let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 			// Find user by name
 			let user = await User.findOne({ name: tokenData.name });
@@ -129,7 +128,7 @@ async function uploadPictures (req, res) {
 			req.cookies.token.split('.').length === 3) {
 
 			// Verify token
-			let tokenData = jwt.verify(req.cookies.token, secret);
+			let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 			// Find user by name
 			let user = await User.findOne({ name: tokenData.name });
@@ -176,7 +175,7 @@ async function deletePicture (req, res) {
 		if (req.cookies.token !== undefined &&
 			req.cookies.token.split('.').length === 3) {
 				// Verify token
-				let tokenData = jwt.verify(req.cookies.token, secret);
+				let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 				// Find user by token
 				let user = await User.findOne({ name: tokenData.name });
@@ -217,7 +216,7 @@ async function deleteAccount (req, res) {
 		if (req.cookies.token !== undefined &&
 			req.cookies.token.split('.').length === 3) {
 				// Verify token
-				let tokenData = jwt.verify(req.cookies.token, secret);
+				let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 				// Find user by token
 				let user = await User.findOne({ name: tokenData.name });
@@ -241,7 +240,7 @@ async function deleteAccount (req, res) {
 						}
 
 						// Remove user's avatar
-						if (user.avatar.public_id !== defaultAvatarFile.public_id) {
+						if (user.avatar.public_id !== process.env.DEFAULT_AVATAR_FILE_PUBLIC_ID) {
 							await cloudinary.uploader
 								.destroy(user.avatar.public_id);
 						}

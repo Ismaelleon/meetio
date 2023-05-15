@@ -1,7 +1,6 @@
 const fs = require('fs'),
 	jwt = require('jsonwebtoken'),
-	path = require('path'),
-	{ secret } = require('../../config');
+	path = require('path');
 
 // Import model
 const User = require('../models/User');
@@ -13,7 +12,7 @@ async function likedProfiles (req, res) {
 			req.cookies.token.split('.').length === 3) {
 
 			// Verify token
-			let tokenData = jwt.verify(req.cookies.token, secret);
+			let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 			// Find user by name
 			let user = await User.findOne({ name: tokenData.name });
@@ -61,7 +60,7 @@ async function dislikedProfiles (req, res) {
 		if (req.cookies.token !== undefined &&
 			req.cookies.token.split('.').length === 3) {
 			// Verify token
-			let tokenData = jwt.verify(req.cookies.token, secret);
+			let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 			// Find user by name
 			let user = await User.findOne({ name: tokenData.name });
@@ -110,7 +109,7 @@ async function matches (req, res) {
 			req.cookies.token.split('.').length === 3) {
 
 			// Verify token
-			let tokenData = jwt.verify(req.cookies.token, secret);
+			let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 			// Find user by name
 			let user = await User.findOne({ name: tokenData.name });
