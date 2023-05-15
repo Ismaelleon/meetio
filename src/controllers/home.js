@@ -1,7 +1,6 @@
 const fs = require('fs'),
 	jwt = require('jsonwebtoken'),
-	path = require('path'),
-	{ secret } = require('../../config');
+	path = require('path');
 
 // Import models
 const User = require('../models/User');
@@ -13,7 +12,7 @@ async function getUser (req, res) {
 			req.cookies.token.split('.').length === 3) {
 
 			// Verify token
-			let tokenData = jwt.verify(req.cookies.token, secret);
+			let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 			// Get the user data
 			let user = await User.findOne({ name: tokenData.name });
@@ -70,7 +69,7 @@ async function tapUser (req, res) {
 			let tap = req.body.like;
 
 			// Verify token
-			let tokenData = jwt.verify(req.cookies.token, secret);
+			let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 
 			// Get the user
 			let user = await User.findOne({ name: tokenData.name });
