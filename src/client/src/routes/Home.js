@@ -87,8 +87,8 @@ function Home (props) {
 							</div>
 						</div>
 						<div className="buttons">
-							<button className="dislike" onClick={e => tapUser(e)}><MdClear fontSize="34px" color="#009e5c" /></button>
-							<button className="like" onClick={e => tapUser(e)}><MdFavorite fontSize="34px" color="#ff005c" /></button>
+							<button className="dislike" onClick={e => tapUser(e)}><MdClear size="34px" color="#009e5c" /></button>
+							<button className="like" onClick={e => tapUser(e)}><MdFavorite size="34px" color="#ff005c" /></button>
 						</div>
 					</main>
 				:	<main style={{ paddingTop: 'var(--h1)' }}>
