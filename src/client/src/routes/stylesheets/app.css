@@ -89,21 +89,62 @@ main > .person {
 }
 
 main > .person > .pictures {
-	display: flex;
-	overflow: auto;
+	display: grid;
 	flex-direction: row;
-	justify-content: flex-start;
 	width: 100%;
 	height: 50vh;
+	list-style: none;
+	overflow: hidden;
 }
 
-main > .person > .pictures > img {
-	width: auto;
-	height: 100%;
+main > .person > .pictures > li {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 50vh;
+	background-color: #000;
+}
+
+main > .person > .pictures > li > img {
+	width: 100%;
+	height: auto;
+}
+
+main > .person > .pictures > div {
+	position: fixed;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	top: calc(25% + 50px);
+	left: 0%;
+	transform: translateY(-50%);
+}
+
+main > .person > .pictures > div > span {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #000;
+	margin: var(--h6);
+	background-color: rgba(255, 255, 255, 0.25);
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+}
+
+main > .person > .avatar {
+	margin: 0;
+	transform: translateY(-50%);
+}
+
+main > .person > .avatar > img {
+	border: #fff solid 3px;
 }
 
 main > .person > div {
 	padding: var(--h5);
+	transform: translateY(-100%);
 }
 
 main > .person > div > h2 {
@@ -124,6 +165,7 @@ main > .buttons {
 	flex-direction: row;
 	justify-content: space-between;
 	width: 90%;
+	transform: translateY(-100%);
 }
 
 main > .buttons > button {
@@ -148,6 +190,11 @@ main > .like {
 @media (min-width: 576px) {
 	main > h2 {
 		font-size: var(--h4);
+	}
+
+	main > .person > .pictures > li > img {
+		width: auto;
+		height: 100%;
 	}
 
 	main > .person > div > h2 {

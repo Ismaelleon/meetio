@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { createRef, useEffect, useState } from 'react'; 
 import { loaderFinished } from '../utils/index';
 import { Link, useHistory } from 'react-router-dom';
-import { MdClear, MdFavorite, MdVerified } from 'react-icons/md';
+import { MdClear, MdFavorite, MdVerified, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
 import './stylesheets/app.css';
 
@@ -10,7 +10,10 @@ import HomeLoader from './components/HomeLoader';
 function Home (props) {
 	const [user, setUser] = useState({}),
 		[loading, setLoading] = useState(true),
-		[progress, setProgress] = useState(20);
+		[progress, setProgress] = useState(20),
+		[currentPicture, setCurrentPicture] = useState(0);
+
+	const picturesList = createRef();
 
 	const history = useHistory();
 
@@ -73,11 +76,32 @@ function Home (props) {
 				{user.name !== undefined ?
 					<main>
 						<div className="person">
-							<ul className="pictures">
+							<ul className="pictures" ref={picturesList} style={{gridTemplateColumns: `repeat(${user.pictures.length}, 100%)`}}>
 								{user.pictures !== undefined && user.pictures.length > 0 ? user.pictures.map((picture, index) =>
-									<img src={picture.url} key={index} alt="User face or body." />
-								) : <img src={user.avatar.url} alt="User avatar" />}
+									<li key={index}>
+										<img src={picture.url} alt="User face or body." />
+									</li>
+								) : null}
+								{user.pictures !== undefined && user.pictures.length > 0 ?
+									<div>
+										<span style={currentPicture > 0 ? {opacity: '1'} : {opacity: '0'}} onClick={() => {
+											if (currentPicture > 0) {
+												picturesList.current.children[currentPicture - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+												setCurrentPicture(currentPicture => currentPicture - 1);
+											}
+										}}><MdChevronLeft fontSize="24px" /></span>	
+										<span style={currentPicture < user.pictures.length - 1 ? {opacity: '1'} : {opacity: '0'}} onClick={e => {
+											if (currentPicture < user.pictures.length - 1) {
+												picturesList.current.children[currentPicture + 1].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+												setCurrentPicture(currentPicture => currentPicture + 1);
+											}
+										}}><MdChevronRight fontSize="24px" /></span>	
+									</div>
+								: null}
 							</ul>
+							<div className="avatar">
+								<img src={user.avatar.url} alt={user.name + '\'s avatar'} width="150px" />
+							</div>
 							<div>
 								<h2><Link to={`/user/${user.name}`}>
 										{user.name}
