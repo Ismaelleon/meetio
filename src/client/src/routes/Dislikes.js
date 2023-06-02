@@ -53,13 +53,13 @@ function Dislikes (props) {
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
 			<main className="max-w-lg mx-auto pt-12">
 				<Tabs />
-				<ul className="flex justify-center p-3">
+				<ul className="flex items-center flex-col p-3">
 					{dislikes.length > 0 ? dislikes.map((dislikedProfile, index) =>
-						<li key={index}>
-							<Link to={`/user/${dislikedProfile.name}`}>
-								<img src={dislikedProfile.avatar.url} alt={`${dislikedProfile.name}'s avatar`} />
-								{dislikedProfile.name}
-								{dislikedProfile.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
+						<li className="px-1 w-full" key={index}>
+							<Link className="flex flex-row items-center text-base sm:text-sm w-auto" to={`/user/${dislikedProfile.name}`}>
+								<img className="w-[60px] h-[60px] rounded-full mr-3" src={dislikedProfile.avatar.url} alt={`${dislikedProfile.name}'s avatar`} />
+								<p className="hover:underline">{dislikedProfile.name}</p>
+								{dislikedProfile.verified ? <span className="ml-3"><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
 						</li>
 					) : <h2 className="text-2xl font-bold sm:text-xl">No disliked profiles yet</h2>}

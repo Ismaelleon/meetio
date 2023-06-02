@@ -749,6 +749,11 @@ video {
   width: 100vw;
 }
 
+.w-min {
+  width: -webkit-min-content;
+  width: min-content;
+}
+
 .min-w-\[200px\] {
   min-width: 200px;
 }
@@ -831,6 +836,10 @@ video {
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .overflow-y-hidden {
@@ -989,6 +998,11 @@ video {
   line-height: 1.75rem;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1071,6 +1085,10 @@ video {
 
   .sm\:p-3 {
     padding: 0.75rem;
+  }
+
+  .sm\:p-2 {
+    padding: 0.5rem;
   }
 
   .sm\:text-2xl {

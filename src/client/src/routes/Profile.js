@@ -169,9 +169,9 @@ function Profile (props) {
 						{profileData.verified ? <span><MdVerified fontSize={window.innerWidth > 384 ? '20px' : '24px'} color="rgb(0, 122, 255)" /></span> : <span></span>}
 						<span style={{ marginLeft: '1rem' }}  onClick={() => setProfileMenu(!profileMenu)}>
 							<MdMoreVert icon="more_vert" size={window.innerWidth > 384 ? 20 : 24} color="#000" />
-							<ul className="absolute left-0 w-full my-5 rounded-2xl border border-neutral-300 bg-white" style={ profileMenu ? { display: 'block' } : { display: 'none' } }>
-								<li className="text-lg p-3 hover:bg-neutral-300 cursor-pointer" onClick={deleteAccount} style={{ color: 'rgb(255, 59, 48)' }}>Delete Account</li>
-								<li className="text-lg p-3 hover:bg-neutral-300 cursor-pointer" onClick={logOut}>Log Out</li>
+							<ul className="absolute left-0 w-full my-5 rounded-2xl border border-neutral-300 bg-white overflow-hidden" style={ profileMenu ? { display: 'block' } : { display: 'none' } }>
+								<li className="text-lg p-3 hover:bg-neutral-300 cursor-pointer sm:text-base" onClick={deleteAccount} style={{ color: 'rgb(255, 59, 48)' }}>Delete Account</li>
+								<li className="text-lg p-3 hover:bg-neutral-300 cursor-pointer sm:text-base" onClick={logOut}>Log Out</li>
 							</ul>
 						</span>
 					</span>
