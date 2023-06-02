@@ -12,14 +12,14 @@ function Tabs () {
 	useEffect(setTabByPath)
 
 	return (
-		<div className="tabs">
-			<Link to="/likes" style={ tab === 'likes' ? styledTab : unstyledTab }>
+		<div className="flex flex-row p-5 justify-around">
+			<Link className="text-lg sm:text-base" to="/likes" style={ tab === 'likes' ? styledTab : unstyledTab }>
 				Likes
 			</Link>
-			<Link to="/matches" style={ tab === 'matches' ? styledTab : unstyledTab }>
+			<Link className="text-lg sm:text-base" to="/matches" style={ tab === 'matches' ? styledTab : unstyledTab }>
 				Matches
 			</Link>
-			<Link to="/dislikes" style={ tab === 'dislikes' ? styledTab : unstyledTab }>
+			<Link className="text-lg sm:text-base" to="/dislikes" style={ tab === 'dislikes' ? styledTab : unstyledTab }>
 				Dislikes
 			</Link>
 		</div>

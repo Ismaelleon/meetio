@@ -5,7 +5,6 @@ import LoadingBar from 'react-top-loading-bar';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
 import FileToBase64 from 'dd-file-to-base64';
-import './stylesheets/app.css';
 
 import AvatarCropper from './components/AvatarCropper';
 import ProfileLoader from './components/ProfileLoader';
@@ -143,13 +142,13 @@ function Profile (props) {
 	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
-			<main>
-				<div className="profile">
-					<div className="avatar">
+			<main className="flex justify-center items-center max-w-lg mx-auto pt-12">
+				<div className="flex flex-col items-center m-5">
+					<div className="w-[150px] h-[150px] m-5 relative">
 						<img src={profileData.avatar.url} alt={`${profileData.name}'s avatar`}/>
-						<label htmlFor="avatar"><MdCamera color="#ffffff" fontSize="34px" /></label>
+						<label className="absolute bottom-0 right-0 p-3 rounded-full bg-pink" htmlFor="avatar"><MdCamera color="#ffffff" fontSize={window.innerWidth > 384 ? '28px' : '34px'} /></label>
 					</div>
-					<input type="file"
+					<input className="hidden" type="file"
 						id="avatar"
 						ref={fileInput}
 						accept=".png, .jpg, .jpeg, .gif"
@@ -163,35 +162,35 @@ function Profile (props) {
 								setDialogVisible(true)
 							}
 						}} />
-					<span>
-						<h2>
+					<span className="flex flex-row items-center relative">
+						<h2 className="text-2xl font-bold sm:text-xl">
 							{profileData.name}
 						</h2>
-						{profileData.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
+						{profileData.verified ? <span><MdVerified fontSize={window.innerWidth > 384 ? '20px' : '24px'} color="rgb(0, 122, 255)" /></span> : <span></span>}
 						<span style={{ marginLeft: '1rem' }}  onClick={() => setProfileMenu(!profileMenu)}>
-							<MdMoreVert icon="more_vert" size={24} color="#000" />
-							<ul style={ profileMenu ? { display: 'block' } : { display: 'none' } }>
-								<li onClick={deleteAccount} style={{ color: 'rgb(255, 59, 48)' }}>Delete Account</li>
-								<li onClick={logOut}>Log Out</li>
+							<MdMoreVert icon="more_vert" size={window.innerWidth > 384 ? 20 : 24} color="#000" />
+							<ul className="absolute left-0 w-full my-5 rounded-2xl border border-neutral-300 bg-white" style={ profileMenu ? { display: 'block' } : { display: 'none' } }>
+								<li className="text-lg p-3 hover:bg-neutral-300 cursor-pointer" onClick={deleteAccount} style={{ color: 'rgb(255, 59, 48)' }}>Delete Account</li>
+								<li className="text-lg p-3 hover:bg-neutral-300 cursor-pointer" onClick={logOut}>Log Out</li>
 							</ul>
 						</span>
 					</span>
-					<span>
-						<input type="text" onChange={ e => setProfileData({...profileData, description: e.target.value}) }
+					<span className="flex flex-row items-center">
+						<input className="text-base my-2 border border-neutral-300 rounded-md py-1 px-1 sm:text-sm" type="text" onChange={ e => setProfileData({...profileData, description: e.target.value}) }
 								style={ editingDescription ? { display: 'block' } : { display: 'none' } } />
-						<p style={ editingDescription ? { display: 'none' }  : { display: 'block' }}>
+						<p className="text-base my-2 sm:text-sm" style={ editingDescription ? { display: 'none' }  : { display: 'block' }}>
 							{profileData.description}
 						</p>
-						<span onClick={toggleDescriptionEdit} style={ editingDescription ? { display: 'block' } : { display: 'none' } }>
-							<MdCheck fontSize="18px" color="#000" />
+						<span className="ml-2" onClick={toggleDescriptionEdit} style={ editingDescription ? { display: 'block' } : { display: 'none' } }>
+							<MdCheck fontSize={window.innerWidth > 384 ? '16px' : '18px'} color="#000" />
 						</span>
-						<span onClick={toggleDescriptionEdit} style={ editingDescription ? { display: 'none' } : { display: 'block' } }>
-							<MdEdit fontSize="18px" color="#000" />
+						<span className="ml-2" onClick={toggleDescriptionEdit} style={ editingDescription ? { display: 'none' } : { display: 'block' } }>
+							<MdEdit fontSize={window.innerWidth > 384 ? '16px' : '18px'} color="#000" />
 						</span>
 					</span>
 					<form>
-						<button>Upload Pictures</button>
-						<input type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} multiple />
+						<button className="text-base mt-5 mb-2 text-pink p-2 rounded-2xl border border-neutral-300 min-w-[200px] font-bold sm:text-sm">Upload Pictures</button>
+						<input className="hidden" type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} multiple />
 					</form>
 					<div className="pictures">
 						{profileData.pictures.length > 0 ? profileData.pictures.map((picture, index) =>

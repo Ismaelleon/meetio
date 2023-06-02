@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar';
 import MaterialIcon from 'material-icons-react';
 import FileToBase64 from 'dd-file-to-base64';
-import './stylesheets/form.css';
 
 import AvatarCropper from './components/AvatarCropper';
 import ProfileLoader from './components/ProfileLoader';
@@ -68,19 +67,22 @@ function SignupDetails () {
 	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
-			<header className="nav-header">
-				<MaterialIcon icon="arrow_back" size={34} />
+			<header className="px-5 py-3">
+				<MaterialIcon icon="arrow_back" size={32} />
 			</header>
-			<main>
+			<main className="flex flex-col items-center">
 				<header>
-					<p>Sign Up</p>
+					<p className="text-2xl sm:text-xl font-bold">Sign Up</p>
 				</header>
-				<form>
-					<div className="avatar">
-						<img src={profileData.avatar.url} alt="avatar" />
-						<label htmlFor="avatar"><MaterialIcon color="#ffffff" icon="camera_alt" size={34} /></label>
+				<form className="flex flex-col w-full p-6 max-w-md">
+					<div className="flex flex-col items-center relative my-2">
+						<img className="w-[150px]" src={profileData.avatar.url} alt="avatar" />
+						<label className="absolute bottom-0 ml-24 w-[60px] h-[60px] bg-pink rounded-full flex justify-center items-center" htmlFor="avatar">
+							<MaterialIcon color="#ffffff" icon="camera_alt" size={34} />
+						</label>
 					</div>
 					<input type="file"
+						className="hidden"
 						id="avatar"
 						ref={fileInput}
 						accept=".png, .jpg, .jpeg, .gif"
@@ -95,10 +97,11 @@ function SignupDetails () {
 							}
 						}} />
 					<input type="text"
+						className="my-5 p-1 w-full border-b border-black text-lg sm:text-base font-sans"
 						name="description"
 						onChange={event => setDescription(event.target.value)}
 						placeholder="A brief description" />
-					<button ref={submitButton} onClick={submitSignUp}>Send</button>
+					<button className="p-2 my-2 border border-neutral-300 min-w-[200px] rounded-2xl text-lg sm:text-base font-medium text-pink disabled:bg-neutral-300 disabled:text-neutral-500 hover:bg-neutral-100" ref={submitButton} onClick={submitSignUp}>Send</button>
 				</form>
 			</main>
 			<AvatarCropper setProgress={setProgress} setProfileData={setProfileData} fileInput={fileInput} avatarBase64={avatarBase64} visible={dialogVisible} setDialogVisible={setDialogVisible} />
