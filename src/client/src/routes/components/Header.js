@@ -33,7 +33,7 @@ function Header () {
 
 	if (showHeader) {
 		return (
-			<header className="fixed bg-white w-full px-5 py-3 shadow-sm shadow-neutral-300" style={{ display: showHeader ? 'flex' : 'none' }}>
+			<header className="fixed bg-white w-full px-5 py-3 shadow-sm shadow-neutral-300 z-50" style={{ display: showHeader ? 'flex' : 'none' }}>
 				<div className="flex flex-row justify-between items-center w-full max-w-4xl mx-auto">
 					<p className="text-2xl font-bold sm:text-xl">Meetio</p>
 					<ul className="flex flex-row">
