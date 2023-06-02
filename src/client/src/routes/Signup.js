@@ -3,7 +3,6 @@ import { loaderFinished } from '../utils/index';
 import { Link, useHistory } from 'react-router-dom';
 import MaterialIcon from 'material-icons-react';
 import LoadingBar from 'react-top-loading-bar';
-import './stylesheets/form.css';
 import Cookies from 'universal-cookie';
 
 
@@ -70,20 +69,20 @@ function Signup (props) {
 	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
-			<header className="nav-header">
-				<Link to="/"><MaterialIcon icon="arrow_back" size={34} /></Link>
+			<header className="px-5 py-3">
+				<Link to="/"><MaterialIcon icon="arrow_back" size={32} /></Link>
 			</header>
-			<main>
+			<main className="flex flex-col items-center">
 				<header>
-					<p>Sign Up</p>
+					<p className="text-2xl sm:text-xl font-bold">Sign Up</p>
 				</header>
-				<form>
-					<input type="name" placeholder="Username" name="name" onKeyUp={event => {setUsername(event.target.value); updateForm()}} />
-					<input type="password" placeholder="Password" name="password" onKeyUp={event => {setPassword(event.target.value); updateForm()}} />
-					<button ref={submitButton} onClick={submitSignUp}>Send</button>
+				<form className="flex flex-col w-full p-6 max-w-md">
+					<input className="my-5 p-1 w-full border-b border-black text-lg sm:text-base font-sans" type="name" placeholder="Username" name="name" onKeyUp={event => {setUsername(event.target.value); updateForm()}} />
+					<input className="my-5 p-1 w-full border-b border-black text-lg sm:text-base font-sans" type="password" placeholder="Password" name="password" onKeyUp={event => {setPassword(event.target.value); updateForm()}} />
+					<button className="p-2 my-2 border border-neutral-300 min-w-[200px] rounded-2xl text-lg sm:text-base font-medium text-pink disabled:bg-neutral-300 disabled:text-neutral-500 hover:bg-neutral-100" ref={submitButton} onClick={submitSignUp}>Send</button>
 				</form>
 			</main>
-			<span className={error ? 'error show' : 'error'}>Username not available</span>
+			<span className="w-full p-5 bg-red-500 text-white fixed max-w-md left-1/2 -translate-x-1/2" style={ error ? { bottom: '0%' } : { bottom: '-100%' } }>Username not available</span>
 		</div>
 	);
 }

@@ -3,7 +3,6 @@ import { loaderFinished } from '../utils/index';
 import { Link, useHistory } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar';
 import { MdVerified } from 'react-icons/md';
-import './stylesheets/app.css';
 
 import InteractionsLoader from './components/InteractionsLoader';
 import Tabs from './components/Tabs';
@@ -61,18 +60,18 @@ function Matches (props) {
 	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
-			<main>
+			<main className="max-w-lg mx-auto pt-12">
 				<Tabs />
-				<ul className="list">
+				<ul className="flex items-center flex-col p-3">
 					{matches.length > 0 ? matches.map((matchedProfile, index) =>
-						<li key={index}>
-							<Link to={`/user/${matchedProfile.name}`}>
-								<img src={matchedProfile.avatar.url} alt={`${matchedProfile.name}'s avatar`} />
-								{matchedProfile.name}
-								{matchedProfile.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
+						<li className="px-1 w-full" key={index}>
+							<Link className="flex flex-row items-center text-base sm:text-sm w-auto" to={`/user/${matchedProfile.name}`}>
+								<img className="w-[60px] h-[60px] rounded-full mr-3" src={matchedProfile.avatar.url} alt={`${matchedProfile.name}'s avatar`} />
+								<p className="hover:underline">{matchedProfile.name}</p>
+								{matchedProfile.verified ? <span className="ml-3"><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
 						</li>
-					) : <h2>No matches yet</h2>}
+					) : <h2 className="text-2xl font-bold sm:text-xl">No matches yet</h2>}
 				</ul>
 			</main>
 		</div>

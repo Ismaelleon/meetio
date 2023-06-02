@@ -33,13 +33,13 @@ function Header () {
 
 	if (showHeader) {
 		return (
-			<header className="main-header" style={{ display: showHeader ? 'flex' : 'none' }}>
-				<div>
-					<p>Meetio</p>
-					<ul>
-						<li><Link to="/home"><MdHome color={buttonsColors[0]} fontSize="24px" /></Link></li>
-						<li><Link to="/matches"><MdFavorite color={buttonsColors[1]} fontSize="24px" /></Link></li>
-						<li><Link to="/profile"><MdPerson color={buttonsColors[2]} fontSize="24px" /></Link></li>
+			<header className="fixed bg-white w-full px-5 py-3 shadow-sm shadow-neutral-300" style={{ display: showHeader ? 'flex' : 'none' }}>
+				<div className="flex flex-row justify-between items-center w-full max-w-4xl mx-auto">
+					<p className="text-2xl font-bold sm:text-xl">Meetio</p>
+					<ul className="flex flex-row">
+						<li className="hidden sm:block mx-4"><Link to="/home"><MdHome color={buttonsColors[0]} fontSize="22px" /></Link></li>
+						<li className="hidden sm:block mx-4"><Link to="/matches"><MdFavorite color={buttonsColors[1]} fontSize="22px" /></Link></li>
+						<li className="hidden sm:block mx-4"><Link to="/profile"><MdPerson color={buttonsColors[2]} fontSize="22px" /></Link></li>
 					</ul>
 				</div>
 			</header>

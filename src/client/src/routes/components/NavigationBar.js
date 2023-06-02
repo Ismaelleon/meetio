@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { MdHome, MdOutlineHome, MdFavorite, MdOutlineFavoriteBorder, MdPerson, MdOutlinePerson } from 'react-icons/md';
-import '../stylesheets/app.css';
 
 function NavigationBar () {
 	const location = useLocation();
@@ -37,32 +36,32 @@ function NavigationBar () {
 
 	if (showNavigationBar) {
 		return (
-			<nav>
-				<ul>
+			<nav className="fixed bottom-0 left-0 w-full bg-white p-1.5 -shadow-sm shadow-neutral-300 sm:hidden">
+				<ul className="flex flex-row justify-around">
 					<li>
-						<Link to="/home">
+						<Link className="flex flex-col items-center" to="/home">
 							{location.pathname === '/home' ?
 								<MdHome color={buttonsColors[0]} fontSize="26px" /> :
-								<MdOutlineHome color={buttonsColors[0]} fontSize="26px" />}
-							<span style={{color: buttonsColors[0]}}>Home</span>
+								<MdOutlineHome color={buttonsColors[0]} fontSize="26px" className="text-neutral-500" />}
+							<span style={{color: buttonsColors[0]}} className="text-base text-neutral-500">Home</span>
 						</Link>
 					</li>
 					<li>
-						<Link to="/matches">
+						<Link className="flex flex-col items-center" to="/matches">
 							{location.pathname === '/matches' ||
 							 location.pathname === '/likes' ||
 							 location.pathname === '/dislikes' ?
 								<MdFavorite color={buttonsColors[1]} fontSize="26px" /> :
-								<MdOutlineFavoriteBorder color={buttonsColors[1]} fontSize="26px" />}
-							<span style={{color: buttonsColors[1]}}>Interactions</span>
+								<MdOutlineFavoriteBorder color={buttonsColors[1]} fontSize="26px" className="text-neutral-500" />}
+							<span style={{color: buttonsColors[1]}} className="text-base text-neutral-500 leading-0">Interactions</span>
 						</Link>
 					</li>
 					<li>
-						<Link to="/profile">
+						<Link className="flex flex-col items-center" to="/profile">
 							{location.pathname === '/profile' ?
 								<MdPerson color={buttonsColors[2]} fontSize="26px" /> :
-								<MdOutlinePerson color={buttonsColors[2]} fontSize="26px" />}
-							<span style={{color: buttonsColors[2]}}>Profile</span>
+								<MdOutlinePerson color={buttonsColors[2]} fontSize="26px" className="text-neutral-500" />}
+							<span style={{color: buttonsColors[2]}} className="text-base text-neutral-500">Profile</span>
 						</Link>
 					</li>
 				</ul>

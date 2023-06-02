@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { compressImage } from '../../utils/index';
-import '../stylesheets/avatar-cropper.css';
 
 function AvatarCropper ({ setProgress, setProfileData, fileInput, avatarBase64, visible, setDialogVisible }) {
 	const editor = useRef(null);
@@ -39,8 +38,8 @@ function AvatarCropper ({ setProgress, setProfileData, fileInput, avatarBase64, 
 	}
 
 	return (
-		<div className="dialog-container" style={ visible ? visibleStyle : invisibleStyle }>
-			<div className="avatar-cropper-dialog" ref={avatarCropperDialog}>
+		<div className="fixed flex justify-center items-center top-0 left-0 w-screen h-screen bg-neutral-500/20" style={ visible ? visibleStyle : invisibleStyle }>
+			<div className="bg-white p-6 rounded" ref={avatarCropperDialog}>
 				{visible ?
 					<AvatarEditor
 						ref={editor}
@@ -50,13 +49,13 @@ function AvatarCropper ({ setProgress, setProfileData, fileInput, avatarBase64, 
 						border={0}
 						scale={scale} />
 				: <></>}
-				<div className="dialog-controls">
-					<label htmlFor="scale">Zoom: </label>
+				<div className="flex flex-row justify-around items-center my-4">
+					<label className="text-base" htmlFor="scale">Zoom: </label>
 					<input id="scale" type="range" min="1" max="4" step="0.01" onChange={e => setScale(parseInt(e.target.value))} />
 				</div>
-				<div className="dialog-buttons">
-					<button onClick={() => setDialogVisible(false)}>Cancel</button>
-					<button onClick={changeAvatar}>Upload Avatar</button>
+				<div className="grid grid-cols-2 gap-2">
+					<button className="p-2 border border-neutral-300 rounded-2xl text-base sm:text-base font-medium text-pink disabled:bg-neutral-300 disabled:text-neutral-500 hover:bg-neutral-100" onClick={() => setDialogVisible(false)}>Cancel</button>
+					<button className="p-2 border border-neutral-300 rounded-2xl text-base sm:text-base font-medium text-pink disabled:bg-neutral-300 disabled:text-neutral-500 hover:bg-neutral-100" onClick={changeAvatar}>Upload Avatar</button>
 				</div>
 			</div>
 		</div>

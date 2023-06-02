@@ -3,7 +3,6 @@ import { loaderFinished } from '../utils/index';
 import { Link, useHistory } from 'react-router-dom';
 import { MdVerified } from 'react-icons/md';
 import LoadingBar from 'react-top-loading-bar';
-import './stylesheets/app.css';
 
 import InteractionsLoader from './components/InteractionsLoader';
 import Tabs from './components/Tabs';
@@ -52,18 +51,18 @@ function Likes (props) {
 	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
-			<main>
+			<main className="max-w-lg mx-auto pt-12">
 				<Tabs />
-				<ul className="list">
+				<ul className="flex items-center flex-col p-3">
 					{likes.length > 0 ? likes.map((likedProfile, index) =>
-						<li key={index}>
-							<Link to={`/user/${likedProfile.name}`}>
-								<img src={likedProfile.avatar.url} alt={`${likedProfile.name}'s avatar`} />
-								{likedProfile.name}
-								{likedProfile.verified ? <span><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
+						<li className="px-1 w-full" key={index}>
+							<Link className="flex flex-row items-center text-base sm:text-sm w-auto" to={`/user/${likedProfile.name}`}>
+								<img className="w-[60px] h-[60px] rounded-full mr-3" src={likedProfile.avatar.url} alt={`${likedProfile.name}'s avatar`} />
+								<p className="hover:underline">{likedProfile.name}</p>
+								{likedProfile.verified ? <span className="ml-3"><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
 						</li>
-					) : <h2>No liked profiles yet</h2>}
+					) : <h2 className="text-2xl font-bold sm:text-xl">No liked profiles yet</h2>}
 				</ul>
 			</main>
 		</div>
