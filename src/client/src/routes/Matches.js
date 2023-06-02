@@ -64,7 +64,7 @@ function Matches (props) {
 				<Tabs />
 				<ul className="flex items-center flex-col p-3">
 					{matches.length > 0 ? matches.map((matchedProfile, index) =>
-						<li className="px-1 w-full" key={index}>
+						<li className="px-1 py-2 w-full" key={index}>
 							<Link className="flex flex-row items-center text-base sm:text-sm w-auto" to={`/user/${matchedProfile.name}`}>
 								<img className="w-[60px] h-[60px] rounded-full mr-3" src={matchedProfile.avatar.url} alt={`${matchedProfile.name}'s avatar`} />
 								<p className="hover:underline">{matchedProfile.name}</p>

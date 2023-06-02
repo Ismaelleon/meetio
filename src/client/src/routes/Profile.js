@@ -166,7 +166,7 @@ function Profile (props) {
 						<h2 className="text-2xl font-bold sm:text-xl">
 							{profileData.name}
 						</h2>
-						{profileData.verified ? <span><MdVerified fontSize={window.innerWidth > 384 ? '20px' : '24px'} color="rgb(0, 122, 255)" /></span> : <span></span>}
+						{profileData.verified ? <span className="ml-3"><MdVerified fontSize={window.innerWidth > 384 ? '20px' : '24px'} color="rgb(0, 122, 255)" /></span> : <span></span>}
 						<span style={{ marginLeft: '1rem' }}  onClick={() => setProfileMenu(!profileMenu)}>
 							<MdMoreVert icon="more_vert" size={window.innerWidth > 384 ? 20 : 24} color="#000" />
 							<ul className="absolute left-0 w-full my-5 rounded-2xl border border-neutral-300 bg-white overflow-hidden" style={ profileMenu ? { display: 'block' } : { display: 'none' } }>
@@ -189,14 +189,14 @@ function Profile (props) {
 						</span>
 					</span>
 					<form>
-						<button className="text-base mt-5 mb-2 text-pink p-2 rounded-2xl border border-neutral-300 min-w-[200px] font-bold sm:text-sm">Upload Pictures</button>
-						<input className="hidden" type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} multiple />
+						<label for="pictures" className="flex justify-center text-base mt-5 mb-2 text-pink p-2 rounded-2xl border border-neutral-300 min-w-[200px] font-bold sm:text-sm cursor-pointer hover:bg-neutral-300">Upload Pictures</label>
+						<input className="hidden" id="pictures" type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} multiple />
 					</form>
-					<div className="pictures">
+					<div className="grid grid-cols-2 mt-5 gap-2">
 						{profileData.pictures.length > 0 ? profileData.pictures.map((picture, index) =>
-							<figure key={index}>
+							<figure className="relative" key={index}>
 								<img src={picture.url} key={picture.public_id} alt="Profile photos" />
-								<button onClick={deletePicture} data-publicid={picture.public_id}><MdDelete color="#ff3b30" fontSize="24px" /></button>
+								<button className="absolute top-1 right-1" onClick={deletePicture} data-publicid={picture.public_id}><MdDelete color="#ff3b30" fontSize="24px" /></button>
 							</figure>
 						) : false}
 					</div>

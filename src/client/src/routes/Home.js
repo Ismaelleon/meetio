@@ -115,8 +115,8 @@ function Home (props) {
 							</div>
 						</div>
 					</main>
-				:	<main style={{ paddingTop: 'var(--h1)' }}>
-						<h2>That's all right now</h2>
+				:	<main className="flex justify-center pt-12">
+						<h2 className="text-2xl font-bold m-5">That's all right now</h2>
 					</main>}
 		</div>
 	);
