@@ -145,7 +145,7 @@ function Profile (props) {
 			<main className="flex justify-center items-center max-w-lg mx-auto pt-12">
 				<div className="flex flex-col items-center m-5">
 					<div className="w-[150px] h-[150px] m-5 relative">
-						<img src={profileData.avatar.url} alt={`${profileData.name}'s avatar`}/>
+						<img className="rounded-full" src={profileData.avatar.url} alt={`${profileData.name}'s avatar`}/>
 						<label className="absolute bottom-0 right-0 p-3 rounded-full bg-pink" htmlFor="avatar"><MdCamera color="#ffffff" fontSize={window.innerWidth > 384 ? '28px' : '34px'} /></label>
 					</div>
 					<input className="hidden" type="file"
