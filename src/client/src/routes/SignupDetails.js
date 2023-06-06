@@ -76,7 +76,7 @@ function SignupDetails () {
 				</header>
 				<form className="flex flex-col w-full p-6 max-w-md">
 					<div className="flex flex-col items-center relative my-2">
-						<img className="w-[150px]" src={profileData.avatar.url} alt="avatar" />
+						<img className="w-[150px] rounded-full" src={profileData.avatar.url} alt="avatar" />
 						<label className="absolute bottom-0 ml-24 w-[60px] h-[60px] bg-pink rounded-full flex justify-center items-center" htmlFor="avatar">
 							<MaterialIcon color="#ffffff" icon="camera_alt" size={34} />
 						</label>
