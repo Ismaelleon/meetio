@@ -26,12 +26,13 @@ jobs:
                 CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
                 CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
                 CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+                SECRET: ${{ secrets.SECRET }}
               run: |
-                cat > server/.env << EOF
+                cat > .env << EOF
+                DATABASE_URI='$DATABASE_URI'
                 CLOUDINARY_API_KEY='$CLOUDINARY_API_KEY'
                 CLOUDINARY_API_SECRET='$CLOUDINARY_API_SECRET'
                 CLOUDINARY_CLOUD_NAME='$CLOUDINARY_CLOUD_NAME'
-                DATABASE_URI='$DATABASE_URI'
                 DEFAULT_AVATAR_FILE_PUBLIC_ID='avatar.png'
                 DEFAULT_AVATAR_FILE_URL='https://res.cloudinary.com/dwu5a3e7e/image/upload/v1697032147/meetio/avatars/avatar.png'
                 SECRET='$SECRET'
