@@ -38,7 +38,7 @@ function Likes (props) {
 
 	}
 
-	useEffect(getLikes, [])
+	useEffect(getLikes, [history])
 
 	if (loading) {
 		return(

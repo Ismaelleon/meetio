@@ -38,7 +38,7 @@ function Dislikes (props) {
 
 	}
 
-	useEffect(getDislikes, [])
+	useEffect(getDislikes, [history])
 
 	if (loading) {
 		return(

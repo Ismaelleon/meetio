@@ -47,7 +47,7 @@ function Matches (props) {
 		}
 	}
 
-	useEffect(getMatches, [])
+	useEffect(getMatches, [history])
 
 	if (loading) {
 		return(
