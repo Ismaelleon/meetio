@@ -1,8 +1,9 @@
 const request = require('supertest'),
 	mongoose = require('mongoose');
 
-const app = require('../src/app'),
-	{ databaseUri, defaultAvatarFile } = require('../config');
+require('dotenv').config();
+
+const app = require('../src/app');
 
 const User = require('../src/models/User');
 const { getToken } = require('./helper');
@@ -17,7 +18,7 @@ beforeAll(async () => {
 		.set('Content-Type', 'application/json')
 		.send({ name: 'test_user', password: 'test_password' });
 
-	mongoose.connect(databaseUri, {
+	mongoose.connect(process.env.DATABASE_URI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true
 	})
@@ -64,8 +65,8 @@ describe('/api/profile/change-avatar', () => {
 				.attach('avatar', 'tests/test-avatar.png')
 				.field('crop', '{"x": 0, "y": 0, "width": 0.5, "height": 0.5}');
 
-			expect(res.body.avatar.url).not.toBe(defaultAvatarFile.url)
-			expect(res.body.avatar.public_id).not.toBe(defaultAvatarFile.public_id)
+			expect(res.body.avatar.url).not.toBe(process.env.DEFAULT_AVATAR_FILE_URL)
+			expect(res.body.avatar.public_id).not.toBe(process.env.DEFAULT_AVATAR_FILE_PUBLIC_ID)
 		} catch (error) {
 			console.log(error)
 		}
