@@ -58,7 +58,7 @@ function Likes (props) {
 						<li className="px-1 py-2 w-full" key={index}>
 							<Link className="flex flex-row items-center text-base sm:text-sm w-auto" to={`/user/${likedProfile.name}`}>
 								<img className="w-[60px] h-[60px] rounded-full mr-3" src={likedProfile.avatar.url} alt={`${likedProfile.name}'s avatar`} />
-								<p className="hover:underline">{likedProfile.name}</p>
+								<p className="hover:underline font-bold">{likedProfile.name}</p>
 								{likedProfile.verified ? <span className="ml-3"><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
 						</li>
