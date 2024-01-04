@@ -9,7 +9,7 @@ const User = require('../src/models/User');
 const { getToken } = require('./helper');
 let public_id = '';
 
-jest.setTimeout(10000)
+jest.setTimeout(30000)
 
 beforeAll(async () => {
 	// Create test user

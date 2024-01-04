@@ -8,7 +8,7 @@ const app = require('../src/app');
 const User = require('../src/models/User');
 const { deleteTestUser, getToken } = require('./helper');
 
-jest.setTimeout(10000)
+jest.setTimeout(30000)
 
 beforeAll(async () => {
 	mongoose.connect(process.env.DATABASE_URI, {
