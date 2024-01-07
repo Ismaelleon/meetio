@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { loaderFinished } from '../utils/index';
-import { Link, useHistory } from 'react-router-dom';
-import MaterialIcon from 'material-icons-react';
+import { useHistory } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import LoadingBar from 'react-top-loading-bar';
+import BackHeader from './components/BackHeader';
 
 
 function Signin () {
-	const cookies = new Cookies();
+	const cookies = useMemo(() => new Cookies(), []);
 
 	const [name, setUsername] = useState(''),
 		[password, setPassword] = useState(''),
@@ -32,7 +32,7 @@ function Signin () {
 		setProgress(100)
 	}
 
-	useEffect(checkAuthToken, [])
+	useEffect(checkAuthToken, [history, cookies])
 
 
 	function updateForm () {
@@ -70,9 +70,7 @@ function Signin () {
 	return(
 		<div>
 			<LoadingBar color="#ff005c" progress={progress} onLoaderFinished={() => loaderFinished(setProgress)} />
-			<header className="px-5 py-3">
-				<Link to="/"><MaterialIcon icon="arrow_back" size={32} /></Link>
-			</header>
+            <BackHeader />
 			<main className="flex flex-col items-center">
 				<header>
 					<p className="text-2xl sm:text-xl font-bold">Sign In</p>

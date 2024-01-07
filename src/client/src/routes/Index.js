@@ -6,13 +6,12 @@ import { Link, useHistory } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar';
 
 function Index (props) {
-	const cookies = new Cookies();
-
 	const [progress, setProgress] = useState(20);
 
 	const history = useHistory();
 	
 	function checkAuthToken () {
+        const cookies = new Cookies();
 		let token = cookies.get('token');
 		
 		if (token !== undefined) {
@@ -22,9 +21,13 @@ function Index (props) {
 		}
 		
 		setProgress(100)
+
+        return () => {
+
+        }
 	} 
 	
-	useEffect(checkAuthToken, [])
+	useEffect(checkAuthToken, [history])
 
 	return (
 		<div className="flex flex-col items-center">

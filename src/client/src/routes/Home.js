@@ -59,7 +59,7 @@ function Home (props) {
 		})
 	}
 
-	useEffect(getUser, [])
+	useEffect(getUser, [history])
 
 	if (loading) {
 		return(

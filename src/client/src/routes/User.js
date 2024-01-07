@@ -54,7 +54,7 @@ function User (props) {
 		})
 	}
 
-	useEffect(getUserData, [])
+	useEffect(getUserData, [location.pathname])
 
 	if (loading) {
 		return(
