@@ -62,7 +62,7 @@ function Likes (props) {
 								{likedProfile.verified ? <span className="ml-3"><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
 						</li>
-					) : <h2 className="text-2xl font-bold sm:text-xl">No liked profiles yet</h2>}
+					) : <h2 className="text-lg font-bold sm:text-xl">No liked profiles yet</h2>}
 				</ul>
 			</main>
 		</div>
