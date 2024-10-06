@@ -41,7 +41,7 @@ function Home (props) {
 
 		let body = {
 			name: user.name,
-			like: event.currentTarget.classList[0] === 'like'
+			like: event.currentTarget.id === 'like'
 		};
 
 		body = JSON.stringify(body);
@@ -59,7 +59,7 @@ function Home (props) {
 		})
 	}
 
-	useEffect(getUser, [])
+	useEffect(getUser, [history])
 
 	if (loading) {
 		return(
@@ -78,7 +78,7 @@ function Home (props) {
 							<ul className="list-none w-full h-1/2 overflow-y-hidden" ref={picturesList}>
 								{user.pictures !== undefined && user.pictures.length > 0 ? user.pictures.map((picture, index) =>
 									<li className="flex items-center justify-center w-full h-full bg-black" key={index}>
-										<img className="w-auto h-full" src={picture.url} alt="User face or body." />
+										<img className="w-full" src={picture.url} alt="User face or body." />
 									</li>
 								) : null}
 								{user.pictures !== undefined && user.pictures.length > 0 ?
@@ -111,12 +111,12 @@ function Home (props) {
 
 							<div className="flex flex-row justify-around -translate-y-full">
 								<button className="border border-neutral-300 rounded-full p-5 sm:p-3 hover:bg-neutral-300" onClick={e => tapUser(e)}><MdClear fontSize={window.innerWidth > 384 ? '28px' : '34px'} color="#009e5c" /></button>
-								<button className="border border-neutral-300 rounded-full p-5 sm:p-3 hover:bg-neutral-300" onClick={e => tapUser(e)}><MdFavorite fontSize={window.innerWidth > 384 ? '28px' : '34px'} color="#ff005c" /></button>
+								<button className="border border-neutral-300 rounded-full p-5 sm:p-3 hover:bg-neutral-300" onClick={e => tapUser(e)} id="like"><MdFavorite fontSize={window.innerWidth > 384 ? '28px' : '34px'} color="#ff005c" /></button>
 							</div>
 						</div>
 					</main>
 				:	<main className="flex justify-center pt-12">
-						<h2 className="text-2xl font-bold m-5">That's all right now</h2>
+						<h2 className="text-lg font-bold m-5">That's all right now</h2>
 					</main>}
 		</div>
 	);

@@ -22,9 +22,9 @@ function InteractionsLoader (props) {
 			backgroundColor="#d9d9d9" foregroundColor="#ecebeb"
 			style={{ display: 'block', margin: 'auto', padding: '.75rem' }}>	
 
-			<rect x={`${width / 2 - 160}`} y="72" width="60" height="20" />
-			<rect x={`${width / 2 - 30}`} y="72" width="60" height="20" />
-			<rect x={`${width / 2 + 100}`} y="72" width="60" height="20" />
+			<rect x={`${width / 2 - 160}`} y="60" width="60" height="20" />
+			<rect x={`${width / 2 - 30}`} y="60" width="60" height="20" />
+			<rect x={`${width / 2 + 100}`} y="60" width="60" height="20" />
 
 			<circle cx="31" cy="157" r="30" />
 			<rect x="90" y="147" width="150" height="20" />

@@ -47,7 +47,7 @@ function Matches (props) {
 		}
 	}
 
-	useEffect(getMatches, [])
+	useEffect(getMatches, [history])
 
 	if (loading) {
 		return(
@@ -67,11 +67,11 @@ function Matches (props) {
 						<li className="px-1 py-2 w-full" key={index}>
 							<Link className="flex flex-row items-center text-base sm:text-sm w-auto" to={`/user/${matchedProfile.name}`}>
 								<img className="w-[60px] h-[60px] rounded-full mr-3" src={matchedProfile.avatar.url} alt={`${matchedProfile.name}'s avatar`} />
-								<p className="hover:underline">{matchedProfile.name}</p>
+								<p className="hover:underline font-bold">{matchedProfile.name}</p>
 								{matchedProfile.verified ? <span className="ml-3"><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
 						</li>
-					) : <h2 className="text-2xl font-bold sm:text-xl">No matches yet</h2>}
+					) : <h2 className="text-lg font-bold sm:text-xl">No matches yet</h2>}
 				</ul>
 			</main>
 		</div>

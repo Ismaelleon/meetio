@@ -27,7 +27,8 @@ function Tabs () {
 }
 
 const styledTab = {
-	color: '#ff005c'
+	color: '#ff005c',
+    fontWeight: 'bold',
 };
 
 const unstyledTab = {
