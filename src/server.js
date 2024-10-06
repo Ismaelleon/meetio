@@ -7,7 +7,7 @@ const fs = require('fs'),
 const app = require('./app');
 
 if (process.env.NODE_ENV !== 'test') {
-	let httpServer = http.createServer(app);
+	const httpServer = http.createServer(app);
 
 	const port = process.env.PORT || 8443;
 
