@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { compressImage, loaderFinished, getProfileData } from '../utils/index';
 import { MdCamera, MdCheck, MdDelete, MdEdit, MdMoreVert, MdVerified } from 'react-icons/md';
+import { FaInstagram, FaXTwitter } from 'react-icons/fa6'
 import LoadingBar from 'react-top-loading-bar';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
@@ -177,7 +178,8 @@ function Profile (props) {
 					</span>
 					<span className="flex flex-row items-center">
 						<input className="text-base my-2 border border-neutral-300 rounded-md py-1 px-1 sm:text-sm" type="text" onChange={ e => setProfileData({...profileData, description: e.target.value}) }
-								style={ editingDescription ? { display: 'block' } : { display: 'none' } } />
+								style={ editingDescription ? { display: 'block' } : { display: 'none' } }
+								value={profileData.description} />
 						<p className="text-base my-2 sm:text-sm" style={ editingDescription ? { display: 'none' }  : { display: 'block' }}>
 							{profileData.description}
 						</p>
@@ -188,6 +190,10 @@ function Profile (props) {
 							<MdEdit fontSize={window.innerWidth > 384 ? '16px' : '18px'} color="#000" />
 						</span>
 					</span>
+					<a href={profileData.social.url} target="_blank" rel="noreferrer" className="flex flex-row items-center gap-1 text-base sm:text-sm font-semibold hover:underline">
+						{profileData.social.name === 'instagram' ? <FaInstagram /> : <FaXTwitter />}
+						{profileData.social.account}
+					</a>
 					<form>
 						<label for="pictures" className="flex justify-center text-base mt-5 mb-2 text-pink p-2 rounded-2xl border border-neutral-300 min-w-[200px] font-bold sm:text-sm cursor-pointer hover:bg-neutral-300">Upload Pictures</label>
 						<input className="hidden" id="pictures" type="file" accept="image/*" ref={picturesInput} name="pictures" onChange={event => uploadPictures(event)} multiple />

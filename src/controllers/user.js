@@ -13,8 +13,7 @@ async function getUserData (req, res) {
 			let { name } = req.body;
 
 			// Get user
-			let user = await User.findOne({ name }).select('name avatar pictures description verified');
-
+			let user = await User.findOne({ name }).select('name avatar pictures description verified social');
 
 			// If user exists
 			if (user !== null) {

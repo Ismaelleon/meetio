@@ -25,7 +25,12 @@ let userSchema = new mongoose.Schema({
 	verified: {
 		type: Boolean,
 		default: false
-	}
+	},
+	social: {
+		name: String,
+		account: String,
+		url: String,
+	},
 });
 
 let User = mongoose.model('user', userSchema);

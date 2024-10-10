@@ -3,6 +3,7 @@ import { loaderFinished } from '../utils/index';
 import LoadingBar from 'react-top-loading-bar';
 import { useLocation } from 'react-router-dom';
 import { MdArrowDropDown, MdClear, MdFavorite, MdVerified } from 'react-icons/md';
+import { FaInstagram, FaXTwitter } from 'react-icons/fa6';
 
 import ProfileLoader from './components/ProfileLoader';
 
@@ -81,6 +82,10 @@ function User (props) {
 						{user.verified ? <span className="ml-2"><MdVerified fontSize={window.innerWidth > 384 ? '20px' : '24px'} color="rgb(0, 122, 255)" /></span> : <span></span>}
 					</span>
 		 			<p className="text-base my-2 sm:text-sm">{user.description}</p>
+					<a href={user.social.url} target="_blank" rel="noreferrer" className="flex flex-row items-center gap-1 text-base sm:text-sm font-semibold hover:underline">
+						{user.social.name === 'instagram' ? <FaInstagram /> : <FaXTwitter />}
+						{user.social.account}
+					</a>
 					<button className="flex flex-row justify-center items-center text-base mt-5 mb-2 p-2 rounded-2xl border border-neutral-300 min-w-[200px] font-bold sm:text-sm" onClick={() => setDropdownVisible(!dropdownVisible)}>
 						{user.liked ?
 							<span className="flex flex-row items-center text-pink">Liked <MdFavorite fontSize="var(--h4)" color="#ff005c" /></span> : 
