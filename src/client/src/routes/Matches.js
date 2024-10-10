@@ -71,7 +71,7 @@ function Matches (props) {
 								{matchedProfile.verified ? <span className="ml-3"><MdVerified fontSize="24px" color="rgb(0, 122, 255)" /></span> : <span></span>}
 							</Link>
 						</li>
-					) : <h2 className="text-lg font-bold sm:text-xl">No matches yet</h2>}
+					) : <h2 className="text-lg font-bold">No matches yet</h2>}
 				</ul>
 			</main>
 		</div>

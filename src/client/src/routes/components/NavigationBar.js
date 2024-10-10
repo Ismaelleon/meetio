@@ -24,13 +24,13 @@ function NavigationBar () {
 
 
 		if (location.pathname === '/home') {
-			setButtonsColors(['#ff005c', '', ''])
+			setButtonsColors(['#ff005c', '', '']);
 		} else if (location.pathname === '/matches' || location.pathname === '/likes' || location.pathname === '/dislikes') {
-			setButtonsColors(['', '#ff005c', ''])
+			setButtonsColors(['', '#ff005c', '']);
 		} else if (location.pathname === '/profile') {
-			setButtonsColors(['', '', '#ff005c'])
+			setButtonsColors(['', '', '#ff005c']);
 		} else {
-			setButtonsColors(['', '', ''])
+			setButtonsColors(['', '', '']);
 		}
 	}, [location.pathname])
 

@@ -76,8 +76,8 @@ function Signin () {
 					<p className="text-2xl sm:text-xl font-bold">Sign In</p>
 				</header>
 				<form className="flex flex-col w-full p-6 max-w-md">
-					<input className="my-5 p-1 w-full border-b border-black text-lg sm:text-base font-sans" type="name" placeholder="Username" name="name" onChange={event => {setUsername(event.target.value); updateForm()}} />
-					<input className="my-5 p-1 w-full border-b border-black text-lg sm:text-base font-sans" type="password" placeholder="Password" name="password" onChange={event => {setPassword(event.target.value); updateForm()}} />
+					<input className="my-5 p-1 w-full border-b border-neutral-300 focus:border-pink text-lg sm:text-base font-sans" type="name" placeholder="Username" name="name" onChange={event => {setUsername(event.target.value); updateForm()}} />
+					<input className="my-5 p-1 w-full border-b border-neutral-300 focus:border-pink text-lg sm:text-base font-sans" type="password" placeholder="Password" name="password" onChange={event => {setPassword(event.target.value); updateForm()}} />
 					<button className="p-2 my-2 border border-neutral-300 min-w-[200px] rounded-2xl text-lg sm:text-base font-medium text-pink disabled:bg-neutral-300 disabled:text-neutral-500 hover:bg-neutral-100" ref={submitButton} onClick={submitSignIn}>Send</button>
 				</form>
 			</main>

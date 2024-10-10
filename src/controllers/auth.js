@@ -65,8 +65,26 @@ async function signUpDetails (req, res) {
 
 		// If the user exists
 		if (user.length !== null) {
-			// Update user description
-			user.description = req.body.description;
+			const { description, social: name, socialUsername: account } = req.body;
+
+			// Generate social url depending on social
+			let url;
+			switch (name) {
+				case 'instagram':
+					url = `https://instagram.com/${account}`;
+				break;
+				case 'x':
+					url = 'https://x.com/${account}';
+				break;
+			}
+
+			// Update user details 
+			user.description = description;
+			user.social = {
+				name,
+				account,
+				url,
+			};
 
 			// Save user data
 			await user.save()

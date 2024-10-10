@@ -14,6 +14,8 @@ function SignupDetails () {
 		[loading, setLoading] = useState(true),
 		[profileData, setProfileData] = useState({}),
 		[description, setDescription] = useState(''),
+		[social, setSocial] = useState('instagram'),
+		[socialUsername, setSocialUsername] = useState(''),
 		[progress, setProgress] = useState(20);
 
 	const fileInput = useRef(),
@@ -25,7 +27,9 @@ function SignupDetails () {
 		event.preventDefault();
 
 		let body = JSON.stringify({
-			description
+			description,
+			social,
+			socialUsername,
 		});
 
 		fetch('/api/signup-details', {
@@ -43,7 +47,7 @@ function SignupDetails () {
 
 	function updateForm () {
 		if (!loading) {
-			if (description.length >= 8) {
+			if (description.length >= 8 && socialUsername.length >= 1) {
 				submitButton.current.disabled = false;
 			} else {
 				submitButton.current.disabled = true;
@@ -97,10 +101,23 @@ function SignupDetails () {
 							}
 						}} />
 					<input type="text"
-						className="my-5 p-1 w-full border-b border-black text-lg sm:text-base font-sans"
+						className="my-5 p-1 border-b border-neutral-300 focus:border-pink text-lg sm:text-base font-sans"
 						name="description"
 						onChange={event => setDescription(event.target.value)}
 						placeholder="A brief description" />
+					<span className="grid grid-cols-3 items-center gap-2">
+						<select 
+							className="p-2 col-span-1 border border-neutral-300 text-base sm:text-sm font-sans bg-transparent rounded-2xl"
+							onChange={event => setSocial(event.target.value)}>
+							<option value="instagram">Instagram</option>
+							<option value="x">X</option>
+						</select>
+						<input type="text"
+							className="my-5 p-1 col-span-2 border-b border-neutral-300 focus:border-pink text-lg sm:text-base font-sans"
+							name="social"
+							onChange={event => setSocialUsername(event.target.value)}
+							placeholder="your_username" />
+					</span>
 					<button className="p-2 my-2 border border-neutral-300 min-w-[200px] rounded-2xl text-lg sm:text-base font-medium text-pink disabled:bg-neutral-300 disabled:text-neutral-500 hover:bg-neutral-100" ref={submitButton} onClick={submitSignUp}>Send</button>
 				</form>
 			</main>

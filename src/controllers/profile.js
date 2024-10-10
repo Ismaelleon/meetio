@@ -18,7 +18,7 @@ async function getProfileData (req, res) {
 			let tokenData = jwt.verify(req.cookies.token, process.env.SECRET);
 			
 			// Find user by name
-			let user = await User.findOne({ name: tokenData.name }).select('name avatar pictures description verified');
+			let user = await User.findOne({ name: tokenData.name }).select('name avatar pictures description verified social');
 
 			if (user !== null) {
 				res.json(user)
