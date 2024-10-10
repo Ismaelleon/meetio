@@ -45,7 +45,7 @@ function User (props) {
 
 		fetch('/api/home/tap', {
 			method: 'POST',
-			body: body,
+			body,
 			headers: {
 				'Content-Type': 'application/json'
 			}
@@ -71,9 +71,9 @@ function User (props) {
 			<main className="flex justify-center items-center max-w-lg mx-auto pt-12">
 				<div className="flex flex-col items-center m-5">
 					<div className="w-[150px] h-[150px] m-5 relative">
-						{user.avatar !== undefined ?
+						{user.avatar !== undefined &&
 							<img className="w-full rounded-full" src={user.avatar.url} alt={`${user.name}'s avatar`} />
-							: <></>}
+						}
 					</div>
 					<span className="flex flex-row items-center relative">
 						<h2 className="text-2xl font-bold sm:text-xl">
@@ -82,10 +82,12 @@ function User (props) {
 						{user.verified ? <span className="ml-2"><MdVerified fontSize={window.innerWidth > 384 ? '20px' : '24px'} color="rgb(0, 122, 255)" /></span> : <span></span>}
 					</span>
 		 			<p className="text-base my-2 sm:text-sm">{user.description}</p>
-					<a href={user.social.url} target="_blank" rel="noreferrer" className="flex flex-row items-center gap-1 text-base sm:text-sm font-semibold hover:underline">
-						{user.social.name === 'instagram' ? <FaInstagram /> : <FaXTwitter />}
-						{user.social.account}
-					</a>
+					{user.social !== undefined &&
+						<a href={user.social.url} target="_blank" rel="noreferrer" className="flex flex-row items-center gap-1 text-base sm:text-sm font-semibold hover:underline">
+							{user.social.name === 'instagram' ? <FaInstagram /> : <FaXTwitter />}
+							{user.social.account}
+						</a>
+					}
 					<button className="flex flex-row justify-center items-center text-base mt-5 mb-2 p-2 rounded-2xl border border-neutral-300 min-w-[200px] font-bold sm:text-sm" onClick={() => setDropdownVisible(!dropdownVisible)}>
 						{user.liked ?
 							<span className="flex flex-row items-center text-pink">Liked <MdFavorite fontSize="var(--h4)" color="#ff005c" /></span> : 
